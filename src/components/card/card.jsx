@@ -1,8 +1,10 @@
 import React from "react";
+import PropTypes from 'prop-types';
 
 const Card = (props) => {
-  // eslint-disable-next-line react/prop-types
-  const {image, priceValue, priceText, name, type} = props;
+  const {place} = props;
+  const {image, priceValue, priceText, name, type} = place;
+  // console.log(place);
 
   return (
     <article className="cities__place-card place-card">
@@ -39,6 +41,18 @@ const Card = (props) => {
       </div>
     </article>
   );
+};
+
+Card.propTypes = {
+  place: PropTypes.objectOf(
+      PropTypes.exact({
+        image: PropTypes.string.isRequired,
+        priceValue: PropTypes.number.isRequired,
+        priceText: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        type: PropTypes.string.isRequired
+      })
+  ).isRequired
 };
 
 export default Card;
