@@ -29,5 +29,5 @@ it(`Should name be pressed`, () => {
 
   cardName.props().onClick();
 
-  expect(onNameClick.mock.calls.length).toBe(1);
+  expect(onNameClick).toHaveBeenCalledTimes(1);
 });
