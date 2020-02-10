@@ -1,6 +1,6 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import App from "./components/app/app.jsx";
+import React from 'react';
+import renderer from 'react-test-renderer';
+import App from "./app.jsx";
 
 const mock = {
   locations: [
@@ -47,9 +47,9 @@ const mock = {
   ]
 };
 
-ReactDOM.render(
-    <App
-      fullData={mock}
-    />,
-    document.querySelector(`#root`)
-);
+it(`Render app`, () => {
+  const tree = renderer
+    .create(<App fullData={mock} />)
+    .toJSON();
+  expect(tree).toMatchSnapshot();
+});
