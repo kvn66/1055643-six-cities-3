@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 const Card = (props) => {
   const {place, onNameClick} = props;
   const {image, priceValue, priceText, name, type} = place;
-  // console.log(place);
-  // console.log(props);
 
   return (
     <article className="cities__place-card place-card">
@@ -45,15 +43,13 @@ const Card = (props) => {
 };
 
 Card.propTypes = {
-  place: PropTypes.objectOf(
-      PropTypes.exact({
-        image: PropTypes.string.isRequired,
-        priceValue: PropTypes.number.isRequired,
-        priceText: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-        type: PropTypes.string.isRequired
-      })
-  ).isRequired,
+  place: PropTypes.exact({
+    image: PropTypes.string.isRequired,
+    priceValue: PropTypes.number.isRequired,
+    priceText: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired
+  }).isRequired,
   onNameClick: PropTypes.func.isRequired,
 };
 

@@ -6,7 +6,6 @@ import Card from "../card/card.jsx";
 const Main = (props) => {
   const {location, onNameClick} = props;
   const {city, places} = location;
-  // console.log(location);
 
   const cards = places.map((place, index) =>
     <Card key={index} place={place} onNameClick = {onNameClick} />
@@ -110,12 +109,10 @@ const Main = (props) => {
 };
 
 Main.propTypes = {
-  location: PropTypes.objectOf(
-      PropTypes.exact({
-        city: PropTypes.string.isRequired,
-        places: PropTypes.array.isRequired
-      })
-  ).isRequired,
+  location: PropTypes.exact({
+    city: PropTypes.string.isRequired,
+    places: PropTypes.array.isRequired
+  }).isRequired,
   onNameClick: PropTypes.func.isRequired,
 };
 
