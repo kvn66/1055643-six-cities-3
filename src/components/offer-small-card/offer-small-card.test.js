@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import Card from "./card.jsx";
+import OfferSmallCard from "./offer-small-card.jsx";
 
 const place = {
   image: `img/apartment-01.jpg`,
@@ -15,7 +15,7 @@ it(`Render card`, () => {
 
   const tree = renderer
     .create(
-        <Card
+        <OfferSmallCard
           place={place}
           onNameClick={onNameClick}
         />

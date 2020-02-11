@@ -2,11 +2,12 @@ import React from "react";
 import PropTypes from 'prop-types';
 import Main from "../main/main.jsx";
 
-const nameClickHandler = () => {};
+const nameClickHandler = (evt) => {
+  console.log(evt.target);
+};
 
 const App = (props) => {
-  const {fullData} = props;
-  const {locations} = fullData;
+  const {locations} = props;
 
   return (
     <Main
@@ -17,7 +18,7 @@ const App = (props) => {
 };
 
 App.propTypes = {
-  fullData: PropTypes.object.isRequired,
+  locations: PropTypes.array.isRequired,
 };
 
 

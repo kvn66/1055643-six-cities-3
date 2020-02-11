@@ -1,7 +1,7 @@
 import React from "react";
 import Enzyme, {shallow} from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
-import Card from "./card.jsx";
+import OfferSmallCard from "./offer-small-card.jsx";
 
 Enzyme.configure({
   adapter: new Adapter(),
@@ -19,7 +19,7 @@ it(`Should name be pressed`, () => {
   const onNameClick = jest.fn();
 
   const cardaElement = shallow(
-      <Card
+      <OfferSmallCard
         place={place}
         onNameClick={onNameClick}
       />

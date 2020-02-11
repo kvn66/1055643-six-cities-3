@@ -1,12 +1,12 @@
 import React from "react";
 import PropTypes from 'prop-types';
 
-const Card = (props) => {
-  const {place, onNameClick} = props;
-  const {image, priceValue, priceText, name, type} = place;
+const OfferSmallCard = (props) => {
+  const {place, onNameClick, onMouseOverCard} = props;
+  const {id, image, priceValue, priceText, name, type} = place;
 
   return (
-    <article className="cities__place-card place-card">
+    <article onMouseEnter={onMouseOverCard} data-id={id} className="cities__place-card place-card">
       <div className="cities__image-wrapper place-card__image-wrapper">
         <a href="#">
           <img className="place-card__image" src={image} width="260" height="200" alt="Place image"/>
@@ -42,7 +42,7 @@ const Card = (props) => {
   );
 };
 
-Card.propTypes = {
+OfferSmallCard.propTypes = {
   place: PropTypes.exact({
     image: PropTypes.string.isRequired,
     priceValue: PropTypes.number.isRequired,
@@ -53,4 +53,4 @@ Card.propTypes = {
   onNameClick: PropTypes.func.isRequired,
 };
 
-export default Card;
+export default OfferSmallCard;
