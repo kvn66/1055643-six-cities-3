@@ -6,18 +6,23 @@ class OffersList extends PureComponent {
   constructor(props) {
     super(props);
 
-    this._onMouseOverCard = this._onMouseOverCard.bind(this);
+    this.state = {
+      selectedCard: -1,
+    };
+
+    this._setSelectedCard = this._setSelectedCard.bind(this);
   }
 
-  _onMouseOverCard(evt) {
-    evt.preventDefault();
-    console.log(evt.target.dataset);
+  _setSelectedCard(id) {
+    this.setState({
+      selectedCard: id,
+    });
   }
 
   render() {
     const {places, onNameClick} = this.props;
-    const cards = places.map((place, index) =>
-      <OfferSmallCard key={index} place={place} onNameClick = {onNameClick} onMouseOverCard = {this._onMouseOverCard} />
+    const cards = places.map((place) =>
+      <OfferSmallCard key={place.id} place={place} onNameClick = {onNameClick} setSelectedCard = {this._setSelectedCard} />
     );
 
     return (
@@ -29,14 +34,8 @@ class OffersList extends PureComponent {
 }
 
 OffersList.propTypes = {
-  place: PropTypes.exact({
-    image: PropTypes.string.isRequired,
-    priceValue: PropTypes.number.isRequired,
-    priceText: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired
-  }).isRequired,
-  onNameClick: PropTypes.func.isRequired,
+  places: PropTypes.array.isRequired,
+  onNameClick: PropTypes.func.isRequired
 };
 
 

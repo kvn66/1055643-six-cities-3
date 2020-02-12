@@ -2,8 +2,7 @@ import React from "react";
 import PropTypes from 'prop-types';
 import Main from "../main/main.jsx";
 
-const nameClickHandler = (evt) => {
-  console.log(evt.target);
+const nameClickHandler = () => {
 };
 
 const App = (props) => {

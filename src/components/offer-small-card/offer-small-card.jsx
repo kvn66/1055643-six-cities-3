@@ -1,12 +1,26 @@
 import React from "react";
 import PropTypes from 'prop-types';
+import {UNSELECTED_CARD_ID} from "../../const.js";
 
 const OfferSmallCard = (props) => {
-  const {place, onNameClick, onMouseOverCard} = props;
-  const {id, image, priceValue, priceText, name, type} = place;
+  const {place, onNameClick, setSelectedCard} = props;
+  const {id, image, priceValue, priceText, name, type, isPremium} = place;
+
+  const mouseEnterHandler = () => {
+    setSelectedCard(id);
+  };
+
+  const mouseLeaveHandler = () => {
+    setSelectedCard(UNSELECTED_CARD_ID);
+  };
 
   return (
-    <article onMouseEnter={onMouseOverCard} data-id={id} className="cities__place-card place-card">
+    <article onMouseEnter={mouseEnterHandler} onMouseLeave={mouseLeaveHandler} className="cities__place-card place-card">
+      {isPremium &&
+        <div className="place-card__mark">
+          <span>Premium</span>
+        </div>
+      }
       <div className="cities__image-wrapper place-card__image-wrapper">
         <a href="#">
           <img className="place-card__image" src={image} width="260" height="200" alt="Place image"/>
@@ -44,13 +58,16 @@ const OfferSmallCard = (props) => {
 
 OfferSmallCard.propTypes = {
   place: PropTypes.exact({
+    id: PropTypes.number.isRequired,
     image: PropTypes.string.isRequired,
     priceValue: PropTypes.number.isRequired,
     priceText: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired
+    type: PropTypes.string.isRequired,
+    isPremium: PropTypes.bool.isRequired
   }).isRequired,
   onNameClick: PropTypes.func.isRequired,
+  setSelectedCard: PropTypes.func.isRequired
 };
 
 export default OfferSmallCard;
