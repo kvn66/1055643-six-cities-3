@@ -20,10 +20,10 @@ const App = (props) => {
           />
         </Route>
         <Route exact path="/offer/:id">
-          children={<OfferDetailCard
+          <OfferDetailCard
             id={0}
             location={locations[0]}
-          />}
+          />
         </Route>
       </Switch>
     </BrowserRouter>

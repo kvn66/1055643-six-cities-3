@@ -4,7 +4,7 @@ const locations = [
     places: [
       {
         id: 0,
-        images: [`./img/apartment-01.jpg`, `img/room.jpg`],
+        images: [`/img/apartment-01.jpg`, `img/room.jpg`],
         priceValue: 120,
         priceText: `night`,
         name: `Beautiful &amp; luxurious apartment at great location`,
