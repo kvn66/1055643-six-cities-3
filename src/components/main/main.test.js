@@ -60,7 +60,7 @@ it(`Render main`, () => {
     .create(
         <Main
           location={location}
-          onNameClick={onNameClick}
+          openDetail={onNameClick}
         />
     )
     .toJSON();
