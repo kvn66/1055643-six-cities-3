@@ -1,16 +1,11 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import Card from "../card/card.jsx";
+import OffersList from "../offers-list/offers-list.jsx";
 
 
 const Main = (props) => {
   const {location, onNameClick} = props;
   const {city, places} = location;
-  // console.log(location);
-
-  const cards = places.map((place, index) =>
-    <Card key={index} place={place} onNameClick = {onNameClick} />
-  );
 
   return (
     <div className="page page--gray page--main">
@@ -96,7 +91,7 @@ const Main = (props) => {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {cards}
+                {<OffersList places={places} onNameClick = {onNameClick} />}
               </div>
             </section>
             <div className="cities__right-section">
@@ -110,12 +105,10 @@ const Main = (props) => {
 };
 
 Main.propTypes = {
-  location: PropTypes.objectOf(
-      PropTypes.exact({
-        city: PropTypes.string.isRequired,
-        places: PropTypes.array.isRequired
-      })
-  ).isRequired,
+  location: PropTypes.exact({
+    city: PropTypes.string.isRequired,
+    places: PropTypes.array.isRequired
+  }).isRequired,
   onNameClick: PropTypes.func.isRequired,
 };
 

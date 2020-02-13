@@ -1,7 +1,3 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
-import App from "./app.jsx";
-
 const locations = [
   {
     city: `Amsterdam`,
@@ -55,9 +51,4 @@ const locations = [
   }
 ];
 
-it(`Render app`, () => {
-  const tree = renderer
-    .create(<App locations={locations} />)
-    .toJSON();
-  expect(tree).toMatchSnapshot();
-});
+export default locations;
