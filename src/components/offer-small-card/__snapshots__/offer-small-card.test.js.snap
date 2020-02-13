@@ -23,7 +23,7 @@ exports[`Render card 1`] = `
         alt="Place image"
         className="place-card__image"
         height="200"
-        src="img/apartment-01.jpg"
+        src="/img/apartment-01.jpg"
         width="260"
       />
     </a>
@@ -92,10 +92,9 @@ exports[`Render card 1`] = `
     </div>
     <h2
       className="place-card__name"
-      onClick={[MockFunction]}
     >
       <a
-        href="#"
+        href="/offer/0"
       >
         Beautiful &amp; luxurious apartment at great location
       </a>

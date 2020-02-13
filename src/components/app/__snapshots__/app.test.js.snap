@@ -247,7 +247,7 @@ exports[`Render app 1`] = `
                     alt="Place image"
                     className="place-card__image"
                     height="200"
-                    src="img/apartment-01.jpg"
+                    src="/img/apartment-01.jpg"
                     width="260"
                   />
                 </a>
@@ -316,10 +316,9 @@ exports[`Render app 1`] = `
                 </div>
                 <h2
                   className="place-card__name"
-                  onClick={[Function]}
                 >
                   <a
-                    href="#"
+                    href="/offer/0"
                   >
                     Beautiful &amp; luxurious apartment at great location
                   </a>
@@ -346,7 +345,7 @@ exports[`Render app 1`] = `
                     alt="Place image"
                     className="place-card__image"
                     height="200"
-                    src="img/room.jpg"
+                    src="/img/room.jpg"
                     width="260"
                   />
                 </a>
@@ -415,10 +414,9 @@ exports[`Render app 1`] = `
                 </div>
                 <h2
                   className="place-card__name"
-                  onClick={[Function]}
                 >
                   <a
-                    href="#"
+                    href="/offer/1"
                   >
                     Wood and stone place
                   </a>
@@ -445,7 +443,7 @@ exports[`Render app 1`] = `
                     alt="Place image"
                     className="place-card__image"
                     height="200"
-                    src="img/apartment-02.jpg"
+                    src="/img/apartment-02.jpg"
                     width="260"
                   />
                 </a>
@@ -514,10 +512,9 @@ exports[`Render app 1`] = `
                 </div>
                 <h2
                   className="place-card__name"
-                  onClick={[Function]}
                 >
                   <a
-                    href="#"
+                    href="/offer/2"
                   >
                     Canal View Prinsengracht
                   </a>
@@ -551,7 +548,7 @@ exports[`Render app 1`] = `
                     alt="Place image"
                     className="place-card__image"
                     height="200"
-                    src="img/apartment-03.jpg"
+                    src="/img/apartment-03.jpg"
                     width="260"
                   />
                 </a>
@@ -620,10 +617,9 @@ exports[`Render app 1`] = `
                 </div>
                 <h2
                   className="place-card__name"
-                  onClick={[Function]}
                 >
                   <a
-                    href="#"
+                    href="/offer/3"
                   >
                     Nice, cozy, warm big bed apartment
                   </a>
@@ -650,7 +646,7 @@ exports[`Render app 1`] = `
                     alt="Place image"
                     className="place-card__image"
                     height="200"
-                    src="img/room.jpg"
+                    src="/img/room.jpg"
                     width="260"
                   />
                 </a>
@@ -719,10 +715,9 @@ exports[`Render app 1`] = `
                 </div>
                 <h2
                   className="place-card__name"
-                  onClick={[Function]}
                 >
                   <a
-                    href="#"
+                    href="/offer/4"
                   >
                     Wood and stone place
                   </a>

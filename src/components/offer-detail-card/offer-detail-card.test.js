@@ -1,4 +1,9 @@
-export const locations = [
+import React from 'react';
+import renderer from 'react-test-renderer';
+import {MemoryRouter} from "react-router-dom";
+import OfferDetailCard from "./offer-detail-card.jsx";
+
+const locations = [
   {
     city: `Amsterdam`,
     places: [
@@ -115,3 +120,14 @@ export const locations = [
     ]
   }
 ];
+
+it(`Render OfferDetailCard`, () => {
+  const tree = renderer
+    .create(
+        <MemoryRouter initialEntries={[`/offer/0`]}>
+          <OfferDetailCard locations={locations} />
+        </MemoryRouter>
+    )
+    .toJSON();
+  expect(tree).toMatchSnapshot();
+});

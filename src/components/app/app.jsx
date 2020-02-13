@@ -4,9 +4,6 @@ import {Switch, Route, BrowserRouter} from "react-router-dom";
 import Main from "../main/main.jsx";
 import OfferDetailCard from "../offer-detail-card/offer-detail-card.jsx";
 
-const openDetail = (id) => {
-};
-
 const App = (props) => {
   const {locations} = props;
 
@@ -16,13 +13,11 @@ const App = (props) => {
         <Route exact path="/">
           <Main
             location={locations[0]}
-            openDetail={openDetail}
           />
         </Route>
         <Route exact path="/offer/:id">
           <OfferDetailCard
-            id={0}
-            location={locations[0]}
+            locations={locations}
           />
         </Route>
       </Switch>

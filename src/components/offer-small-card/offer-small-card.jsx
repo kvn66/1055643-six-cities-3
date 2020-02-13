@@ -1,16 +1,11 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import {UNSELECTED_CARD_ID} from "../../const.js";
-import {Link} from "react-router-dom";
 
 const OfferSmallCard = (props) => {
-  const {place, openDetail, setSelectedCard} = props;
+  const {place, setSelectedCard} = props;
   const {id, images, priceValue, priceText, name, type, isPremium} = place;
   const linkToDetail = `/offer/${id}`;
-
-  const nameClickHandler = () => {
-    openDetail(id);
-  };
 
   const mouseEnterHandler = () => {
     setSelectedCard(id);
@@ -53,8 +48,8 @@ const OfferSmallCard = (props) => {
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
-        <h2 onClick={nameClickHandler} className="place-card__name">
-          <Link to={linkToDetail}>{name}</Link>
+        <h2 className="place-card__name">
+          <a href={linkToDetail}>{name}</a>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>
@@ -69,7 +64,7 @@ OfferSmallCard.propTypes = {
     priceValue: PropTypes.number.isRequired,
     priceText: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
+    descriptions: PropTypes.array.isRequired,
     type: PropTypes.string.isRequired,
     bedrooms: PropTypes.number.isRequired,
     adults: PropTypes.number.isRequired,
@@ -82,7 +77,6 @@ OfferSmallCard.propTypes = {
       isSuper: PropTypes.bool.isRequired
     }).isRequired,
   }).isRequired,
-  openDetail: PropTypes.func.isRequired,
   setSelectedCard: PropTypes.func.isRequired
 };
 
