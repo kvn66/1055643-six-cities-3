@@ -41,12 +41,8 @@ it(`Should name be pressed`, () => {
   );
 
   const cardElement = virtualCardElement.find(`.place-card`);
-  const cardNameLink = virtualCardElement.find(`.place-card__name a`);
 
   cardElement.props().onMouseEnter();
   cardElement.props().onMouseLeave();
   expect(setSelectedCard).toHaveBeenCalledTimes(2);
-
-  cardNameLink.simulate(`click`);
-  expect(cardNameLink.at(0).props().to).toBe(`/offer/0`);
 });
