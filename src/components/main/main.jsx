@@ -4,7 +4,7 @@ import OffersList from "../offers-list/offers-list.jsx";
 
 
 const Main = (props) => {
-  const {location, onNameClick} = props;
+  const {location} = props;
   const {city, places} = location;
 
   return (
@@ -91,7 +91,7 @@ const Main = (props) => {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {<OffersList places={places} onNameClick = {onNameClick} />}
+                {<OffersList places={places} />}
               </div>
             </section>
             <div className="cities__right-section">
@@ -109,7 +109,6 @@ Main.propTypes = {
     city: PropTypes.string.isRequired,
     places: PropTypes.array.isRequired
   }).isRequired,
-  onNameClick: PropTypes.func.isRequired,
 };
 
 

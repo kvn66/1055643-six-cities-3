@@ -2,7 +2,7 @@
   "name": "six-cities",
   "version": "1.0.0",
   "private": true,
-  "description": "Личный проект «Шесть городов» от HTML Academy",
+  "descriptions": "Личный проект «Шесть городов» от HTML Academy",
   "scripts": {
     "build": "webpack --mode production",
     "eslint": "eslint --ext .jsx --ext .js src/",
@@ -34,6 +34,7 @@
   "dependencies": {
     "prop-types": "15.7.2",
     "react": "16.12.0",
-    "react-dom": "16.12.0"
+    "react-dom": "16.12.0",
+    "react-router-dom": "5.1.2"
   }
 }
