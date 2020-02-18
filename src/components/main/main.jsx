@@ -1,6 +1,7 @@
 import React, {PureComponent} from "react";
 import PropTypes from 'prop-types';
 import OfferSmallCard from "../offer-small-card/offer-small-card.jsx";
+import Map from "../map/map.jsx";
 
 
 class Main extends PureComponent {
@@ -115,7 +116,9 @@ class Main extends PureComponent {
                 </div>
               </section>
               <div className="cities__right-section">
-                <section className="cities__map map"/>
+                <section className="cities__map map">
+                  <Map />
+                </section>
               </div>
             </div>
           </div>

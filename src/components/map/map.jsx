@@ -1,83 +1,71 @@
-import React from "react";
-import PropTypes from 'prop-types';
-import {UNSELECTED_CARD_ID} from "../../const.js";
+import React, {PureComponent, Fragment, createRef} from "react";
+import PropTypes from "prop-types";
+import leaflet from "leaflet";
 
-const Map = (props) => {
-  const {place, setSelectedCard} = props;
-  const {id, images, priceValue, priceText, name, type, isPremium} = place;
-  const linkToDetail = `/offer/${id}`;
 
-  const mouseEnterHandler = () => {
-    setSelectedCard(id);
-  };
+export default class Map extends PureComponent {
+  constructor(props) {
+    super(props);
 
-  const mouseLeaveHandler = () => {
-    setSelectedCard(UNSELECTED_CARD_ID);
-  };
+    this._mapRef = createRef();
 
-  return (
-    <article onMouseEnter={mouseEnterHandler} onMouseLeave={mouseLeaveHandler} className="cities__place-card place-card">
-      {isPremium &&
-      <div className="place-card__mark">
-        <span>Premium</span>
-      </div>
-      }
-      <div className="cities__image-wrapper place-card__image-wrapper">
-        <a href="#">
-          <img className="place-card__image" src={images[0]} width="260" height="200" alt="Place image"/>
-        </a>
-      </div>
-      <div className="place-card__info">
-        <div className="place-card__price-wrapper">
-          <div className="place-card__price">
-            <b className="place-card__price-value">&euro;{priceValue}</b>
-            <span className="place-card__price-text">&#47;&nbsp;{priceText}</span>
-          </div>
-          <button
-            className="place-card__bookmark-button place-card__bookmark-button--active button" type="button"
-          >
-            <svg className="place-card__bookmark-icon" width="18" height="19">
-              <use xlinkHref="#icon-bookmark-active"/>
-            </svg>
-            <span className="visually-hidden">In bookmarks</span>
-          </button>
-        </div>
-        <div className="place-card__rating rating">
-          <div className="place-card__stars rating__stars">
-            <span style={{width: `80%`}}/>
-            <span className="visually-hidden">Rating</span>
-          </div>
-        </div>
-        <h2 className="place-card__name">
-          <a href={linkToDetail}>{name}</a>
-        </h2>
-        <p className="place-card__type">{type}</p>
-      </div>
-    </article>
-  );
-};
+    this.state = {
+      progress: 0,
+      isLoading: true,
+      isPlaying: props.isPlaying,
+    };
+  }
+
+  componentDidMount() {
+    // const {src} = this.props;
+    // const map = this._mapRef.current;
+
+    const city = [52.38333, 4.9];
+
+    const icon = leaflet.icon({
+      iconUrl: `img/pin.svg`,
+      iconSize: [30, 30]
+    });
+    const zoom = 12;
+
+    this.map = leaflet.map(this._mapRef.current, {
+      center: city,
+      zoom: zoom,
+      zoomControl: false,
+      marker: true
+    });
+    this.map.setView(city, zoom);
+
+    leaflet
+      .tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
+        attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
+      })
+      .addTo(this.map);
+    const offerCords = [52.3709553943508, 4.89309666406198];
+
+    leaflet
+      .marker(offerCords, {icon})
+      .addTo(this.map);
+  }
+
+  componentWillUnmount() {
+  }
+
+  render() {
+
+    return (
+      <Fragment>
+        <div ref={this._mapRef}/>
+      </Fragment>
+    );
+  }
+
+  componentDidUpdate() {
+  }
+}
 
 Map.propTypes = {
-  place: PropTypes.exact({
-    id: PropTypes.number.isRequired,
-    images: PropTypes.array.isRequired,
-    priceValue: PropTypes.number.isRequired,
-    priceText: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    descriptions: PropTypes.array.isRequired,
-    type: PropTypes.string.isRequired,
-    bedrooms: PropTypes.number.isRequired,
-    adults: PropTypes.number.isRequired,
-    rating: PropTypes.number.isRequired,
-    inside: PropTypes.array.isRequired,
-    isPremium: PropTypes.bool.isRequired,
-    owner: PropTypes.exact({
-      name: PropTypes.string.isRequired,
-      avatar: PropTypes.string.isRequired,
-      isSuper: PropTypes.bool.isRequired
-    }).isRequired,
-  }).isRequired,
-  setSelectedCard: PropTypes.func.isRequired
+  isPlaying: PropTypes.bool.isRequired,
+  onPlayButtonClick: PropTypes.func.isRequired,
+  src: PropTypes.string.isRequired,
 };
-
-export default Map;
