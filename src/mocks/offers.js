@@ -1,6 +1,7 @@
 export const locations = [
   {
     city: `Amsterdam`,
+    cityCoordinates: [52.38333, 4.9],
     places: [
       {
         id: 0,

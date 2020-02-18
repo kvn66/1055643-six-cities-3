@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import Main from "./main.jsx";
+import Map from "./map.jsx";
 
 const location = {
   city: `Amsterdam`,
@@ -101,10 +101,10 @@ const location = {
   ]
 };
 
-it(`Render main`, () => {
+it(`Render map`, () => {
   const tree = renderer
     .create(
-        <Main
+        <Map
           location={location}
         />
     )

@@ -60,6 +60,7 @@ const OfferSmallCard = (props) => {
 OfferSmallCard.propTypes = {
   place: PropTypes.exact({
     id: PropTypes.number.isRequired,
+    coordinates: PropTypes.array.isRequired,
     images: PropTypes.array.isRequired,
     priceValue: PropTypes.number.isRequired,
     priceText: PropTypes.string.isRequired,

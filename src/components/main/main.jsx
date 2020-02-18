@@ -116,9 +116,7 @@ class Main extends PureComponent {
                 </div>
               </section>
               <div className="cities__right-section">
-                <section className="cities__map map">
-                  <Map />
-                </section>
+                <Map location={location}/>
               </div>
             </div>
           </div>
@@ -131,6 +129,7 @@ class Main extends PureComponent {
 Main.propTypes = {
   location: PropTypes.exact({
     city: PropTypes.string.isRequired,
+    cityCoordinates: PropTypes.array.isRequired,
     places: PropTypes.array.isRequired
   }).isRequired,
 };

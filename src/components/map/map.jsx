@@ -8,64 +8,57 @@ export default class Map extends PureComponent {
     super(props);
 
     this._mapRef = createRef();
-
-    this.state = {
-      progress: 0,
-      isLoading: true,
-      isPlaying: props.isPlaying,
-    };
   }
 
   componentDidMount() {
-    // const {src} = this.props;
-    // const map = this._mapRef.current;
+    const {location} = this.props;
+    const {cityCoordinates, places} = location;
 
-    const city = [52.38333, 4.9];
 
     const icon = leaflet.icon({
-      iconUrl: `img/pin.svg`,
+      iconUrl: `/img/pin.svg`,
       iconSize: [30, 30]
     });
     const zoom = 12;
 
     this.map = leaflet.map(this._mapRef.current, {
-      center: city,
-      zoom: zoom,
+      center: cityCoordinates,
+      zoom,
       zoomControl: false,
       marker: true
     });
-    this.map.setView(city, zoom);
+    this.map.setView(cityCoordinates, zoom);
 
     leaflet
       .tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
         attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
       })
       .addTo(this.map);
-    const offerCords = [52.3709553943508, 4.89309666406198];
 
-    leaflet
-      .marker(offerCords, {icon})
-      .addTo(this.map);
+    places.forEach((place) => {
+      leaflet
+        .marker(place.coordinates, {icon})
+        .addTo(this.map);
+    });
   }
 
   componentWillUnmount() {
+    this.map = null;
   }
 
   render() {
-
     return (
       <Fragment>
-        <div ref={this._mapRef}/>
+        <section ref={this._mapRef} className="cities__map map" />
       </Fragment>
     );
-  }
-
-  componentDidUpdate() {
   }
 }
 
 Map.propTypes = {
-  isPlaying: PropTypes.bool.isRequired,
-  onPlayButtonClick: PropTypes.func.isRequired,
-  src: PropTypes.string.isRequired,
+  location: PropTypes.exact({
+    city: PropTypes.string.isRequired,
+    cityCoordinates: PropTypes.array.isRequired,
+    places: PropTypes.array.isRequired
+  }).isRequired,
 };
