@@ -38,7 +38,7 @@ export default class Map extends PureComponent {
         .addTo(this.map);
 
       similarOffers.forEach((similarOffer) => {
-        const coordinates = getPlace(similarOffer, locations).coordinates;
+        const coordinates = getPlace(similarOffer, locations).place.coordinates;
         leaflet
           .marker(coordinates, {icon})
           .addTo(this.map);
@@ -52,7 +52,7 @@ export default class Map extends PureComponent {
 
   render() {
     return (
-      <section ref={this._mapRef} className="cities__map map" />
+      <div ref={this._mapRef} style={{height: `100%`}} />
     );
   }
 }

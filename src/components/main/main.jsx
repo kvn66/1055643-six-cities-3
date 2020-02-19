@@ -1,6 +1,6 @@
 import React, {PureComponent} from "react";
 import PropTypes from 'prop-types';
-import OfferSmallCard from "../offer-small-card/offer-small-card.jsx";
+import CityOfferSmallCard from "../city-offer-small-card/city-offer-small-card.jsx";
 import Map from "../map/map.jsx";
 
 const CITY_ID = 0;
@@ -28,7 +28,7 @@ class Main extends PureComponent {
     const location = locations[CITY_ID];
     const {city, places} = location;
     const cards = places.map((place) =>
-      <OfferSmallCard key={place.id} place={place} setSelectedCard = {this._setSelectedCard} />
+      <CityOfferSmallCard key={place.id} place={place} setSelectedCard = {this._setSelectedCard} />
     );
 
     return (
@@ -119,7 +119,9 @@ class Main extends PureComponent {
                 </div>
               </section>
               <div className="cities__right-section">
-                <Map locations={locations} cityId={CITY_ID} similarOffers={SIMILAR_OFFERS}/>
+                <section className="cities__map map">
+                  <Map locations={locations} cityId={CITY_ID} similarOffers={SIMILAR_OFFERS}/>
+                </section>
               </div>
             </div>
           </div>
