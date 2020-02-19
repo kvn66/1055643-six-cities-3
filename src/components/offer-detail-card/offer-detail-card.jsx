@@ -1,19 +1,10 @@
 import React from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import {useParams} from "react-router-dom";
+import {getPlace} from "../../util";
 
 const RADIX = 10;
 
-
-const getPlace = (id, locations) => {
-  let out = null;
-  locations.forEach((location) => {
-    out = location.places.find((place) => {
-      return place.id === id;
-    });
-  });
-  return out;
-};
 
 const OfferDetailCard = (props) => {
   const {id} = useParams();
@@ -115,21 +106,12 @@ const OfferDetailCard = (props) => {
               <div className="property__host">
                 <h2 className="property__host-title">Meet the host</h2>
                 <div className="property__host-user user">
-                  {owner.isSuper ? (
-                    <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
-                      <img
-                        className="property__avatar user__avatar" src={owner.avatar} width="74" height="74"
-                        alt="Host avatar"
-                      />
-                    </div>
-                  ) : (
-                    <div className="property__avatar-wrapper user__avatar-wrapper">
-                      <img
-                        className="property__avatar user__avatar" src={owner.avatar} width="74" height="74"
-                        alt="Host avatar"
-                      />
-                    </div>
-                  )}
+                  <div className={`property__avatar-wrapper ${owner.isSuper ? `property__avatar-wrapper--pro` : ``} user__avatar-wrapper`}>
+                    <img
+                      className="property__avatar user__avatar" src={owner.avatar} width="74" height="74"
+                      alt="Host avatar"
+                    />
+                  </div>
                   <span className="property__user-name">
                     {owner.name}
                   </span>
@@ -358,7 +340,13 @@ const OfferDetailCard = (props) => {
 };
 
 OfferDetailCard.propTypes = {
-  locations: PropTypes.array.isRequired
+  locations: PropTypes.arrayOf(
+      PropTypes.exact({
+        city: PropTypes.string.isRequired,
+        cityCoordinates: PropTypes.array.isRequired,
+        places: PropTypes.array.isRequired
+      }).isRequired
+  ).isRequired
 };
 
 

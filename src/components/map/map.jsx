@@ -1,6 +1,7 @@
-import React, {PureComponent, Fragment, createRef} from "react";
+import React, {PureComponent, createRef} from "react";
 import PropTypes from "prop-types";
 import leaflet from "leaflet";
+import {getPlace} from "../../util";
 
 
 export default class Map extends PureComponent {
@@ -11,8 +12,9 @@ export default class Map extends PureComponent {
   }
 
   componentDidMount() {
-    const {location} = this.props;
-    const {cityCoordinates, places} = location;
+    const {locations, cityId, similarOffers} = this.props;
+    const location = locations[cityId];
+    const {cityCoordinates} = location;
 
     if (this._mapRef.current) {
       const icon = leaflet.icon({
@@ -35,9 +37,10 @@ export default class Map extends PureComponent {
         })
         .addTo(this.map);
 
-      places.forEach((place) => {
+      similarOffers.forEach((similarOffer) => {
+        const coordinates = getPlace(similarOffer, locations).coordinates;
         leaflet
-          .marker(place.coordinates, {icon})
+          .marker(coordinates, {icon})
           .addTo(this.map);
       });
     }
@@ -49,17 +52,19 @@ export default class Map extends PureComponent {
 
   render() {
     return (
-      <Fragment>
-        <section ref={this._mapRef} className="cities__map map" />
-      </Fragment>
+      <section ref={this._mapRef} className="cities__map map" />
     );
   }
 }
 
 Map.propTypes = {
-  location: PropTypes.exact({
-    city: PropTypes.string.isRequired,
-    cityCoordinates: PropTypes.array.isRequired,
-    places: PropTypes.array.isRequired
-  }).isRequired,
+  locations: PropTypes.arrayOf(
+      PropTypes.exact({
+        city: PropTypes.string.isRequired,
+        cityCoordinates: PropTypes.array.isRequired,
+        places: PropTypes.array.isRequired
+      }).isRequired
+  ).isRequired,
+  cityId: PropTypes.number.isRequired,
+  similarOffers: PropTypes.array.isRequired
 };

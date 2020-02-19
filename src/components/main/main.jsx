@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import OfferSmallCard from "../offer-small-card/offer-small-card.jsx";
 import Map from "../map/map.jsx";
 
+const CITY_ID = 0;
+const SIMILAR_OFFERS = [0, 1, 2, 3];
 
 class Main extends PureComponent {
   constructor(props) {
@@ -22,7 +24,8 @@ class Main extends PureComponent {
   }
 
   render() {
-    const {location} = this.props;
+    const {locations} = this.props;
+    const location = locations[CITY_ID];
     const {city, places} = location;
     const cards = places.map((place) =>
       <OfferSmallCard key={place.id} place={place} setSelectedCard = {this._setSelectedCard} />
@@ -116,7 +119,7 @@ class Main extends PureComponent {
                 </div>
               </section>
               <div className="cities__right-section">
-                <Map location={location}/>
+                <Map locations={locations} cityId={CITY_ID} similarOffers={SIMILAR_OFFERS}/>
               </div>
             </div>
           </div>
@@ -127,11 +130,13 @@ class Main extends PureComponent {
 }
 
 Main.propTypes = {
-  location: PropTypes.exact({
-    city: PropTypes.string.isRequired,
-    cityCoordinates: PropTypes.array.isRequired,
-    places: PropTypes.array.isRequired
-  }).isRequired,
+  locations: PropTypes.arrayOf(
+      PropTypes.exact({
+        city: PropTypes.string.isRequired,
+        cityCoordinates: PropTypes.array.isRequired,
+        places: PropTypes.array.isRequired
+      }).isRequired
+  ).isRequired
 };
 
 
