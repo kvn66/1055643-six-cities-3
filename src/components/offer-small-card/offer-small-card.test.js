@@ -4,6 +4,7 @@ import OfferSmallCard from "./offer-small-card.jsx";
 
 const place = {
   id: 0,
+  coordinates: [52.3909553943508, 4.85309666406198],
   images: [`/img/apartment-01.jpg`, `/img/room.jpg`],
   priceValue: 120,
   priceText: `night`,
@@ -25,7 +26,7 @@ const place = {
   }
 };
 
-it(`Render card`, () => {
+it(`Render OfferSmallCard`, () => {
   const setSelectedCard = jest.fn();
 
   const tree = renderer
