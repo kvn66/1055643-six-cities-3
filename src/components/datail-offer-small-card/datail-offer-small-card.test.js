@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import OfferSmallCard from "./offer-small-card.jsx";
+import DetailOfferSmallCard from "./datail-offer-small-card.jsx";
 
 const place = {
   id: 0,
@@ -27,11 +27,11 @@ const place = {
   reviews: [0, 1]
 };
 
-it(`Render OfferSmallCard`, () => {
+it(`Render DetailOfferSmallCard`, () => {
 
   const tree = renderer
     .create(
-        <OfferSmallCard
+        <DetailOfferSmallCard
           place={place}
         />
     )

@@ -1,11 +1,6 @@
-import React from "react";
-import Enzyme, {shallow} from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
-import OfferSmallCard from "./offer-small-card.jsx";
-
-Enzyme.configure({
-  adapter: new Adapter(),
-});
+import React from 'react';
+import renderer from 'react-test-renderer';
+import CityOfferSmallCard from "./city-offer-small-card.jsx";
 
 const place = {
   id: 0,
@@ -28,22 +23,20 @@ const place = {
     name: `Angelina`,
     avatar: `/img/avatar-angelina.jpg`,
     isSuper: true
-  }
+  },
+  reviews: [0, 1]
 };
 
-it(`Should name be pressed`, () => {
+it(`Render CityOfferSmallCard`, () => {
   const setSelectedCard = jest.fn();
 
-  const virtualCardElement = shallow(
-      <OfferSmallCard
-        place={place}
-        setSelectedCard = {setSelectedCard}
-      />
-  );
-
-  const cardElement = virtualCardElement.find(`.place-card`);
-
-  cardElement.props().onMouseEnter();
-  cardElement.props().onMouseLeave();
-  expect(setSelectedCard).toHaveBeenCalledTimes(2);
+  const tree = renderer
+    .create(
+        <CityOfferSmallCard
+          place={place}
+          setSelectedCard = {setSelectedCard}
+        />
+    )
+    .toJSON();
+  expect(tree).toMatchSnapshot();
 });
