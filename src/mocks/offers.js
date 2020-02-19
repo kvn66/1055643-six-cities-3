@@ -24,7 +24,8 @@ export const locations = [
           name: `Angelina`,
           avatar: `/img/avatar-angelina.jpg`,
           isSuper: true
-        }
+        },
+        reviews: [0, 1]
       },
       {
         id: 1,
@@ -47,7 +48,8 @@ export const locations = [
           name: `Angelina`,
           avatar: `/img/avatar-angelina.jpg`,
           isSuper: false
-        }
+        },
+        reviews: [0]
       },
       {
         id: 2,
@@ -70,7 +72,8 @@ export const locations = [
           name: `Angelina`,
           avatar: `/img/avatar-angelina.jpg`,
           isSuper: false
-        }
+        },
+        reviews: [1]
       },
       {
         id: 3,
@@ -93,7 +96,8 @@ export const locations = [
           name: `Angelina`,
           avatar: `/img/avatar-angelina.jpg`,
           isSuper: true
-        }
+        },
+        reviews: [0, 1]
       }
     ]
   }

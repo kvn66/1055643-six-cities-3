@@ -56,6 +56,7 @@ OfferSmallCard.propTypes = {
       avatar: PropTypes.string.isRequired,
       isSuper: PropTypes.bool.isRequired
     }).isRequired,
+    reviews: PropTypes.array.isRequired,
   }).isRequired,
 };
 

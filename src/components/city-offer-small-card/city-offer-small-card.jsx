@@ -52,6 +52,7 @@ CityOfferSmallCard.propTypes = {
       avatar: PropTypes.string.isRequired,
       isSuper: PropTypes.bool.isRequired
     }).isRequired,
+    reviews: PropTypes.array.isRequired,
   }).isRequired,
   setSelectedCard: PropTypes.func.isRequired
 };
