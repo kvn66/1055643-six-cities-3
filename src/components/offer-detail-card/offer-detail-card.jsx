@@ -8,15 +8,15 @@ import Reviews from "../reviews/reviews.jsx";
 
 const RADIX = 10;
 
-const SIMILAR_OFFERS = [0, 1, 2];
+const SIMILAR_OFFERS = [0, 1, 2, 3];
 
 
 const OfferDetailCard = (props) => {
-  const {id} = useParams();
-  const cardId = id === undefined ? 0 : id;
+  const {id: idParam} = useParams();
+  const cardId = idParam === undefined ? `0` : idParam;
   const {locations} = props;
   const {place, cityId} = getPlace(parseInt(cardId, RADIX), locations);
-  const {images, priceValue, priceText, name, descriptions, type, bedrooms, adults, rating, inside, isPremium, owner, reviews} = place;
+  const {id, images, priceValue, priceText, name, descriptions, type, bedrooms, adults, rating, inside, isPremium, owner, reviews} = place;
   const cards = SIMILAR_OFFERS.map((offerId) =>
     <DetailOfferSmallCard key={offerId} place={getPlace(offerId, locations).place} />
   );
@@ -138,7 +138,7 @@ const OfferDetailCard = (props) => {
             </div>
           </div>
           <section className="property__map map">
-            <Map locations={locations} cityId={cityId} similarOffers={SIMILAR_OFFERS}/>
+            <Map locations={locations} cityId={cityId} similarOffers={SIMILAR_OFFERS} activeOffer={id}/>
           </section>
         </section>
         <div className="container">

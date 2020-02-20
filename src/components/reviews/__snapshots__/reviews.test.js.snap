@@ -11,7 +11,7 @@ exports[`Render Review 1`] = `
     <span
       className="reviews__amount"
     >
-      1
+      2
     </span>
   </h2>
   <ul
@@ -71,9 +71,9 @@ exports[`Render Review 1`] = `
         </p>
         <time
           className="reviews__time"
-          dateTime="2019-04-24"
+          dateTime="2020-02-14"
         >
-          Fri Feb 14 2020 00:00:00 GMT+0500 (GMT+05:00)
+          February 2020
         </time>
       </div>
     </li>
@@ -131,9 +131,9 @@ exports[`Render Review 1`] = `
         </p>
         <time
           className="reviews__time"
-          dateTime="2019-04-24"
+          dateTime="2020-01-01"
         >
-          Wed Jan 01 2020 00:00:00 GMT+0500 (GMT+05:00)
+          January 2020
         </time>
       </div>
     </li>

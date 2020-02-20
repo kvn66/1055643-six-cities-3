@@ -1,5 +1,6 @@
 import React, {PureComponent} from "react";
 import PropTypes from 'prop-types';
+import {UNSELECTED_CARD_ID} from "../../const.js";
 import CityOfferSmallCard from "../city-offer-small-card/city-offer-small-card.jsx";
 import Map from "../map/map.jsx";
 
@@ -11,7 +12,7 @@ class Main extends PureComponent {
     super(props);
 
     this.state = {
-      selectedCard: -1,
+      selectedCard: UNSELECTED_CARD_ID,
     };
 
     this._setSelectedCard = this._setSelectedCard.bind(this);
@@ -120,7 +121,7 @@ class Main extends PureComponent {
               </section>
               <div className="cities__right-section">
                 <section className="cities__map map">
-                  <Map locations={locations} cityId={CITY_ID} similarOffers={SIMILAR_OFFERS}/>
+                  <Map locations={locations} cityId={CITY_ID} similarOffers={SIMILAR_OFFERS} activeOffer={this.state.selectedCard}/>
                 </section>
               </div>
             </div>

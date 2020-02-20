@@ -3,15 +3,17 @@ import PropTypes from "prop-types";
 import Review from "../review/review.jsx";
 import {reviews as reviewsData} from "../../mocks/reviews";
 
+const REVIEWS_MIN = 0;
+const REVIEWS_MAX = 10;
+
 const Reviews = (props) => {
   const {reviews} = props;
-  const reviewslist = reviews.map((reviewId) =>
+  const reviewslist = reviews.slice().sort((a, b) => reviewsData[b].date.diff(reviewsData[a].date)).slice(REVIEWS_MIN, REVIEWS_MAX).map((reviewId) =>
     <Review key={reviewId} review={reviewsData[reviewId]} />
   );
-
   return (
     <section className="property__reviews reviews">
-      <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">1</span></h2>
+      <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
       <ul className="reviews__list">
         {reviewslist}
       </ul>

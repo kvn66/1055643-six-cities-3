@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import moment from 'moment';
 
 const Review = (props) => {
   const {review} = props;
@@ -28,7 +29,7 @@ const Review = (props) => {
         <p className="reviews__text">
           {text}
         </p>
-        <time className="reviews__time" dateTime="2019-04-24">{date.toString()}</time>
+        <time className="reviews__time" dateTime={date.format(`YYYY-MM-DD`)}>{date.format(`MMMM YYYY`)}</time>
       </div>
     </li>
   );
@@ -40,7 +41,7 @@ Review.propTypes = {
     name: PropTypes.string.isRequired,
     avatar: PropTypes.string.isRequired,
     rating: PropTypes.number.isRequired,
-    date: PropTypes.instanceOf(Date).isRequired,
+    date: PropTypes.instanceOf(moment).isRequired,
     text: PropTypes.string.isRequired
   }).isRequired
 };
