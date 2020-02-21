@@ -1,41 +1,20 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import {UNSELECTED_CARD_ID} from "../../const.js";
 
 const OfferSmallCard = (props) => {
-  const {place, setSelectedCard} = props;
-  const {id, images, priceValue, priceText, name, type, isPremium} = place;
+  const {place} = props;
+  const {id, priceValue, priceText, name, type} = place;
   const linkToDetail = `/offer/${id}`;
 
-  const mouseEnterHandler = () => {
-    setSelectedCard(id);
-  };
-
-  const mouseLeaveHandler = () => {
-    setSelectedCard(UNSELECTED_CARD_ID);
-  };
-
   return (
-    <article onMouseEnter={mouseEnterHandler} onMouseLeave={mouseLeaveHandler} className="cities__place-card place-card">
-      {isPremium &&
-        <div className="place-card__mark">
-          <span>Premium</span>
-        </div>
-      }
-      <div className="cities__image-wrapper place-card__image-wrapper">
-        <a href="#">
-          <img className="place-card__image" src={images[0]} width="260" height="200" alt="Place image"/>
-        </a>
-      </div>
+    <React.Fragment>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{priceValue}</b>
             <span className="place-card__price-text">&#47;&nbsp;{priceText}</span>
           </div>
-          <button
-            className="place-card__bookmark-button place-card__bookmark-button--active button" type="button"
-          >
+          <button className="place-card__bookmark-button place-card__bookmark-button--active button" type="button">
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark-active"/>
             </svg>
@@ -53,7 +32,7 @@ const OfferSmallCard = (props) => {
         </h2>
         <p className="place-card__type">{type}</p>
       </div>
-    </article>
+    </React.Fragment>
   );
 };
 
@@ -77,8 +56,8 @@ OfferSmallCard.propTypes = {
       avatar: PropTypes.string.isRequired,
       isSuper: PropTypes.bool.isRequired
     }).isRequired,
+    reviews: PropTypes.array.isRequired,
   }).isRequired,
-  setSelectedCard: PropTypes.func.isRequired
 };
 
 export default OfferSmallCard;

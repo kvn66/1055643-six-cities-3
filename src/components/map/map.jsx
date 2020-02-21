@@ -1,6 +1,8 @@
-import React, {PureComponent, Fragment, createRef} from "react";
+import React, {PureComponent, createRef} from "react";
 import PropTypes from "prop-types";
 import leaflet from "leaflet";
+import {getPlace} from "../../util";
+import {UNSELECTED_CARD_ID} from "../../const.js";
 
 
 export default class Map extends PureComponent {
@@ -8,17 +10,24 @@ export default class Map extends PureComponent {
     super(props);
 
     this._mapRef = createRef();
+
+    this._icon = leaflet.icon({
+      iconUrl: `/img/pin.svg`,
+      iconSize: [30, 30]
+    });
+
+    this._iconActive = leaflet.icon({
+      iconUrl: `/img/pin-active.svg`,
+      iconSize: [30, 30]
+    });
   }
 
   componentDidMount() {
-    const {location} = this.props;
-    const {cityCoordinates, places} = location;
+    const {locations, cityId, similarOffers, activeOffer} = this.props;
+    const location = locations[cityId];
+    const {cityCoordinates} = location;
 
     if (this._mapRef.current) {
-      const icon = leaflet.icon({
-        iconUrl: `/img/pin.svg`,
-        iconSize: [30, 30]
-      });
       const zoom = 12;
 
       this.map = leaflet.map(this._mapRef.current, {
@@ -27,6 +36,7 @@ export default class Map extends PureComponent {
         zoomControl: false,
         marker: true
       });
+
       this.map.setView(cityCoordinates, zoom);
 
       leaflet
@@ -35,11 +45,39 @@ export default class Map extends PureComponent {
         })
         .addTo(this.map);
 
-      places.forEach((place) => {
+      similarOffers.forEach((similarOffer) => {
+        const coordinates = getPlace(similarOffer, locations).place.coordinates;
         leaflet
-          .marker(place.coordinates, {icon})
+          .marker(coordinates, {icon: this._icon})
           .addTo(this.map);
       });
+
+      if (activeOffer !== UNSELECTED_CARD_ID) {
+        const coordinates = getPlace(activeOffer, locations).place.coordinates;
+        leaflet
+          .marker(coordinates, {icon: this._iconActive})
+          .addTo(this.map);
+      }
+    }
+  }
+
+  componentDidUpdate() {
+    const {locations, similarOffers, activeOffer} = this.props;
+
+    if (this._mapRef.current) {
+      similarOffers.forEach((similarOffer) => {
+        const coordinates = getPlace(similarOffer, locations).place.coordinates;
+        leaflet
+          .marker(coordinates, {icon: this._icon})
+          .addTo(this.map);
+      });
+
+      if (activeOffer !== UNSELECTED_CARD_ID) {
+        const coordinates = getPlace(activeOffer, locations).place.coordinates;
+        leaflet
+          .marker(coordinates, {icon: this._iconActive})
+          .addTo(this.map);
+      }
     }
   }
 
@@ -49,17 +87,20 @@ export default class Map extends PureComponent {
 
   render() {
     return (
-      <Fragment>
-        <section ref={this._mapRef} className="cities__map map" />
-      </Fragment>
+      <div ref={this._mapRef} style={{height: `100%`}} />
     );
   }
 }
 
 Map.propTypes = {
-  location: PropTypes.exact({
-    city: PropTypes.string.isRequired,
-    cityCoordinates: PropTypes.array.isRequired,
-    places: PropTypes.array.isRequired
-  }).isRequired,
+  locations: PropTypes.arrayOf(
+      PropTypes.exact({
+        city: PropTypes.string.isRequired,
+        cityCoordinates: PropTypes.array.isRequired,
+        places: PropTypes.array.isRequired
+      }).isRequired
+  ).isRequired,
+  cityId: PropTypes.number.isRequired,
+  similarOffers: PropTypes.array.isRequired,
+  activeOffer: PropTypes.number
 };

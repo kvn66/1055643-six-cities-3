@@ -12,7 +12,7 @@ const App = (props) => {
       <Switch>
         <Route exact path="/">
           <Main
-            location={locations[0]}
+            locations={locations}
           />
         </Route>
         <Route exact path="/offer/:id">
@@ -26,7 +26,13 @@ const App = (props) => {
 };
 
 App.propTypes = {
-  locations: PropTypes.array.isRequired,
+  locations: PropTypes.arrayOf(
+      PropTypes.exact({
+        city: PropTypes.string.isRequired,
+        cityCoordinates: PropTypes.array.isRequired,
+        places: PropTypes.array.isRequired
+      }).isRequired
+  ).isRequired
 };
 
 
