@@ -2,7 +2,6 @@ import React, {PureComponent, createRef} from "react";
 import PropTypes from "prop-types";
 import leaflet from "leaflet";
 import {getPlace} from "../../util";
-import {UNSELECTED_CARD_ID} from "../../const.js";
 
 
 export default class Map extends PureComponent {
@@ -45,19 +44,17 @@ export default class Map extends PureComponent {
         })
         .addTo(this.map);
 
-      similarOffers.forEach((similarOffer) => {
+      this.markers = similarOffers.map((similarOffer, index) => {
         const coordinates = getPlace(similarOffer, locations).place.coordinates;
-        leaflet
+        if (activeOffer === index) {
+          return leaflet
+            .marker(coordinates, {icon: this._iconActive})
+            .addTo(this.map);
+        }
+        return leaflet
           .marker(coordinates, {icon: this._icon})
           .addTo(this.map);
       });
-
-      if (activeOffer !== UNSELECTED_CARD_ID) {
-        const coordinates = getPlace(activeOffer, locations).place.coordinates;
-        leaflet
-          .marker(coordinates, {icon: this._iconActive})
-          .addTo(this.map);
-      }
     }
   }
 
@@ -65,19 +62,18 @@ export default class Map extends PureComponent {
     const {locations, similarOffers, activeOffer} = this.props;
 
     if (this._mapRef.current) {
-      similarOffers.forEach((similarOffer) => {
+      this.markers.forEach((marker) => marker.remove());
+      this.markers = similarOffers.map((similarOffer, index) => {
         const coordinates = getPlace(similarOffer, locations).place.coordinates;
-        leaflet
+        if (activeOffer === index) {
+          return leaflet
+            .marker(coordinates, {icon: this._iconActive})
+            .addTo(this.map);
+        }
+        return leaflet
           .marker(coordinates, {icon: this._icon})
           .addTo(this.map);
       });
-
-      if (activeOffer !== UNSELECTED_CARD_ID) {
-        const coordinates = getPlace(activeOffer, locations).place.coordinates;
-        leaflet
-          .marker(coordinates, {icon: this._iconActive})
-          .addTo(this.map);
-      }
     }
   }
 
@@ -86,8 +82,9 @@ export default class Map extends PureComponent {
   }
 
   render() {
+    const {sectionClassName} = this.props;
     return (
-      <div ref={this._mapRef} style={{height: `100%`}} />
+      <section ref={this._mapRef} className={`${sectionClassName} map`} />
     );
   }
 }
@@ -102,5 +99,6 @@ Map.propTypes = {
   ).isRequired,
   cityId: PropTypes.number.isRequired,
   similarOffers: PropTypes.array.isRequired,
-  activeOffer: PropTypes.number
+  activeOffer: PropTypes.number,
+  sectionClassName: PropTypes.string.isRequired
 };

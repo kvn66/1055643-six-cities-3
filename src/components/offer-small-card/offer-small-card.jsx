@@ -1,13 +1,45 @@
 import React from "react";
 import PropTypes from 'prop-types';
+import {UNSELECTED_CARD_ID} from "../../const.js";
+
+const ClassName = {
+  CITY: {
+    ARTICLE: `cities__place-card`,
+    IMAGE: `cities__image-wrapper`
+  },
+  DETAIL: {
+    ARTICLE: `near-places__card`,
+    IMAGE: `near-places__image-wrapper`
+  }
+};
 
 const OfferSmallCard = (props) => {
-  const {place} = props;
-  const {id, priceValue, priceText, name, type} = place;
+  const {place, setSelectedCard, isDetail} = props;
+  const {id, images, priceValue, priceText, name, type, isPremium} = place;
   const linkToDetail = `/offer/${id}`;
+  const articleClassName = isDetail ? ClassName.DETAIL.ARTICLE : ClassName.CITY.ARTICLE;
+  const imageClassName = isDetail ? ClassName.DETAIL.IMAGE : ClassName.CITY.IMAGE;
+
+  const mouseEnterHandler = () => {
+    setSelectedCard(id);
+  };
+
+  const mouseLeaveHandler = () => {
+    setSelectedCard(UNSELECTED_CARD_ID);
+  };
 
   return (
-    <React.Fragment>
+    <article onMouseEnter={mouseEnterHandler} onMouseLeave={mouseLeaveHandler} className={`${articleClassName} place-card`}>
+      {isPremium && !isDetail &&
+        <div className="place-card__mark">
+          <span>Premium</span>
+        </div>
+      }
+      <div className={`${imageClassName} place-card__image-wrapper`}>
+        <a href="#">
+          <img className="place-card__image" src={images[0]} width="260" height="200" alt="Place image"/>
+        </a>
+      </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
@@ -16,7 +48,7 @@ const OfferSmallCard = (props) => {
           </div>
           <button className="place-card__bookmark-button place-card__bookmark-button--active button" type="button">
             <svg className="place-card__bookmark-icon" width="18" height="19">
-              <use xlinkHref="#icon-bookmark-active"/>
+              <use xlinkHref="#icon-bookmark"/>
             </svg>
             <span className="visually-hidden">In bookmarks</span>
           </button>
@@ -32,7 +64,7 @@ const OfferSmallCard = (props) => {
         </h2>
         <p className="place-card__type">{type}</p>
       </div>
-    </React.Fragment>
+    </article>
   );
 };
 
@@ -58,6 +90,8 @@ OfferSmallCard.propTypes = {
     }).isRequired,
     reviews: PropTypes.array.isRequired,
   }).isRequired,
+  setSelectedCard: PropTypes.func.isRequired,
+  isDetail: PropTypes.bool.isRequired
 };
 
 export default OfferSmallCard;

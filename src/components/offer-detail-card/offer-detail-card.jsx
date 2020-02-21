@@ -3,12 +3,12 @@ import PropTypes from "prop-types";
 import {useParams} from "react-router-dom";
 import {getPlace} from "../../util";
 import Map from "../map/map.jsx";
-import DetailOfferSmallCard from "../datail-offer-small-card/datail-offer-small-card.jsx";
+import OfferSmallCard from "../offer-small-card/offer-small-card.jsx";
 import Reviews from "../reviews/reviews.jsx";
 
 const RADIX = 10;
-
 const SIMILAR_OFFERS = [0, 1, 2, 3];
+const SECTIONCLASSNAME = `property__map`;
 
 
 const OfferDetailCard = (props) => {
@@ -18,7 +18,7 @@ const OfferDetailCard = (props) => {
   const {place, cityId} = getPlace(parseInt(cardId, RADIX), locations);
   const {id, images, priceValue, priceText, name, descriptions, type, bedrooms, adults, rating, inside, isPremium, owner, reviews} = place;
   const cards = SIMILAR_OFFERS.map((offerId) =>
-    <DetailOfferSmallCard key={offerId} place={getPlace(offerId, locations).place} />
+    <OfferSmallCard key={offerId} place={getPlace(offerId, locations).place} setSelectedCard = {()=>{}} isDetail={true} />
   );
 
   return (
@@ -137,9 +137,7 @@ const OfferDetailCard = (props) => {
               <Reviews reviews={reviews}/>
             </div>
           </div>
-          <section className="property__map map">
-            <Map locations={locations} cityId={cityId} similarOffers={SIMILAR_OFFERS} activeOffer={id}/>
-          </section>
+          <Map locations={locations} cityId={cityId} similarOffers={SIMILAR_OFFERS} activeOffer={id} sectionClassName={SECTIONCLASSNAME}/>
         </section>
         <div className="container">
           <section className="near-places places">

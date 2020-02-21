@@ -1,11 +1,12 @@
 import React, {PureComponent} from "react";
 import PropTypes from 'prop-types';
 import {UNSELECTED_CARD_ID} from "../../const.js";
-import CityOfferSmallCard from "../city-offer-small-card/city-offer-small-card.jsx";
+import OfferSmallCard from "../offer-small-card/offer-small-card.jsx";
 import Map from "../map/map.jsx";
 
 const CITY_ID = 0;
 const SIMILAR_OFFERS = [0, 1, 2, 3];
+const SECTIONCLASSNAME = `cities__map`;
 
 class Main extends PureComponent {
   constructor(props) {
@@ -29,7 +30,7 @@ class Main extends PureComponent {
     const location = locations[CITY_ID];
     const {city, places} = location;
     const cards = places.map((place) =>
-      <CityOfferSmallCard key={place.id} place={place} setSelectedCard = {this._setSelectedCard} />
+      <OfferSmallCard key={place.id} place={place} setSelectedCard = {this._setSelectedCard} isDetail={false} />
     );
 
     return (
@@ -120,9 +121,7 @@ class Main extends PureComponent {
                 </div>
               </section>
               <div className="cities__right-section">
-                <section className="cities__map map">
-                  <Map locations={locations} cityId={CITY_ID} similarOffers={SIMILAR_OFFERS} activeOffer={this.state.selectedCard}/>
-                </section>
+                <Map locations={locations} cityId={CITY_ID} similarOffers={SIMILAR_OFFERS} activeOffer={this.state.selectedCard} sectionClassName={SECTIONCLASSNAME}/>
               </div>
             </div>
           </div>
