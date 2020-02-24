@@ -8,7 +8,7 @@ const NAMES = [
   `Wood and stone place`
 ];
 const TYPES = [`Apartment`, `Private room`, `House`, `Hotel`];
-const CITYS = [
+const CITIES = [
   {
     name: `Paris`,
     coordinates: [48.8534100, 2.3488000]
@@ -106,7 +106,7 @@ const getPlace = (placeId, initCoordinates) => {
 };
 
 const getPlaces = (initCoordinates, placeId) => {
-  return new Array(getRandomInt(5, 10)).fill(``).map(() => getPlace(placeId, initCoordinates));
+  return new Array(getRandomInt(15, 25)).fill(``).map(() => getPlace(placeId, initCoordinates));
 };
 
 const getLocation = (city, placeId) => {
@@ -119,7 +119,7 @@ const getLocation = (city, placeId) => {
 
 const getLocations = () => {
   let placeId = {id: 0};
-  return CITYS.map((city) => getLocation(city, placeId));
+  return CITIES.map((city) => getLocation(city, placeId));
 };
 
 export const locations = getLocations();

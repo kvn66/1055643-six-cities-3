@@ -5,9 +5,9 @@ import {getPlace} from "../../util";
 import Map from "../map/map.jsx";
 import OfferSmallCard from "../offer-small-card/offer-small-card.jsx";
 import Reviews from "../reviews/reviews.jsx";
+import {getSimilarOffers} from "../../util";
 
 const RADIX = 10;
-const SIMILAR_OFFERS = [0, 1, 2, 3];
 const SECTIONCLASSNAME = `property__map`;
 
 
@@ -17,7 +17,8 @@ const OfferDetailCard = (props) => {
   const {locations} = props;
   const {place, cityId} = getPlace(parseInt(cardId, RADIX), locations);
   const {id, images, priceValue, priceText, name, descriptions, type, bedrooms, adults, rating, inside, isPremium, owner, reviews} = place;
-  const cards = SIMILAR_OFFERS.map((offerId) =>
+  const similarOffers = getSimilarOffers(cityId, locations, id, false);
+  const cards = similarOffers.map((offerId) =>
     <OfferSmallCard key={offerId} place={getPlace(offerId, locations).place} setSelectedCard = {()=>{}} isDetail={true} />
   );
 
@@ -82,7 +83,7 @@ const OfferDetailCard = (props) => {
                   <span style={{width: `80%`}}/>
                   <span className="visually-hidden">Rating</span>
                 </div>
-                <span className="property__rating-value rating__value">{rating}</span>
+                <span className="property__rating-value rating__value">{rating.toFixed(1)}</span>
               </div>
               <ul className="property__features">
                 <li className="property__feature property__feature--entire">
@@ -137,7 +138,7 @@ const OfferDetailCard = (props) => {
               <Reviews reviews={reviews}/>
             </div>
           </div>
-          <Map locations={locations} cityId={cityId} similarOffers={SIMILAR_OFFERS} activeOffer={id} sectionClassName={SECTIONCLASSNAME}/>
+          <Map locations={locations} cityId={cityId} similarOffers={similarOffers} activeOffer={id} sectionClassName={SECTIONCLASSNAME}/>
         </section>
         <div className="container">
           <section className="near-places places">
