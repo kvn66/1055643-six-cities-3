@@ -1,7 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import OfferSmallCard from "./offer-small-card.jsx";
-import PropTypes from "prop-types";
 
 const place = {
   id: 0,
