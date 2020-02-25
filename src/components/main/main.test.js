@@ -1,6 +1,10 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import Main from "./main.jsx";
+import {Provider} from "react-redux";
+import configureStore from "redux-mock-store";
+
+const mockStore = configureStore([]);
 
 const locations = [
   {
@@ -108,11 +112,16 @@ const locations = [
 ];
 
 it(`Render Main`, () => {
+  const store = mockStore({
+    cityId: 0,
+    locations
+  });
+
   const tree = renderer
     .create(
-        <Main
-          locations={locations}
-        />
+        <Provider store={store}>
+          <Main/>
+        </Provider>
     )
     .toJSON();
   expect(tree).toMatchSnapshot();

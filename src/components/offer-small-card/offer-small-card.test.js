@@ -33,6 +33,8 @@ it(`Render OfferSmallCard`, () => {
     .create(
         <OfferSmallCard
           place={place}
+          setSelectedCard={()=>{}}
+          isDetail={false}
         />
     )
     .toJSON();

@@ -1,14 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {useParams} from "react-router-dom";
-import {getPlace} from "../../util";
+import {getPlace} from "../../utils";
 import Map from "../map/map.jsx";
-import DetailOfferSmallCard from "../datail-offer-small-card/datail-offer-small-card.jsx";
+import OfferSmallCard from "../offer-small-card/offer-small-card.jsx";
 import Reviews from "../reviews/reviews.jsx";
+import {getSimilarOffers} from "../../utils";
+import {connect} from "react-redux";
 
 const RADIX = 10;
-
-const SIMILAR_OFFERS = [0, 1, 2, 3];
+const SECTION_CLASS_NAME = `property__map`;
 
 
 const OfferDetailCard = (props) => {
@@ -17,8 +18,9 @@ const OfferDetailCard = (props) => {
   const {locations} = props;
   const {place, cityId} = getPlace(parseInt(cardId, RADIX), locations);
   const {id, images, priceValue, priceText, name, descriptions, type, bedrooms, adults, rating, inside, isPremium, owner, reviews} = place;
-  const cards = SIMILAR_OFFERS.map((offerId) =>
-    <DetailOfferSmallCard key={offerId} place={getPlace(offerId, locations).place} />
+  const similarOffers = getSimilarOffers(cityId, locations, id, false);
+  const cards = similarOffers.map((offerId) =>
+    <OfferSmallCard key={offerId} place={getPlace(offerId, locations).place} setSelectedCard = {()=>{}} isDetail={true} />
   );
 
   return (
@@ -82,7 +84,7 @@ const OfferDetailCard = (props) => {
                   <span style={{width: `80%`}}/>
                   <span className="visually-hidden">Rating</span>
                 </div>
-                <span className="property__rating-value rating__value">{rating}</span>
+                <span className="property__rating-value rating__value">{rating.toFixed(1)}</span>
               </div>
               <ul className="property__features">
                 <li className="property__feature property__feature--entire">
@@ -137,9 +139,7 @@ const OfferDetailCard = (props) => {
               <Reviews reviews={reviews}/>
             </div>
           </div>
-          <section className="property__map map">
-            <Map locations={locations} cityId={cityId} similarOffers={SIMILAR_OFFERS} activeOffer={id}/>
-          </section>
+          <Map locations={locations} cityId={cityId} similarOffers={similarOffers} activeOffer={id} sectionClassName={SECTION_CLASS_NAME}/>
         </section>
         <div className="container">
           <section className="near-places places">
@@ -154,6 +154,12 @@ const OfferDetailCard = (props) => {
   );
 };
 
+const mapStateToProps = (store) => {
+  return {
+    locations: store.locations,
+  };
+};
+
 OfferDetailCard.propTypes = {
   locations: PropTypes.arrayOf(
       PropTypes.exact({
@@ -165,4 +171,4 @@ OfferDetailCard.propTypes = {
 };
 
 
-export default OfferDetailCard;
+export default connect(mapStateToProps)(OfferDetailCard);

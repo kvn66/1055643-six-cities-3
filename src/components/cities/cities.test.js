@@ -1,11 +1,12 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import Map from "./map.jsx";
+import Cities from "./cities.jsx";
+import {Provider} from "react-redux";
+import configureStore from "redux-mock-store";
 
 const CITY_ID = 0;
-const ACTIVE_OFFER = 0;
-const SIMILAR_OFFERS = [1, 2, 3];
-const MAP_CLASS_NAME = `cities__map`;
+
+const mockStore = configureStore([]);
 
 const locations = [
   {
@@ -112,16 +113,20 @@ const locations = [
   }
 ];
 
-it(`Render Map`, () => {
+it(`Render Cities`, () => {
+  const store = mockStore({
+    cityId: 0,
+    locations
+  });
+
   const tree = renderer
     .create(
-        <Map
-          locations={locations}
-          cityId={CITY_ID}
-          similarOffers={SIMILAR_OFFERS}
-          activeOffer = {ACTIVE_OFFER}
-          sectionClassName = {MAP_CLASS_NAME}
-        />
+        <Provider store={store}>
+          <Cities
+            locations={locations}
+            cityId={CITY_ID}
+          />
+        </Provider>
     )
     .toJSON();
   expect(tree).toMatchSnapshot();
