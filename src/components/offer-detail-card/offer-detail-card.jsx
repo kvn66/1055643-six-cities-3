@@ -1,14 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {useParams} from "react-router-dom";
-import {getPlace} from "../../util";
+import {getPlace} from "../../utils";
 import Map from "../map/map.jsx";
 import OfferSmallCard from "../offer-small-card/offer-small-card.jsx";
 import Reviews from "../reviews/reviews.jsx";
-import {getSimilarOffers} from "../../util";
+import {getSimilarOffers} from "../../utils";
+import {connect} from "react-redux";
 
 const RADIX = 10;
-const SECTIONCLASSNAME = `property__map`;
+const SECTION_CLASS_NAME = `property__map`;
 
 
 const OfferDetailCard = (props) => {
@@ -138,7 +139,7 @@ const OfferDetailCard = (props) => {
               <Reviews reviews={reviews}/>
             </div>
           </div>
-          <Map locations={locations} cityId={cityId} similarOffers={similarOffers} activeOffer={id} sectionClassName={SECTIONCLASSNAME}/>
+          <Map locations={locations} cityId={cityId} similarOffers={similarOffers} activeOffer={id} sectionClassName={SECTION_CLASS_NAME}/>
         </section>
         <div className="container">
           <section className="near-places places">
@@ -153,6 +154,12 @@ const OfferDetailCard = (props) => {
   );
 };
 
+const mapStateToProps = (store) => {
+  return {
+    locations: store.locations,
+  };
+};
+
 OfferDetailCard.propTypes = {
   locations: PropTypes.arrayOf(
       PropTypes.exact({
@@ -164,4 +171,4 @@ OfferDetailCard.propTypes = {
 };
 
 
-export default OfferDetailCard;
+export default connect(mapStateToProps)(OfferDetailCard);

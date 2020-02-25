@@ -2,6 +2,10 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import {MemoryRouter} from "react-router-dom";
 import OfferDetailCard from "./offer-detail-card.jsx";
+import {Provider} from "react-redux";
+import configureStore from "redux-mock-store";
+
+const mockStore = configureStore([]);
 
 const locations = [
   {
@@ -109,10 +113,17 @@ const locations = [
 ];
 
 it(`Render OfferDetailCard`, () => {
+  const store = mockStore({
+    cityId: 0,
+    locations
+  });
+
   const tree = renderer
     .create(
         <MemoryRouter initialEntries={[`/offer/0`]}>
-          <OfferDetailCard locations={locations} />
+          <Provider store={store}>
+            <OfferDetailCard locations={locations} />
+          </Provider>
         </MemoryRouter>
     )
     .toJSON();

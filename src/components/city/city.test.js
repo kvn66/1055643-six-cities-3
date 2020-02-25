@@ -1,11 +1,8 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import Map from "./map.jsx";
+import City from "./city.jsx";
 
 const CITY_ID = 0;
-const ACTIVE_OFFER = 0;
-const SIMILAR_OFFERS = [1, 2, 3];
-const MAP_CLASS_NAME = `cities__map`;
 
 const locations = [
   {
@@ -112,15 +109,12 @@ const locations = [
   }
 ];
 
-it(`Render Map`, () => {
+it(`Render City`, () => {
   const tree = renderer
     .create(
-        <Map
+        <City
           locations={locations}
           cityId={CITY_ID}
-          similarOffers={SIMILAR_OFFERS}
-          activeOffer = {ACTIVE_OFFER}
-          sectionClassName = {MAP_CLASS_NAME}
         />
     )
     .toJSON();

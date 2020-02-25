@@ -29,7 +29,7 @@ export const getPlace = (id, locations) => {
     out.place = location.places.find((place) => {
       return place.id === id;
     });
-    return out.place;
+    return (out.place !== undefined);
   });
   return out;
 };
@@ -42,4 +42,8 @@ export const getSimilarOffers = (cityId, locations, placeId, all) => {
   const currentPlace = getPlace(placeId, locations);
   const similarOffers = locations[cityId].places.filter((place) => place.type === currentPlace.place.type).map((place) => place.id).filter((item) => item !== placeId);
   return getRandomArray(similarOffers);
+};
+
+export const extend = (a, b) => {
+  return Object.assign({}, a, b);
 };

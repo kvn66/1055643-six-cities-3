@@ -1,47 +1,46 @@
-import React, {PureComponent} from "react";
+import React from "react";
 import PropTypes from 'prop-types';
+import {setCityIdAction} from "../../reducer";
 import City from "../city/city.jsx";
 import CityNavItem from "../city-nav-item/city-nav-item.jsx";
+import {connect} from "react-redux";
 
-const INITIAL_CITY_ID = 0;
 const CITIES_MAX_COUNT = 6;
 
-class Cities extends PureComponent {
-  constructor(props) {
-    super(props);
+const Cities = (props) => {
+  const {locations, selectedCityId, setSelectedCity} = props;
 
-    this.state = {
-      cityId: INITIAL_CITY_ID,
-    };
+  const cityNav = locations.slice(0, CITIES_MAX_COUNT).map((location, index) =>
+    <CityNavItem key={index} city={location.city} setSelectedCity={setSelectedCity} cityId={index} selectedCityId={selectedCityId} />
+  );
 
-    this._setSelectedCity = this._setSelectedCity.bind(this);
-  }
+  return (
+    <main className={`page__main page__main--index ${locations[selectedCityId].places.length ? `` : `page__main--index-empty`}`}>
+      <h1 className="visually-hidden">Cities</h1>
+      <div className="tabs">
+        <section className="locations container">
+          <ul className="locations__list tabs__list">
+            {cityNav}
+          </ul>
+        </section>
+      </div>
+      <City locations={locations} cityId={selectedCityId} />
+    </main>
+  );
+};
 
-  _setSelectedCity(id) {
-    this.setState({
-      cityId: id,
-    });
-  }
+const mapStateToProps = (store) => {
+  return {
+    locations: store.locations,
+    selectedCityId: store.cityId,
+  };
+};
 
-  render() {
-    const {locations} = this.props;
-    const cityNav = locations.slice(0, CITIES_MAX_COUNT).map((location, index) => <CityNavItem key={index} locations={locations} setSelectedCity={this._setSelectedCity} cityId={index} selectedCityId={this.state.cityId} />);
-
-    return (
-      <main className="page__main page__main--index">
-        <h1 className="visually-hidden">Cities</h1>
-        <div className="tabs">
-          <section className="locations container">
-            <ul className="locations__list tabs__list">
-              {cityNav}
-            </ul>
-          </section>
-        </div>
-        <City locations={locations} cityId={this.state.cityId} />
-      </main>
-    );
-  }
-}
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setSelectedCity: (id) => dispatch(setCityIdAction(id))
+  };
+};
 
 Cities.propTypes = {
   locations: PropTypes.arrayOf(
@@ -50,8 +49,10 @@ Cities.propTypes = {
         cityCoordinates: PropTypes.array.isRequired,
         places: PropTypes.array.isRequired
       }).isRequired
-  ).isRequired
+  ).isRequired,
+  selectedCityId: PropTypes.number.isRequired,
+  setSelectedCity: PropTypes.func.isRequired,
 };
 
 
-export default Cities;
+export default connect(mapStateToProps, mapDispatchToProps)(Cities);

@@ -1,3 +1,7 @@
+const STORE_PREFIX = `sinemaddict-movies-localstorage`;
+const STORE_VER = `v1`;
+const STORE_NAME = `${STORE_PREFIX}-${STORE_VER}`;
+
 const IMAGES = [`/img/apartment-01.jpg`, `/img/apartment-02.jpg`, `/img/apartment-03.jpg`, `/img/room.jpg`];
 const INSIDE = [`Wi-Fi`, `Washing machine`, `Towels`, `Heating`, `Coffee machine`, `Baby seat`, `Kitchen`, `Dishwasher`, `Cabel TV`, `Fridge`];
 const NAMES = [
@@ -109,7 +113,15 @@ const getPlaces = (initCoordinates, placeId) => {
   return new Array(getRandomInt(15, 25)).fill(``).map(() => getPlace(placeId, initCoordinates));
 };
 
-const getLocation = (city, placeId) => {
+const getLocation = (city, placeId, index) => {
+  if (index === 5) {
+    return {
+      city: city.name,
+      cityCoordinates: city.coordinates,
+      places: []
+    };
+  }
+
   return {
     city: city.name,
     cityCoordinates: city.coordinates,
@@ -117,9 +129,57 @@ const getLocation = (city, placeId) => {
   };
 };
 
-const getLocations = () => {
+const generateLocations = () => {
   let placeId = {id: 0};
-  return CITIES.map((city) => getLocation(city, placeId));
+  return CITIES.map((city, index) => getLocation(city, placeId, index));
 };
 
-export const locations = getLocations();
+class Store {
+  constructor(storeName, storage) {
+    this._storage = storage;
+    this._storeName = storeName;
+  }
+
+  clear() {
+    this._storage.setItem(
+        this._storeName,
+        JSON.stringify({})
+    );
+  }
+
+  getAll() {
+    try {
+      return JSON.parse(this._storage.getItem(this._storeName));
+    } catch (err) {
+      return {};
+    }
+  }
+
+  getItem(key) {
+    const store = this.getAll();
+    return store[key];
+  }
+
+  setItem(key, value) {
+    const store = this.getAll();
+
+    this._storage.setItem(
+        this._storeName,
+        JSON.stringify(
+            Object.assign({}, store, {[key]: value})
+        )
+    );
+  }
+}
+
+const store = new Store(STORE_NAME, window.localStorage);
+
+const getLocations = (rewrite) => {
+  if (!store.getAll() || rewrite) {
+    store.setItem(`locations`, generateLocations());
+  }
+
+  return store.getItem(`locations`);
+};
+
+export const locations = getLocations(false);

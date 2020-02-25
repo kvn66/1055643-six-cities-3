@@ -1,7 +1,7 @@
 import React, {PureComponent, createRef} from "react";
 import PropTypes from "prop-types";
 import leaflet from "leaflet";
-import {getPlace} from "../../util";
+import {getPlace} from "../../utils";
 import {UNSELECTED_CARD_ID} from "../../const.js";
 
 const ZOOM = 12;

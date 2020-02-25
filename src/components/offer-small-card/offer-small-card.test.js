@@ -1,6 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import OfferSmallCard from "./offer-small-card.jsx";
+import PropTypes from "prop-types";
 
 const place = {
   id: 0,
@@ -33,6 +34,8 @@ it(`Render OfferSmallCard`, () => {
     .create(
         <OfferSmallCard
           place={place}
+          setSelectedCard={()=>{}}
+          isDetail={false}
         />
     )
     .toJSON();
