@@ -1,9 +1,11 @@
 import React, {PureComponent} from "react";
 import PropTypes from 'prop-types';
-import {UNSELECTED_CARD_ID} from "../../const.js";
+import {UNSELECTED_CARD_ID} from "../../const";
 import OfferSmallCard from "../offer-small-card/offer-small-card.jsx";
 import Map from "../map/map.jsx";
 import {getSimilarOffers} from "../../utils";
+import {setCityIdAction} from "../../reducers/city-select";
+import {connect} from "react-redux";
 
 const MAP_CLASS_NAME = `cities__map`;
 
@@ -41,7 +43,7 @@ class City extends PureComponent {
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{places.length} places to stay in {city}</b>
               <form className="places__sorting" action="#" method="get">
-                <span className="places__sorting-caption">Sort by</span>
+                <span className="places__sorting-caption">Sort by </span>
                 <span className="places__sorting-type" tabIndex="0">
                   Popular
                   <svg className="places__sorting-arrow" width="7" height="4">
@@ -81,6 +83,19 @@ class City extends PureComponent {
   }
 }
 
+const mapStateToProps = (store) => {
+  return {
+    locations: store.locations.locations,
+    cityId: store.citySelect.cityId,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setSelectedCity: (id) => dispatch(setCityIdAction(id))
+  };
+};
+
 City.propTypes = {
   locations: PropTypes.arrayOf(
       PropTypes.exact({
@@ -92,4 +107,4 @@ City.propTypes = {
   cityId: PropTypes.number.isRequired
 };
 
-export default City;
+export default connect(mapStateToProps, mapDispatchToProps)(City);

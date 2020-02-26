@@ -1,5 +1,5 @@
-import rootReducer, {SET_SITY_ID, setCityIdAction} from "./reducer.js";
-import {locations} from "./mocks/offers.js";
+import rootReducer, {SET_SITY_ID, setCityIdAction} from "./root-reducer.js";
+import {locations} from "../mocks/offers.js";
 
 it(`Reducer without additional parameters should return initial state`, () => {
   expect(rootReducer(void 0, {})).toEqual({
