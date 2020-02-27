@@ -7,7 +7,7 @@ const initialState = {
   cardId: UNSELECTED_CARD_ID,
 };
 
-export const setCardIdAction = (id) => ({
+export const setSelectedCardIdAction = (id) => ({
   type: SET_CARD_ID,
   payload: id,
 });

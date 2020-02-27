@@ -8,7 +8,7 @@ const initialState = {
   cityId: INITIAL_CITY_ID,
 };
 
-export const setCityIdAction = (id) => ({
+export const setSelectedCityIdAction = (id) => ({
   type: SET_SITY_ID,
   payload: id,
 });

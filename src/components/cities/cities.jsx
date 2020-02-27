@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import {setCityIdAction} from "../../reducers/city-select";
+import {setSelectedCityIdAction} from "../../reducers/city-select";
 import City from "../city/city.jsx";
 import CityNavItem from "../city-nav-item/city-nav-item.jsx";
 import {connect} from "react-redux";
@@ -24,7 +24,7 @@ const Cities = (props) => {
           </ul>
         </section>
       </div>
-      <City locations={locations} cityId={selectedCityId} />
+      <City />
     </main>
   );
 };
@@ -38,7 +38,7 @@ const mapStateToProps = (store) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setSelectedCity: (id) => dispatch(setCityIdAction(id))
+    setSelectedCity: (id) => dispatch(setSelectedCityIdAction(id))
   };
 };
 

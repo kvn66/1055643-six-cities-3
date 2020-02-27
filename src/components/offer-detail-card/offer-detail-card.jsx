@@ -18,7 +18,7 @@ const OfferDetailCard = (props) => {
   const {locations} = props;
   const {place, cityId} = getPlace(parseInt(cardId, RADIX), locations);
   const {id, images, priceValue, priceText, name, descriptions, type, bedrooms, adults, rating, inside, isPremium, owner, reviews} = place;
-  const similarOffers = getSimilarOffers(cityId, locations, id, false);
+  const similarOffers = getSimilarOffers(locations[cityId].places, id, false);
   const cards = similarOffers.map((offerId) =>
     <OfferSmallCard key={offerId} place={getPlace(offerId, locations).place} setSelectedCard = {()=>{}} isDetail={true} />
   );
@@ -156,7 +156,7 @@ const OfferDetailCard = (props) => {
 
 const mapStateToProps = (store) => {
   return {
-    locations: store.locations,
+    locations: store.locations.locations,
   };
 };
 
