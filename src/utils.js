@@ -34,13 +34,13 @@ export const getPlace = (id, locations) => {
   return out;
 };
 
-export const getSimilarOffers = (cityId, locations, placeId, all) => {
+export const getSimilarOffers = (places, placeId, all) => {
   if (all) {
-    return locations[cityId].places.map((place) => place.id).filter((item) => item !== placeId);
+    return places.map((place) => place.id).filter((item) => item !== placeId);
   }
 
-  const currentPlace = getPlace(placeId, locations);
-  const similarOffers = locations[cityId].places.filter((place) => place.type === currentPlace.place.type).map((place) => place.id).filter((item) => item !== placeId);
+  const currentPlace = places.find((place) => place.id === placeId);
+  const similarOffers = places.filter((place) => place.type === currentPlace.type).map((place) => place.id).filter((item) => item !== placeId);
   return getRandomArray(similarOffers);
 };
 

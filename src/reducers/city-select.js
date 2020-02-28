@@ -1,5 +1,4 @@
-import {extend} from "./utils.js";
-import {locations} from "./mocks/offers.js";
+import {extend} from "../utils.js";
 
 const INITIAL_CITY_ID = 0;
 
@@ -7,15 +6,14 @@ export const SET_SITY_ID = `SET_SITY_ID`;
 
 const initialState = {
   cityId: INITIAL_CITY_ID,
-  locations
 };
 
-export const setCityIdAction = (id) => ({
+export const setSelectedCityIdAction = (id) => ({
   type: SET_SITY_ID,
   payload: id,
 });
 
-const rootReducer = (state = initialState, action) => {
+const citySelectReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_SITY_ID:
       return extend(state, {
@@ -26,4 +24,4 @@ const rootReducer = (state = initialState, action) => {
   }
 };
 
-export default rootReducer;
+export default citySelectReducer;
