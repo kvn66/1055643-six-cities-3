@@ -1,8 +1,14 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import City from "./city.jsx";
+import {Provider} from "react-redux";
+import configureStore from "redux-mock-store";
+import {InitValue} from "../../reducers/cards-sorting-menu";
 
 const CITY_ID = 0;
+const CARD_ID = 0;
+
+const mockStore = configureStore([]);
 
 const locations = [
   {
@@ -109,13 +115,30 @@ const locations = [
   }
 ];
 
-it(`Render City`, () => {
+it(`Render Cities`, () => {
+  const store = mockStore({
+    locations: {
+      locations
+    },
+    citySelect: {
+      cityId: CITY_ID
+    },
+    cardsSortingMenu: {
+      sortingMethodId: InitValue.INITIAL_SORTING_METHOD_ID,
+      menuState: InitValue.INITIAL_MENU_STATE
+    },
+    cardSelect: {
+      cardId: CARD_ID
+    }
+  });
+
   const tree = renderer
     .create(
-        <City
-          locations={locations}
-          cityId={CITY_ID}
-        />
+        <Provider store={store}>
+          <City
+            setSelectedCard={() => {}}
+          />
+        </Provider>
     )
     .toJSON();
   expect(tree).toMatchSnapshot();

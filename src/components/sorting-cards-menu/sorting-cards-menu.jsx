@@ -14,8 +14,7 @@ const SoringCardsMenu = (props) => {
   const {selectedSortingMethod, menuState, setSortingMethod, setMenuState} = props;
 
   const menuClickHandler = () => {
-    const newState = !menuState;
-    setMenuState(newState);
+    setMenuState(!menuState);
   };
 
   const changeSortingMethod = (sortingMethod) => {

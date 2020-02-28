@@ -1,11 +1,11 @@
 import {extend} from "../utils.js";
 
-const ActionType = {
+export const ActionType = {
   SET_MENU_STATE: `SET_MENU_STATE`,
   SET_SORTING_METHOD: `SET_SORTING_METHOD`,
 };
 
-const InitValue = {
+export const InitValue = {
   INITIAL_SORTING_METHOD_ID: 0,
   INITIAL_MENU_STATE: false,
 };

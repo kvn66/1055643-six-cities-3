@@ -114,15 +114,16 @@ const locations = [
 
 it(`Render OfferDetailCard`, () => {
   const store = mockStore({
-    cityId: 0,
-    locations
+    locations: {
+      locations
+    }
   });
 
   const tree = renderer
     .create(
         <MemoryRouter initialEntries={[`/offer/0`]}>
           <Provider store={store}>
-            <OfferDetailCard locations={locations} />
+            <OfferDetailCard />
           </Provider>
         </MemoryRouter>
     )
