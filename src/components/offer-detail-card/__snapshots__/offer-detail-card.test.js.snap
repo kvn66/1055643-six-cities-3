@@ -139,7 +139,7 @@ exports[`Render OfferDetailCard 1`] = `
               <span
                 style={
                   Object {
-                    "width": "80%",
+                    "width": "90%",
                   }
                 }
               />
@@ -688,7 +688,7 @@ exports[`Render OfferDetailCard 1`] = `
                   <span
                     style={
                       Object {
-                        "width": "80%",
+                        "width": "90%",
                       }
                     }
                   />
@@ -786,7 +786,7 @@ exports[`Render OfferDetailCard 1`] = `
                   <span
                     style={
                       Object {
-                        "width": "80%",
+                        "width": "90%",
                       }
                     }
                   />

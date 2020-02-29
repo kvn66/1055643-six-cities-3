@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from 'prop-types';
 import {setSelectedCityIdAction} from "../../reducers/city-select";
 import City from "../city/city.jsx";
-import CityNavItem from "../city-nav-item/city-nav-item.jsx";
+import MemoizedCityNavItem from "../city-nav-item/city-nav-item.jsx";
 import {connect} from "react-redux";
 
 const CITIES_MAX_COUNT = 6;
@@ -11,7 +11,7 @@ const Cities = (props) => {
   const {locations, selectedCityId, setSelectedCity} = props;
 
   const cityNav = locations.map((location, index) =>
-    <CityNavItem key={index} city={location.city} setSelectedCity={setSelectedCity} cityId={index} selectedCityId={selectedCityId} />
+    <MemoizedCityNavItem key={index} city={location.city} setSelectedCity={setSelectedCity} cityId={index} selectedCityId={selectedCityId} />
   );
 
   return (

@@ -195,7 +195,7 @@ exports[`Render Cities 1`] = `
                   <span
                     style={
                       Object {
-                        "width": "80%",
+                        "width": "90%",
                       }
                     }
                   />
@@ -293,7 +293,7 @@ exports[`Render Cities 1`] = `
                   <span
                     style={
                       Object {
-                        "width": "80%",
+                        "width": "90%",
                       }
                     }
                   />
@@ -391,7 +391,7 @@ exports[`Render Cities 1`] = `
                   <span
                     style={
                       Object {
-                        "width": "80%",
+                        "width": "90%",
                       }
                     }
                   />
@@ -496,7 +496,7 @@ exports[`Render Cities 1`] = `
                   <span
                     style={
                       Object {
-                        "width": "80%",
+                        "width": "90%",
                       }
                     }
                   />
