@@ -4,7 +4,7 @@ import MemoizedCityNavItem from "./city-nav-item.jsx";
 
 const CITY_ID = 0;
 
-it(`Render CityNavItem`, () => {
+it(`Render MemoizedCityNavItem`, () => {
   const tree = renderer
     .create(
         <MemoizedCityNavItem

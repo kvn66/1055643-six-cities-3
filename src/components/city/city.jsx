@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import OfferSmallCard from "../offer-small-card/offer-small-card.jsx";
+import MemoizedOfferSmallCard from "../offer-small-card/offer-small-card.jsx";
 import Map from "../map/map.jsx";
 import SoringCardsMenu from "../sorting-cards-menu/sorting-cards-menu.jsx";
 import {getSimilarOffers} from "../../utils";
@@ -15,7 +15,7 @@ const City = (props) => {
   const {city} = location;
   const similarOffers = getSimilarOffers(sortedPlaces, selectedCard, true);
   const cards = sortedPlaces.map((place) =>
-    <OfferSmallCard key={place.id} place={place} setSelectedCard = {setSelectedCard} isDetail={false} />
+    <MemoizedOfferSmallCard key={place.id} place={place} setSelectedCard = {setSelectedCard} isDetail={false} />
   );
 
   return (

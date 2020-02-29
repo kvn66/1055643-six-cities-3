@@ -94,4 +94,6 @@ OfferSmallCard.propTypes = {
   isDetail: PropTypes.bool.isRequired
 };
 
-export default OfferSmallCard;
+const MemoizedOfferSmallCard = React.memo(OfferSmallCard);
+
+export default MemoizedOfferSmallCard;

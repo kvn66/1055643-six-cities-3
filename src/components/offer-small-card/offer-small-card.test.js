@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import OfferSmallCard from "./offer-small-card.jsx";
+import MemoizedOfferSmallCard from "./offer-small-card.jsx";
 
 const place = {
   id: 0,
@@ -27,11 +27,11 @@ const place = {
   reviews: [0, 1]
 };
 
-it(`Render OfferSmallCard`, () => {
+it(`Render MemoizedOfferSmallCard`, () => {
 
   const tree = renderer
     .create(
-        <OfferSmallCard
+        <MemoizedOfferSmallCard
           place={place}
           setSelectedCard={()=>{}}
           isDetail={false}

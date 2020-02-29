@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Render CityNavItem 1`] = `
+exports[`Render MemoizedCityNavItem 1`] = `
 <li
   className="locations__item"
 >
