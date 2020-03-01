@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import {useParams} from "react-router-dom";
 import {getPlace} from "../../utils";
 import Map from "../map/map.jsx";
-import OfferSmallCard from "../offer-small-card/offer-small-card.jsx";
+import MemoizedOfferSmallCard from "../offer-small-card/offer-small-card.jsx";
 import Reviews from "../reviews/reviews.jsx";
 import {getSimilarOffers} from "../../utils";
 import {connect} from "react-redux";
@@ -20,7 +20,7 @@ const OfferDetailCard = (props) => {
   const {id, images, priceValue, priceText, name, descriptions, type, bedrooms, adults, rating, inside, isPremium, owner, reviews} = place;
   const similarOffers = getSimilarOffers(locations[cityId].places, id, false);
   const cards = similarOffers.map((offerId) =>
-    <OfferSmallCard key={offerId} place={getPlace(offerId, locations).place} setSelectedCard = {()=>{}} isDetail={true} />
+    <MemoizedOfferSmallCard key={offerId} place={getPlace(offerId, locations).place} setSelectedCard = {()=>{}} isDetail={true} />
   );
 
   return (
@@ -81,7 +81,7 @@ const OfferDetailCard = (props) => {
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
-                  <span style={{width: `80%`}}/>
+                  <span style={{width: `${rating * 20}%`}}/>
                   <span className="visually-hidden">Rating</span>
                 </div>
                 <span className="property__rating-value rating__value">{rating.toFixed(1)}</span>

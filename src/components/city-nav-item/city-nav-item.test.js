@@ -1,14 +1,13 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import CityNavItem from "./city-nav-item.jsx";
+import MemoizedCityNavItem from "./city-nav-item.jsx";
 
 const CITY_ID = 0;
 
-
-it(`Render CityNavItem`, () => {
+it(`Render MemoizedCityNavItem`, () => {
   const tree = renderer
     .create(
-        <CityNavItem
+        <MemoizedCityNavItem
           city = {`Paris`}
           setSelectedCity = {() => {}}
           cityId = {CITY_ID}

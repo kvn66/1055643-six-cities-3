@@ -15,7 +15,7 @@ const ClassName = {
 
 const OfferSmallCard = (props) => {
   const {place, setSelectedCard, isDetail} = props;
-  const {id, images, priceValue, priceText, name, type, isPremium} = place;
+  const {id, images, priceValue, priceText, name, type, rating, isPremium} = place;
   const linkToDetail = `/offer/${id}`;
   const articleClassName = isDetail ? ClassName.DETAIL.ARTICLE : ClassName.CITY.ARTICLE;
   const imageClassName = isDetail ? ClassName.DETAIL.IMAGE : ClassName.CITY.IMAGE;
@@ -55,7 +55,7 @@ const OfferSmallCard = (props) => {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: `80%`}}/>
+            <span style={{width: `${rating * 20}%`}}/>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
@@ -94,4 +94,6 @@ OfferSmallCard.propTypes = {
   isDetail: PropTypes.bool.isRequired
 };
 
-export default OfferSmallCard;
+const MemoizedOfferSmallCard = React.memo(OfferSmallCard);
+
+export default MemoizedOfferSmallCard;
