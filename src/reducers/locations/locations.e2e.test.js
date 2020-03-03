@@ -1,5 +1,5 @@
 import locationsReducer from "./locations";
-import {locations} from "../mocks/offers.js";
+import {locations} from "../../mocks/offers.js";
 
 
 it(`Reducer without additional parameters should return initial state`, () => {

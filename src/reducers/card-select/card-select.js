@@ -1,5 +1,5 @@
-import {extend} from "../utils.js";
-import {UNSELECTED_CARD_ID} from "../const";
+import {extend} from "../../utils.js";
+import {UNSELECTED_CARD_ID} from "../../const";
 
 export const SET_CARD_ID = `SET_CARD_ID`;
 

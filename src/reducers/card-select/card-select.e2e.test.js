@@ -1,5 +1,5 @@
 import cardSelectReducer, {SET_CARD_ID, setSelectedCardIdAction} from "./card-select";
-import {UNSELECTED_CARD_ID} from "../const";
+import {UNSELECTED_CARD_ID} from "../../const";
 
 it(`Reducer without additional parameters should return initial state`, () => {
   expect(cardSelectReducer(void 0, {})).toEqual({

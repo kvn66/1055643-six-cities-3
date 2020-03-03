@@ -4,7 +4,7 @@ import MemoizedOfferSmallCard from "../offer-small-card/offer-small-card.jsx";
 import Map from "../map/map.jsx";
 import SoringCardsMenu from "../sorting-cards-menu/sorting-cards-menu.jsx";
 import {getSimilarOffers} from "../../utils";
-import {setSelectedCardIdAction} from "../../reducers/card-select";
+import {setSelectedCardIdAction} from "../../reducers/card-select/card-select";
 import {connect} from "react-redux";
 
 const MAP_CLASS_NAME = `cities__map`;

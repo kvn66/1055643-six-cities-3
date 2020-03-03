@@ -3,7 +3,7 @@ import renderer from 'react-test-renderer';
 import App from "./app.jsx";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
-import {InitValue} from "../../reducers/cards-sorting-menu";
+import {InitValue} from "../../reducers/cards-sorting-menu/cards-sorting-menu";
 
 const CITY_ID = 0;
 const CARD_ID = 0;

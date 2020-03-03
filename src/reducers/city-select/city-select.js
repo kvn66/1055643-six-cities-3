@@ -1,21 +1,27 @@
-import {extend} from "../utils.js";
+import {extend} from "../../utils.js";
 
 const INITIAL_CITY_ID = 0;
-
-export const SET_SITY_ID = `SET_SITY_ID`;
 
 const initialState = {
   cityId: INITIAL_CITY_ID,
 };
 
-export const setSelectedCityIdAction = (id) => ({
-  type: SET_SITY_ID,
-  payload: id,
-});
+const ActionType = {
+  SET_CITY_ID: `SET_CITY_ID`,
+};
+
+export const ActionCreator = {
+  setSelectedCityId: (id) => {
+    return {
+      type: ActionType.SET_CITY_ID,
+      payload: id,
+    };
+  },
+};
 
 const citySelectReducer = (state = initialState, action) => {
   switch (action.type) {
-    case SET_SITY_ID:
+    case ActionType.SET_CITY_ID:
       return extend(state, {
         cityId: action.payload,
       });

@@ -1,4 +1,4 @@
-import {extend} from "../utils.js";
+import {extend} from "../../utils.js";
 
 export const ActionType = {
   SET_MENU_STATE: `SET_MENU_STATE`,

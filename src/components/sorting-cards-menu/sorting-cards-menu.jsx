@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import {setSortingCardsMethodAction, setMenuStateAction} from "../../reducers/cards-sorting-menu";
+import {setSortingCardsMethodAction, setMenuStateAction} from "../../reducers/cards-sorting-menu/cards-sorting-menu";
 import {connect} from "react-redux";
 import SortingCardsMenuItem from "../sorting-cards-menu-item/sorting-cards-menu-item.jsx";
 import {SORTING_METHODS} from "../../const";

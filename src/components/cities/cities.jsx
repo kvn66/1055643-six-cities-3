@@ -1,21 +1,21 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import {setSelectedCityIdAction} from "../../reducers/city-select";
+import {getSelectedCityId} from "../../reducers/city-select/selectors";
+import {getCityNames, getLocationsCount} from "../../reducers/locations/selectors";
+import {ActionCreator} from "../../reducers/city-select/city-select";
 import City from "../city/city.jsx";
 import MemoizedCityNavItem from "../city-nav-item/city-nav-item.jsx";
 import {connect} from "react-redux";
 
-const CITIES_MAX_COUNT = 6;
-
 const Cities = (props) => {
-  const {locations, selectedCityId, setSelectedCity} = props;
+  const {locationsCount, cityNames, selectedCityId, setSelectedCity} = props;
 
-  const cityNav = locations.map((location, index) =>
-    <MemoizedCityNavItem key={index} city={location.city} setSelectedCity={setSelectedCity} cityId={index} selectedCityId={selectedCityId} />
+  const cityNav = cityNames.map((cityName, index) =>
+    <MemoizedCityNavItem key={index} city={cityName} setSelectedCity={setSelectedCity} cityId={index} selectedCityId={selectedCityId} />
   );
 
   return (
-    <main className={`page__main page__main--index ${locations[selectedCityId].places.length ? `` : `page__main--index-empty`}`}>
+    <main className={`page__main page__main--index ${locationsCount ? `` : `page__main--index-empty`}`}>
       <h1 className="visually-hidden">Cities</h1>
       <div className="tabs">
         <section className="locations container">
@@ -31,25 +31,21 @@ const Cities = (props) => {
 
 const mapStateToProps = (store) => {
   return {
-    locations: store.locations.locations.slice(0, CITIES_MAX_COUNT),
-    selectedCityId: store.citySelect.cityId,
+    locationsCount: getLocationsCount(store),
+    cityNames: getCityNames(store),
+    selectedCityId: getSelectedCityId(store),
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setSelectedCity: (id) => dispatch(setSelectedCityIdAction(id))
+    setSelectedCity: (id) => dispatch(ActionCreator.setSelectedCityId(id))
   };
 };
 
 Cities.propTypes = {
-  locations: PropTypes.arrayOf(
-      PropTypes.exact({
-        city: PropTypes.string.isRequired,
-        cityCoordinates: PropTypes.array.isRequired,
-        places: PropTypes.array.isRequired
-      }).isRequired
-  ).isRequired,
+  locationsCount: PropTypes.number.isRequired,
+  cityNames: PropTypes.arrayOf(PropTypes.string).isRequired,
   selectedCityId: PropTypes.number.isRequired,
   setSelectedCity: PropTypes.func.isRequired,
 };
