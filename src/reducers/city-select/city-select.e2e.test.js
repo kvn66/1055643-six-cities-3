@@ -4,18 +4,18 @@ const INITIAL_CITY_ID = 0;
 
 it(`Reducer without additional parameters should return initial state`, () => {
   expect(citySelectReducer(void 0, {})).toEqual({
-    cityId: INITIAL_CITY_ID,
+    cityName: INITIAL_CITY_ID,
   });
 });
 
 it(`Reducer should save cityId`, () => {
   expect(citySelectReducer({
-    cityId: 0,
+    cityName: 0,
   }, {
     type: SET_CITY_ID,
     payload: 1,
   })).toEqual({
-    cityId: 1,
+    cityName: 1,
   });
 });
 

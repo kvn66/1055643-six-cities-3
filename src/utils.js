@@ -22,28 +22,21 @@ const getRandomArray = (initArray) => {
   return Array.from(set).map((item) => initArray[item]);
 };
 
-export const getPlace = (id, locations) => {
-  let out = {};
-  out.place = null;
-  out.cityId = locations.findIndex((location) => {
-    out.place = location.places.find((place) => {
-      return place.id === id;
-    });
-    return (out.place !== undefined);
-  });
-  return out;
+export const getCard = (id, cards) => {
+  return cards.find((card) => card.id === id);
 };
 
-export const getSimilarOffers = (places, placeId, all) => {
+export const getSimilarOffers = (cards, cardId, all) => {
   if (all) {
-    return places.map((place) => place.id).filter((item) => item !== placeId);
+    return cards.filter((card) => card.id !== cardId);
   }
 
-  const currentPlace = places.find((place) => place.id === placeId);
-  const similarOffers = places.filter((place) => place.type === currentPlace.type).map((place) => place.id).filter((item) => item !== placeId);
+  const currentCard = cards.find((card) => card.id === cardId);
+  const similarOffers = cards.filter((card) => card.type === currentCard.type).filter((card) => card.id !== cardId);
   return getRandomArray(similarOffers);
 };
 
 export const extend = (a, b) => {
   return Object.assign({}, a, b);
 };
+

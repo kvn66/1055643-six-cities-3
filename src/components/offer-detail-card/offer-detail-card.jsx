@@ -1,12 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {useParams} from "react-router-dom";
-import {getPlace} from "../../utils";
+import {getCard} from "../../utils";
 import Map from "../map/map.jsx";
-import MemoizedOfferSmallCard from "../offer-small-card/offer-small-card.jsx";
+import {MemoizedOfferSmallCard} from "../offer-small-card/offer-small-card.jsx";
 import Reviews from "../reviews/reviews.jsx";
 import {getSimilarOffers} from "../../utils";
 import {connect} from "react-redux";
+import {getAllCards} from "../../reducers/cards/selectors";
 
 const RADIX = 10;
 const SECTION_CLASS_NAME = `property__map`;
@@ -15,12 +16,13 @@ const SECTION_CLASS_NAME = `property__map`;
 const OfferDetailCard = (props) => {
   const {id: idParam} = useParams();
   const cardId = idParam === undefined ? `0` : idParam;
-  const {locations} = props;
-  const {place, cityId} = getPlace(parseInt(cardId, RADIX), locations);
-  const {id, images, priceValue, priceText, name, descriptions, type, bedrooms, adults, rating, inside, isPremium, owner, reviews} = place;
-  const similarOffers = getSimilarOffers(locations[cityId].places, id, false);
-  const cards = similarOffers.map((offerId) =>
-    <MemoizedOfferSmallCard key={offerId} place={getPlace(offerId, locations).place} setSelectedCard = {()=>{}} isDetail={true} />
+  const {cards} = props;
+  const card = getCard(parseInt(cardId, RADIX), cards);
+  console.log(cardId, cards);
+  const {id, images, price, title, description, type, bedrooms, maxAdults, rating, goods, isPremium, host} = card;
+  const similarOffers = getSimilarOffers(cards, id, false);
+  const cardsElement = similarOffers.map((offer) =>
+    <MemoizedOfferSmallCard key={offer.id} card={offer} setSelectedCard = {()=>{}} isDetail={true} />
   );
 
   return (
@@ -70,7 +72,7 @@ const OfferDetailCard = (props) => {
               }
               <div className="property__name-wrapper">
                 <h1 className="property__name">
-                  {name}
+                  {title}
                 </h1>
                 <button className="property__bookmark-button button" type="button">
                   <svg className="property__bookmark-icon" width="31" height="33">
@@ -94,18 +96,18 @@ const OfferDetailCard = (props) => {
                   {bedrooms} Bedrooms
                 </li>
                 <li className="property__feature property__feature--adults">
-                  Max {adults} adults
+                  Max {maxAdults} adults
                 </li>
               </ul>
               <div className="property__price">
-                <b className="property__price-value">&euro;{priceValue}</b>
-                <span className="property__price-text">&nbsp;{priceText}</span>
+                <b className="property__price-value">&euro;{price}</b>
+                <span className="property__price-text">&nbsp;night</span>
               </div>
               <div className="property__inside">
                 <h2 className="property__inside-title">What&apos;s inside</h2>
                 <ul className="property__inside-list">
                   {
-                    inside.map((insideItem, index) =>
+                    goods.map((insideItem, index) =>
                       <li key={index} className="property__inside-item">
                         {insideItem}
                       </li>
@@ -116,36 +118,32 @@ const OfferDetailCard = (props) => {
               <div className="property__host">
                 <h2 className="property__host-title">Meet the host</h2>
                 <div className="property__host-user user">
-                  <div className={`property__avatar-wrapper ${owner.isSuper ? `property__avatar-wrapper--pro` : ``} user__avatar-wrapper`}>
+                  <div className={`property__avatar-wrapper ${host.isSuper ? `property__avatar-wrapper--pro` : ``} user__avatar-wrapper`}>
                     <img
-                      className="property__avatar user__avatar" src={owner.avatar} width="74" height="74"
+                      className="property__avatar user__avatar" src={host.avatar} width="74" height="74"
                       alt="Host avatar"
                     />
                   </div>
                   <span className="property__user-name">
-                    {owner.name}
+                    {host.name}
                   </span>
                 </div>
                 <div className="property__description">
-                  {
-                    descriptions.map((description, index) =>
-                      <p key={index} className="property__text">
-                        {description}
-                      </p>
-                    )
-                  }
+                  <p className="property__text">
+                    {description}
+                  </p>
                 </div>
               </div>
-              <Reviews reviews={reviews}/>
+              {/*<Reviews reviews={reviews}/>*/}
             </div>
           </div>
-          <Map locations={locations} cityId={cityId} similarOffers={similarOffers} activeOffer={id} sectionClassName={SECTION_CLASS_NAME}/>
+          <Map cards={cards} similarOffers={similarOffers} selectedCardId={id} sectionClassName={SECTION_CLASS_NAME}/>
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              {cards}
+              {cardsElement}
             </div>
           </section>
         </div>
@@ -156,16 +154,45 @@ const OfferDetailCard = (props) => {
 
 const mapStateToProps = (store) => {
   return {
-    locations: store.locations.locations,
+    cards: getAllCards(store),
   };
 };
 
 OfferDetailCard.propTypes = {
-  locations: PropTypes.arrayOf(
+  cards: PropTypes.arrayOf(
       PropTypes.exact({
-        city: PropTypes.string.isRequired,
-        cityCoordinates: PropTypes.array.isRequired,
-        places: PropTypes.array.isRequired
+        id: PropTypes.number.isRequired,
+        city: PropTypes.exact({
+          location: PropTypes.exact({
+            latitude: PropTypes.number.isRequired,
+            longitude: PropTypes.number.isRequired,
+            zoom: PropTypes.number.isRequired,
+          }).isRequired,
+          name: PropTypes.string.isRequired,
+        }).isRequired,
+        bedrooms: PropTypes.number.isRequired,
+        images: PropTypes.array.isRequired,
+        description: PropTypes.string.isRequired,
+        goods: PropTypes.array.isRequired,
+        host: PropTypes.exact({
+          id: PropTypes.number.isRequired,
+          name: PropTypes.string.isRequired,
+          avatarUrl: PropTypes.string.isRequired,
+          isPro: PropTypes.bool.isRequired
+        }).isRequired,
+        isFavorite: PropTypes.bool.isRequired,
+        isPremium: PropTypes.bool.isRequired,
+        location: PropTypes.exact({
+          latitude: PropTypes.number.isRequired,
+          longitude: PropTypes.number.isRequired,
+          zoom: PropTypes.number.isRequired,
+        }).isRequired,
+        maxAdults: PropTypes.number.isRequired,
+        previewImage: PropTypes.string.isRequired,
+        price: PropTypes.number.isRequired,
+        rating: PropTypes.number.isRequired,
+        title: PropTypes.string.isRequired,
+        type: PropTypes.string.isRequired,
       }).isRequired
   ).isRequired
 };

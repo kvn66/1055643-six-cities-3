@@ -96,7 +96,7 @@ const getPlace = (placeId, initCoordinates) => {
     bedrooms: getRandomInt(1, 5),
     adults: getRandomInt(1, 5),
     rating: getRandomFloat(0, 5),
-    inside: getRandomArray(INSIDE),
+    goods: getRandomArray(INSIDE),
     isPremium: getRandomBool(),
     owner: {
       name: `Angelina`,

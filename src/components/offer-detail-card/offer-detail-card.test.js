@@ -27,7 +27,7 @@ const locations = [
         bedrooms: 2,
         adults: 3,
         rating: 4.5,
-        inside: [`Wi-Fi`, `Washing machine`, `Towels`, `Heating`, `Coffee machine`, `Baby seat`, `Kitchen`, `Dishwasher`, `Cabel TV`, `Fridge`],
+        goods: [`Wi-Fi`, `Washing machine`, `Towels`, `Heating`, `Coffee machine`, `Baby seat`, `Kitchen`, `Dishwasher`, `Cabel TV`, `Fridge`],
         isPremium: true,
         owner: {
           name: `Angelina`,
@@ -51,7 +51,7 @@ const locations = [
         bedrooms: 2,
         adults: 3,
         rating: 4.5,
-        inside: [`Wi-Fi`, `Washing machine`, `Towels`, `Heating`, `Baby seat`, `Kitchen`, `Dishwasher`, `Cabel TV`, `Fridge`],
+        goods: [`Wi-Fi`, `Washing machine`, `Towels`, `Heating`, `Baby seat`, `Kitchen`, `Dishwasher`, `Cabel TV`, `Fridge`],
         isPremium: false,
         owner: {
           name: `Angelina`,
@@ -75,7 +75,7 @@ const locations = [
         bedrooms: 2,
         adults: 3,
         rating: 4.5,
-        inside: [`Wi-Fi`, `Washing machine`, `Towels`, `Heating`, `Coffee machine`, `Baby seat`, `Kitchen`, `Dishwasher`],
+        goods: [`Wi-Fi`, `Washing machine`, `Towels`, `Heating`, `Coffee machine`, `Baby seat`, `Kitchen`, `Dishwasher`],
         isPremium: false,
         owner: {
           name: `Angelina`,
@@ -99,7 +99,7 @@ const locations = [
         bedrooms: 2,
         adults: 3,
         rating: 4.5,
-        inside: [`Wi-Fi`, `Towels`, `Heating`, `Coffee machine`, `Kitchen`, `Dishwasher`, `Cabel TV`, `Fridge`],
+        goods: [`Wi-Fi`, `Towels`, `Heating`, `Coffee machine`, `Kitchen`, `Dishwasher`, `Cabel TV`, `Fridge`],
         isPremium: true,
         owner: {
           name: `Angelina`,
@@ -114,8 +114,8 @@ const locations = [
 
 it(`Render OfferDetailCard`, () => {
   const store = mockStore({
-    locations: {
-      locations
+    cards: {
+      locations: cards
     }
   });
 

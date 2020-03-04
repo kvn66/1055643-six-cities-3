@@ -6,7 +6,7 @@ import {Provider} from 'react-redux';
 import thunk from "redux-thunk";
 import rootReducer from './reducers/root-reducer';
 import createAPI from "./api.js";
-import {Operation as LocationsOperation} from "./reducers/locations/locations.js";
+import {Operation as LocationsOperation} from "./reducers/cards/cards.js";
 import {Operation as UserOperation, ActionCreator, AuthorizationStatus} from "./reducers/user/user.js";
 import {composeWithDevTools} from 'redux-devtools-extension';
 
@@ -23,7 +23,7 @@ const store = createStore(
     )
 );
 
-// store.dispatch(LocationsOperation.loadLocations());
+store.dispatch(LocationsOperation.loadCards());
 store.dispatch(UserOperation.checkAuth());
 
 ReactDOM.render(

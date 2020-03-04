@@ -1,21 +1,21 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import {getSelectedCityId} from "../../reducers/city-select/selectors";
-import {getCityNames, getLocationsCount} from "../../reducers/locations/selectors";
+import {getCityNames, getCardsCount} from "../../reducers/cards/selectors";
 import {ActionCreator} from "../../reducers/city-select/city-select";
 import City from "../city/city.jsx";
 import MemoizedCityNavItem from "../city-nav-item/city-nav-item.jsx";
 import {connect} from "react-redux";
 
 const Cities = (props) => {
-  const {locationsCount, cityNames, selectedCityId, setSelectedCity} = props;
+  const {cardsCount, cityNames, selectedCityId, setSelectedCity} = props;
 
   const cityNav = cityNames.map((cityName, index) =>
     <MemoizedCityNavItem key={index} city={cityName} setSelectedCity={setSelectedCity} cityId={index} selectedCityId={selectedCityId} />
   );
 
   return (
-    <main className={`page__main page__main--index ${locationsCount ? `` : `page__main--index-empty`}`}>
+    <main className={`page__main page__main--index ${cardsCount ? `` : `page__main--index-empty`}`}>
       <h1 className="visually-hidden">Cities</h1>
       <div className="tabs">
         <section className="locations container">
@@ -31,7 +31,7 @@ const Cities = (props) => {
 
 const mapStateToProps = (store) => {
   return {
-    locationsCount: getLocationsCount(store),
+    cardsCount: getCardsCount(store),
     cityNames: getCityNames(store),
     selectedCityId: getSelectedCityId(store),
   };
@@ -44,7 +44,7 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 Cities.propTypes = {
-  locationsCount: PropTypes.number.isRequired,
+  cardsCount: PropTypes.number.isRequired,
   cityNames: PropTypes.arrayOf(PropTypes.string).isRequired,
   selectedCityId: PropTypes.number.isRequired,
   setSelectedCity: PropTypes.func.isRequired,

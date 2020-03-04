@@ -6,3 +6,10 @@ export const SORTING_METHODS = [
   `Price: high to low`,
   `Top rated first`
 ];
+
+export const HotelType = {
+  apartment: `Apartment`,
+  room: `Private Room`,
+  house: `House`,
+  hotel: `Hotel`
+};

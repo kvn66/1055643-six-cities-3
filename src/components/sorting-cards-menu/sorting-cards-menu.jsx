@@ -1,9 +1,10 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import {setSortingCardsMethodAction, setMenuStateAction} from "../../reducers/cards-sorting-menu/cards-sorting-menu";
+import {ActionCreator} from "../../reducers/cards-sorting-menu/cards-sorting-menu";
 import {connect} from "react-redux";
 import SortingCardsMenuItem from "../sorting-cards-menu-item/sorting-cards-menu-item.jsx";
 import {SORTING_METHODS} from "../../const";
+import {getSortingMethodId, getMenuState} from "../../reducers/cards-sorting-menu/selectors";
 
 const MenuState = {
   OPENED: true,
@@ -44,15 +45,15 @@ const SoringCardsMenu = (props) => {
 
 const mapStateToProps = (store) => {
   return {
-    selectedSortingMethod: store.cardsSortingMenu.sortingMethodId,
-    menuState: store.cardsSortingMenu.menuState,
+    selectedSortingMethod: getSortingMethodId(store),
+    menuState: getMenuState(store),
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setSortingMethod: (methodId) => dispatch(setSortingCardsMethodAction(methodId)),
-    setMenuState: (state) => dispatch(setMenuStateAction(state))
+    setSortingMethod: (methodId) => dispatch(ActionCreator.setSortingCardsMethod(methodId)),
+    setMenuState: (state) => dispatch(ActionCreator.setMenuState(state))
   };
 };
 

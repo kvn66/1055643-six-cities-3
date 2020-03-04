@@ -7,10 +7,14 @@ const initialState = {
   cardId: UNSELECTED_CARD_ID,
 };
 
-export const setSelectedCardIdAction = (id) => ({
-  type: SET_CARD_ID,
-  payload: id,
-});
+export const ActionCreator = {
+  setSelectedCardId: (id) => {
+    return {
+      type: SET_CARD_ID,
+      payload: id,
+    };
+  },
+};
 
 const cardSelectReducer = (state = initialState, action) => {
   switch (action.type) {

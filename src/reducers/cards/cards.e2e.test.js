@@ -1,9 +1,9 @@
-import locationsReducer from "./locations";
+import cardsReducer from "./cards";
 import {locations} from "../../mocks/offers.js";
 
 
 it(`Reducer without additional parameters should return initial state`, () => {
-  expect(locationsReducer(void 0, {})).toEqual({
-    locations,
+  expect(cardsReducer(void 0, {})).toEqual({
+    locations: cards,
   });
 });

@@ -17,7 +17,7 @@ const place = {
   bedrooms: 2,
   adults: 3,
   rating: 4.5,
-  inside: [`Wi-Fi`, `Washing machine`, `Towels`, `Heating`, `Coffee machine`, `Baby seat`, `Kitchen`, `Dishwasher`, `Cabel TV`, `Fridge`],
+  goods: [`Wi-Fi`, `Washing machine`, `Towels`, `Heating`, `Coffee machine`, `Baby seat`, `Kitchen`, `Dishwasher`, `Cabel TV`, `Fridge`],
   isPremium: true,
   owner: {
     name: `Angelina`,
