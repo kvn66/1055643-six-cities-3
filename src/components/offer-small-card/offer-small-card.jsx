@@ -69,11 +69,8 @@ const OfferSmallCard = (props) => {
 };
 
 OfferSmallCard.propTypes = {
+  card: PropTypes.exact({
     id: PropTypes.number.isRequired,
-    images: PropTypes.array.isRequired,
-    priceValue: PropTypes.number.isRequired,
-    priceText: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
     city: PropTypes.exact({
       location: PropTypes.exact({
         latitude: PropTypes.number.isRequired,
