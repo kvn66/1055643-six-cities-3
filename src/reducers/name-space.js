@@ -4,6 +4,7 @@ const NameSpace = {
   CITY_SELECT: `CITY_SELECT`,
   CARD_SELECT: `CARD_SELECT`,
   CARDS_SORTING_MENU: `CARDS_SORTING_MENU`,
+  REVIEWS: `REVIEWS`,
 };
 
 export default NameSpace;

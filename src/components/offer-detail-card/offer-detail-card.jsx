@@ -8,8 +8,6 @@ import Reviews from "../reviews/reviews.jsx";
 import {getSimilarOffers} from "../../utils";
 import {connect} from "react-redux";
 import {getAllCards} from "../../reducers/cards/selectors";
-import {ActionCreator} from "../../reducers/card-select/card-select";
-import {Operation as LocationsOperation} from "../../reducers/cards/cards";
 
 const RADIX = 10;
 const SECTION_CLASS_NAME = `property__map`;
@@ -17,13 +15,16 @@ const SECTION_CLASS_NAME = `property__map`;
 
 const OfferDetailCard = (props) => {
   const {id: idParam} = useParams();
-  const cardId = idParam === undefined ? `0` : idParam;
-  const {cards, loadCards} = props;
-  loadCards();
-  const card = getCard(parseInt(cardId, RADIX), cards);
-  console.log(cardId, cards);
-  const {id, images, price, title, description, type, bedrooms, maxAdults, rating, goods, isPremium, host} = card;
-  const similarOffers = getSimilarOffers(cards, id, false);
+  const cardId = parseInt((idParam === undefined ? `0` : idParam), RADIX);
+  const {cards} = props;
+  const card = getCard(cardId, cards);
+
+  if (!card) {
+    return null;
+  }
+
+  const {images, price, title, description, type, bedrooms, maxAdults, rating, goods, isPremium, host} = card;
+  const similarOffers = getSimilarOffers(cards, cardId, false);
   const cardsElement = similarOffers.map((offer) =>
     <MemoizedOfferSmallCard key={offer.id} card={offer} setSelectedCard = {()=>{}} isDetail={true} />
   );
@@ -121,9 +122,9 @@ const OfferDetailCard = (props) => {
               <div className="property__host">
                 <h2 className="property__host-title">Meet the host</h2>
                 <div className="property__host-user user">
-                  <div className={`property__avatar-wrapper ${host.isSuper ? `property__avatar-wrapper--pro` : ``} user__avatar-wrapper`}>
+                  <div className={`property__avatar-wrapper ${host.isPro ? `property__avatar-wrapper--pro` : ``} user__avatar-wrapper`}>
                     <img
-                      className="property__avatar user__avatar" src={host.avatar} width="74" height="74"
+                      className="property__avatar user__avatar" src={`/${host.avatarUrl}`} width="74" height="74"
                       alt="Host avatar"
                     />
                   </div>
@@ -137,10 +138,10 @@ const OfferDetailCard = (props) => {
                   </p>
                 </div>
               </div>
-              {/*<Reviews reviews={reviews}/>*/}
+              <Reviews cardId={cardId}/>
             </div>
           </div>
-          <Map cards={cards} similarOffers={similarOffers} selectedCardId={id} sectionClassName={SECTION_CLASS_NAME}/>
+          <Map cards={cards} similarOffers={similarOffers} selectedCardId={cardId} sectionClassName={SECTION_CLASS_NAME}/>
         </section>
         <div className="container">
           <section className="near-places places">
@@ -156,15 +157,8 @@ const OfferDetailCard = (props) => {
 };
 
 const mapStateToProps = (store) => {
-  console.log(getAllCards(store));
   return {
     cards: getAllCards(store),
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    loadCards: () => dispatch(LocationsOperation.loadCards())
   };
 };
 
@@ -208,4 +202,4 @@ OfferDetailCard.propTypes = {
 };
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(OfferDetailCard);
+export default connect(mapStateToProps)(OfferDetailCard);
