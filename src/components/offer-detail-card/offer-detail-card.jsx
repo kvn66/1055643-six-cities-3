@@ -8,6 +8,8 @@ import Reviews from "../reviews/reviews.jsx";
 import {getSimilarOffers} from "../../utils";
 import {connect} from "react-redux";
 import {getAllCards} from "../../reducers/cards/selectors";
+import {ActionCreator} from "../../reducers/card-select/card-select";
+import {Operation as LocationsOperation} from "../../reducers/cards/cards";
 
 const RADIX = 10;
 const SECTION_CLASS_NAME = `property__map`;
@@ -16,7 +18,8 @@ const SECTION_CLASS_NAME = `property__map`;
 const OfferDetailCard = (props) => {
   const {id: idParam} = useParams();
   const cardId = idParam === undefined ? `0` : idParam;
-  const {cards} = props;
+  const {cards, loadCards} = props;
+  loadCards();
   const card = getCard(parseInt(cardId, RADIX), cards);
   console.log(cardId, cards);
   const {id, images, price, title, description, type, bedrooms, maxAdults, rating, goods, isPremium, host} = card;
@@ -159,6 +162,12 @@ const mapStateToProps = (store) => {
   };
 };
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    loadCards: () => dispatch(LocationsOperation.loadCards())
+  };
+};
+
 OfferDetailCard.propTypes = {
   cards: PropTypes.arrayOf(
       PropTypes.exact({
@@ -199,4 +208,4 @@ OfferDetailCard.propTypes = {
 };
 
 
-export default connect(mapStateToProps)(OfferDetailCard);
+export default connect(mapStateToProps, mapDispatchToProps)(OfferDetailCard);
