@@ -153,6 +153,7 @@ const OfferDetailCard = (props) => {
 };
 
 const mapStateToProps = (store) => {
+  console.log(getAllCards(store));
   return {
     cards: getAllCards(store),
   };
