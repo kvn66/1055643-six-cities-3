@@ -5,6 +5,7 @@ const NameSpace = {
   CARD_SELECT: `CARD_SELECT`,
   CARDS_SORTING_MENU: `CARDS_SORTING_MENU`,
   REVIEWS: `REVIEWS`,
+  SIMILAR_OFFERS: `SIMILAR_OFFERS`,
 };
 
 export default NameSpace;
