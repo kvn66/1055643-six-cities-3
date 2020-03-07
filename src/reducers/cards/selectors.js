@@ -1,6 +1,7 @@
 import {createSelector} from "reselect";
 import NameSpace from "../name-space.js";
 import {getSelectedCityId} from "../city-select/selectors";
+import {getSortingMethodId} from "../cards-sorting-menu/selectors";
 
 
 const CITIES_MAX_COUNT = 6;
@@ -37,5 +38,29 @@ export const getCardsForSelectedCity = createSelector(
     getSelectedCityName,
     (cards, cityName) => {
       return cards.filter((card) => card.city.name === cityName);
+    }
+);
+
+export const getSortedCardsForSelectedCity = createSelector(
+    getCardsForSelectedCity,
+    getSortingMethodId,
+    (cards, sortingMethodId) => {
+      let sortedCards = [];
+
+      switch (sortingMethodId) {
+        case 1:
+          sortedCards = cards.slice().sort((a, b) => a.price - b.price);
+          break;
+        case 2:
+          sortedCards = cards.slice().sort((a, b) => b.price - a.price);
+          break;
+        case 3:
+          sortedCards = cards.slice().sort((a, b) => b.rating - a.rating);
+          break;
+        default:
+          sortedCards = cards.slice();
+          break;
+      }
+      return sortedCards;
     }
 );

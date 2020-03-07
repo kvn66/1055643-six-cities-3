@@ -3,9 +3,8 @@ import PropTypes from 'prop-types';
 import {MemoizedOfferSmallCard} from "../offer-small-card/offer-small-card.jsx";
 import Map from "../map/map.jsx";
 import SoringCardsMenu from "../sorting-cards-menu/sorting-cards-menu.jsx";
-import {getSimilarOffers} from "../../utils";
 import {ActionCreator} from "../../reducers/card-select/card-select";
-import {getCardsCount, getCardsForSelectedCity, getSelectedCityName} from "../../reducers/cards/selectors";
+import {getCardsCount, getCardsForSelectedCity, getSelectedCityName, getSortedCardsForSelectedCity} from "../../reducers/cards/selectors";
 import {getSortingMethodId} from "../../reducers/cards-sorting-menu/selectors";
 import {getSelectedCardId} from "../../reducers/card-select/selectors";
 import {connect} from "react-redux";
@@ -14,7 +13,6 @@ const MAP_CLASS_NAME = `cities__map`;
 
 const City = (props) => {
   const {cardsInStore, cards, sortedCards, cityName, selectedCard, setSelectedCard} = props;
-  const similarOffers = getSimilarOffers(sortedCards, selectedCard, true);
   const cardsElement = sortedCards.map((card) =>
     <MemoizedOfferSmallCard key={card.id} card={card} setSelectedCard = {setSelectedCard} isDetail={false} />
   );
@@ -32,7 +30,7 @@ const City = (props) => {
             </div>
           </section>
           <div className="cities__right-section">
-            <Map cards={cards} similarOffers={similarOffers} selectedCardId={selectedCard} sectionClassName={MAP_CLASS_NAME}/>
+            <Map cards={cards} similarOffers={cards} selectedCardId={selectedCard} sectionClassName={MAP_CLASS_NAME}/>
           </div>
         </div>
       ) : (
@@ -53,28 +51,10 @@ const City = (props) => {
 };
 
 const mapStateToProps = (store) => {
-  const cards = getCardsForSelectedCity(store);
-  let sortedCards = [];
-
-  switch (getSortingMethodId(store)) {
-    case 1:
-      sortedCards = cards.slice().sort((a, b) => a.price - b.price);
-      break;
-    case 2:
-      sortedCards = cards.slice().sort((a, b) => b.price - a.price);
-      break;
-    case 3:
-      sortedCards = cards.slice().sort((a, b) => b.rating - a.rating);
-      break;
-    default:
-      sortedCards = cards.slice();
-      break;
-  }
-
   return {
     cardsInStore: getCardsCount(store),
-    cards,
-    sortedCards,
+    cards: getCardsForSelectedCity(store),
+    sortedCards: getSortedCardsForSelectedCity(store),
     cityName: getSelectedCityName(store),
     selectedCard: getSelectedCardId(store),
   };

@@ -23,6 +23,27 @@ export default class Map extends PureComponent {
     });
   }
 
+  _addMarkers(similarOffers, selectedCardId) {
+    this.markers = similarOffers.filter((cardItem) => cardItem.id !== selectedCardId).map((similarOffer) => {
+      const coordinates = [similarOffer.location.latitude, similarOffer.location.longitude];
+      return leaflet
+        .marker(coordinates, {icon: this._icon})
+        .addTo(this.map);
+    });
+  }
+
+  _addSelectedMarker(cards, selectedCardId) {
+    if (selectedCardId !== UNSELECTED_CARD_ID) {
+      const selectedCard = getCard(selectedCardId, cards);
+      const coordinates = [selectedCard.location.latitude, selectedCard.location.longitude];
+      this.markers.push(
+          leaflet
+            .marker(coordinates, {icon: this._iconActive})
+            .addTo(this.map)
+      );
+    }
+  }
+
   componentDidMount() {
     const {cards, similarOffers, selectedCardId} = this.props;
     const card = cards[0];
@@ -46,22 +67,9 @@ export default class Map extends PureComponent {
         })
         .addTo(this.map);
 
-      this.markers = similarOffers.map((similarOffer) => {
-        const coordinates = [similarOffer.location.latitude, similarOffer.location.longitude];
-        return leaflet
-          .marker(coordinates, {icon: this._icon})
-          .addTo(this.map);
-      });
+      this._addMarkers(similarOffers, selectedCardId);
 
-      if (selectedCardId !== UNSELECTED_CARD_ID) {
-        const selectedCard = getCard(selectedCardId, cards);
-        const coordinates = [selectedCard.location.latitude, selectedCard.location.longitude];
-        this.markers.push(
-            leaflet
-            .marker(coordinates, {icon: this._iconActive})
-            .addTo(this.map)
-        );
-      }
+      this._addSelectedMarker(cards, selectedCardId);
     }
   }
 
@@ -76,22 +84,10 @@ export default class Map extends PureComponent {
       this.map.setView(cityCoordinates, cityZoom);
 
       this.markers.forEach((marker) => marker.remove());
-      this.markers = similarOffers.map((similarOffer) => {
-        const coordinates = [similarOffer.location.latitude, similarOffer.location.longitude];
-        return leaflet
-          .marker(coordinates, {icon: this._icon})
-          .addTo(this.map);
-      });
 
-      if (selectedCardId !== UNSELECTED_CARD_ID) {
-        const selectedCard = getCard(selectedCardId, cards);
-        const coordinates = [selectedCard.location.latitude, selectedCard.location.longitude];
-        this.markers.push(
-            leaflet
-              .marker(coordinates, {icon: this._iconActive})
-              .addTo(this.map)
-        );
-      }
+      this._addMarkers(similarOffers, selectedCardId);
+
+      this._addSelectedMarker(cards, selectedCardId);
     }
   }
 

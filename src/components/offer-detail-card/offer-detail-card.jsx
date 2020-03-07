@@ -1,6 +1,5 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
-import {useParams} from "react-router-dom";
 import {getCard, parseUrl} from "../../utils";
 import Map from "../map/map.jsx";
 import {MemoizedOfferSmallCard} from "../offer-small-card/offer-small-card.jsx";
@@ -26,9 +25,8 @@ class OfferDetailCard extends PureComponent {
   }
 
   componentDidMount() {
-    const cardId = this.idParam;
     const {loadSimilarOffers} = this.props;
-    loadSimilarOffers(cardId);
+    loadSimilarOffers(this.idParam);
   }
 
   render() {
