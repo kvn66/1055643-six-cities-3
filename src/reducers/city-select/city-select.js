@@ -6,7 +6,7 @@ const initialState = {
   cityName: INITIAL_CITY_ID,
 };
 
-const ActionType = {
+export const ActionType = {
   SET_CITY_ID: `SET_CITY_ID`,
 };
 

@@ -5,7 +5,7 @@ const initialState = {
   reviews: []
 };
 
-const ActionType = {
+export const ActionType = {
   LOAD_REVIEWS: `LOAD_REVIEWS`,
 };
 

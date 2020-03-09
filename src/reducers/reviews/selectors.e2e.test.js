@@ -1,13 +1,5 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
-import Reviews from "./reviews.jsx";
-import configureStore from "redux-mock-store";
-import NameSpace from "../../reducers/name-space";
-import {Provider} from "react-redux";
-import axios from "axios";
-import MockAdapter from "axios-mock-adapter";
-
-const mockStore = configureStore([]);
+import {getReviews} from "./selectors";
+import NameSpace from "../name-space";
 
 const reviews = [
   {
@@ -38,22 +30,12 @@ const reviews = [
   }
 ];
 
-it(`Render Review`, () => {
-  let mock = new MockAdapter(axios);
-  mock.onGet(`/comments/0`).reply(200, reviews);
+const store = {
+  [NameSpace.REVIEWS]: {
+    reviews
+  },
+};
 
-  const store = mockStore({
-    [NameSpace.REVIEWS]: {
-      reviews
-    },
-  });
-
-  const tree = renderer
-    .create(
-        <Provider store={store}>
-          <Reviews cardId={0} />
-        </Provider>
-    )
-    .toJSON();
-  expect(tree).toMatchSnapshot();
+it(`getReviews should return reviews`, () => {
+  expect(getReviews(store)).toEqual(reviews);
 });

@@ -68,8 +68,78 @@ const mapDispatchToProps = (dispatch) => {
 
 City.propTypes = {
   cardsInStore: PropTypes.number.isRequired,
-  cards: PropTypes.array.isRequired,
-  sortedCards: PropTypes.array.isRequired,
+  cards: PropTypes.arrayOf(
+      PropTypes.exact({
+        id: PropTypes.number.isRequired,
+        city: PropTypes.exact({
+          location: PropTypes.exact({
+            latitude: PropTypes.number.isRequired,
+            longitude: PropTypes.number.isRequired,
+            zoom: PropTypes.number.isRequired,
+          }).isRequired,
+          name: PropTypes.string.isRequired,
+        }).isRequired,
+        bedrooms: PropTypes.number.isRequired,
+        images: PropTypes.array.isRequired,
+        description: PropTypes.string.isRequired,
+        goods: PropTypes.array.isRequired,
+        host: PropTypes.exact({
+          id: PropTypes.number.isRequired,
+          name: PropTypes.string.isRequired,
+          avatarUrl: PropTypes.string.isRequired,
+          isPro: PropTypes.bool.isRequired
+        }).isRequired,
+        isFavorite: PropTypes.bool.isRequired,
+        isPremium: PropTypes.bool.isRequired,
+        location: PropTypes.exact({
+          latitude: PropTypes.number.isRequired,
+          longitude: PropTypes.number.isRequired,
+          zoom: PropTypes.number.isRequired,
+        }).isRequired,
+        maxAdults: PropTypes.number.isRequired,
+        previewImage: PropTypes.string.isRequired,
+        price: PropTypes.number.isRequired,
+        rating: PropTypes.number.isRequired,
+        title: PropTypes.string.isRequired,
+        type: PropTypes.string.isRequired,
+      }).isRequired
+  ).isRequired,
+  sortedCards: PropTypes.arrayOf(
+      PropTypes.exact({
+        id: PropTypes.number.isRequired,
+        city: PropTypes.exact({
+          location: PropTypes.exact({
+            latitude: PropTypes.number.isRequired,
+            longitude: PropTypes.number.isRequired,
+            zoom: PropTypes.number.isRequired,
+          }).isRequired,
+          name: PropTypes.string.isRequired,
+        }).isRequired,
+        bedrooms: PropTypes.number.isRequired,
+        images: PropTypes.array.isRequired,
+        description: PropTypes.string.isRequired,
+        goods: PropTypes.array.isRequired,
+        host: PropTypes.exact({
+          id: PropTypes.number.isRequired,
+          name: PropTypes.string.isRequired,
+          avatarUrl: PropTypes.string.isRequired,
+          isPro: PropTypes.bool.isRequired
+        }).isRequired,
+        isFavorite: PropTypes.bool.isRequired,
+        isPremium: PropTypes.bool.isRequired,
+        location: PropTypes.exact({
+          latitude: PropTypes.number.isRequired,
+          longitude: PropTypes.number.isRequired,
+          zoom: PropTypes.number.isRequired,
+        }).isRequired,
+        maxAdults: PropTypes.number.isRequired,
+        previewImage: PropTypes.string.isRequired,
+        price: PropTypes.number.isRequired,
+        rating: PropTypes.number.isRequired,
+        title: PropTypes.string.isRequired,
+        type: PropTypes.string.isRequired,
+      }).isRequired
+  ).isRequired,
   cityName: PropTypes.string,
   selectedCard: PropTypes.number,
   setSelectedCard: PropTypes.func.isRequired,

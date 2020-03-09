@@ -1,4 +1,4 @@
-import cardSelectReducer, {SET_CARD_ID, setSelectedCardIdAction} from "./card-select";
+import cardSelectReducer, {SET_CARD_ID, ActionCreator} from "./card-select";
 import {UNSELECTED_CARD_ID} from "../../const";
 
 it(`Reducer without additional parameters should return initial state`, () => {
@@ -20,7 +20,7 @@ it(`Reducer should save cardId`, () => {
 
 describe(`Action creators work correctly`, () => {
   it(`Action creator for setSelectedCardIdAction step returns correct action`, () => {
-    expect(setSelectedCardIdAction(2)).toEqual({
+    expect(ActionCreator.setSelectedCardId(2)).toEqual({
       type: SET_CARD_ID,
       payload: 2,
     });

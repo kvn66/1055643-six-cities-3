@@ -1,30 +1,40 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import MemoizedOfferSmallCard from "./offer-small-card.jsx";
+import {MemoizedOfferSmallCard} from "./offer-small-card.jsx";
 
-const place = {
+const card = {
   id: 0,
-  coordinates: [52.3909553943508, 4.85309666406198],
-  images: [`/img/apartment-01.jpg`, `/img/room.jpg`],
-  priceValue: 120,
-  priceText: `night`,
-  name: `Beautiful &amp; luxurious apartment at great location`,
-  descriptions: [
-    `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`,
-    `An independent House, strategically located between Rembrand Square and National Opera, but where the bustle of the city comes to rest in this alley flowery and colorful.`
-  ],
-  type: `Apartment`,
-  bedrooms: 2,
-  adults: 3,
-  rating: 4.5,
-  goods: [`Wi-Fi`, `Washing machine`, `Towels`, `Heating`, `Coffee machine`, `Baby seat`, `Kitchen`, `Dishwasher`, `Cabel TV`, `Fridge`],
-  isPremium: true,
-  owner: {
-    name: `Angelina`,
-    avatar: `/img/avatar-angelina.jpg`,
-    isSuper: true
+  city: {
+    location: {
+      latitude: 52.38333,
+      longitude: 4.9,
+      zoom: 12,
+    },
+    name: `Amsterdam`,
   },
-  reviews: [0, 1]
+  bedrooms: 2,
+  images: [`/img/apartment-01.jpg`, `/img/room.jpg`],
+  description: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`,
+  goods: [`Wi-Fi`, `Washing machine`, `Towels`, `Heating`, `Coffee machine`, `Baby seat`, `Kitchen`, `Dishwasher`, `Cabel TV`, `Fridge`],
+  host: {
+    id: 0,
+    name: `Angelina`,
+    avatarUrl: `/img/avatar-angelina.jpg`,
+    isPro: true
+  },
+  isFavorite: true,
+  isPremium: true,
+  location: {
+    latitude: 52.3909553943508,
+    longitude: 4.85309666406198,
+    zoom: 12,
+  },
+  maxAdults: 3,
+  previewImage: `/img/apartment-01.jpg`,
+  price: 120,
+  rating: 4.5,
+  title: `Beautiful &amp; luxurious apartment at great location`,
+  type: `apartment`,
 };
 
 it(`Render MemoizedOfferSmallCard`, () => {
@@ -32,7 +42,7 @@ it(`Render MemoizedOfferSmallCard`, () => {
   const tree = renderer
     .create(
         <MemoizedOfferSmallCard
-          place={place}
+          card={card}
           setSelectedCard={()=>{}}
           isDetail={false}
         />

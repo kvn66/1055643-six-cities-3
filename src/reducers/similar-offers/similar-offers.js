@@ -5,7 +5,7 @@ const initialState = {
   similarOffers: []
 };
 
-const ActionType = {
+export const ActionType = {
   LOAD_SIMILAR_OFFERS: `LOAD_SIMILAR_OFFERS`,
 };
 

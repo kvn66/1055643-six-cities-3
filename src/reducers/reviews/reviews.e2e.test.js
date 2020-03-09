@@ -1,13 +1,4 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
-import Reviews from "./reviews.jsx";
-import configureStore from "redux-mock-store";
-import NameSpace from "../../reducers/name-space";
-import {Provider} from "react-redux";
-import axios from "axios";
-import MockAdapter from "axios-mock-adapter";
-
-const mockStore = configureStore([]);
+import reviewsReducer, {ActionType, ActionCreator} from "./reviews";
 
 const reviews = [
   {
@@ -38,22 +29,28 @@ const reviews = [
   }
 ];
 
-it(`Render Review`, () => {
-  let mock = new MockAdapter(axios);
-  mock.onGet(`/comments/0`).reply(200, reviews);
-
-  const store = mockStore({
-    [NameSpace.REVIEWS]: {
-      reviews
-    },
+it(`Reducer without additional parameters should return initial state`, () => {
+  expect(reviewsReducer(void 0, {})).toEqual({
+    reviews: [],
   });
+});
 
-  const tree = renderer
-    .create(
-        <Provider store={store}>
-          <Reviews cardId={0} />
-        </Provider>
-    )
-    .toJSON();
-  expect(tree).toMatchSnapshot();
+it(`Reducer should save reviews`, () => {
+  expect(reviewsReducer({
+    reviews: [],
+  }, {
+    type: ActionType.LOAD_REVIEWS,
+    payload: reviews,
+  })).toEqual({
+    reviews,
+  });
+});
+
+describe(`Action creators work correctly`, () => {
+  it(`Action creator for setSelectedCityIdAction step returns correct action`, () => {
+    expect(ActionCreator.loadReviews(reviews)).toEqual({
+      type: ActionType.LOAD_REVIEWS,
+      payload: reviews,
+    });
+  });
 });

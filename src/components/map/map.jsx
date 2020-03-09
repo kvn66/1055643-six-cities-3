@@ -141,7 +141,42 @@ Map.propTypes = {
         type: PropTypes.string.isRequired,
       }).isRequired
   ).isRequired,
-  similarOffers: PropTypes.array.isRequired,
+  similarOffers: PropTypes.arrayOf(
+      PropTypes.exact({
+        id: PropTypes.number.isRequired,
+        city: PropTypes.exact({
+          location: PropTypes.exact({
+            latitude: PropTypes.number.isRequired,
+            longitude: PropTypes.number.isRequired,
+            zoom: PropTypes.number.isRequired,
+          }).isRequired,
+          name: PropTypes.string.isRequired,
+        }).isRequired,
+        bedrooms: PropTypes.number.isRequired,
+        images: PropTypes.array.isRequired,
+        description: PropTypes.string.isRequired,
+        goods: PropTypes.array.isRequired,
+        host: PropTypes.exact({
+          id: PropTypes.number.isRequired,
+          name: PropTypes.string.isRequired,
+          avatarUrl: PropTypes.string.isRequired,
+          isPro: PropTypes.bool.isRequired
+        }).isRequired,
+        isFavorite: PropTypes.bool.isRequired,
+        isPremium: PropTypes.bool.isRequired,
+        location: PropTypes.exact({
+          latitude: PropTypes.number.isRequired,
+          longitude: PropTypes.number.isRequired,
+          zoom: PropTypes.number.isRequired,
+        }).isRequired,
+        maxAdults: PropTypes.number.isRequired,
+        previewImage: PropTypes.string.isRequired,
+        price: PropTypes.number.isRequired,
+        rating: PropTypes.number.isRequired,
+        title: PropTypes.string.isRequired,
+        type: PropTypes.string.isRequired,
+      }).isRequired
+  ).isRequired,
   selectedCardId: PropTypes.number.isRequired,
   sectionClassName: PropTypes.string.isRequired
 };
