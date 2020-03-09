@@ -4,8 +4,8 @@ import Reviews from "./reviews.jsx";
 import configureStore from "redux-mock-store";
 import NameSpace from "../../reducers/name-space";
 import {Provider} from "react-redux";
-import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
+import createAPI from "../../api";
 
 const mockStore = configureStore([]);
 
@@ -38,9 +38,16 @@ const reviews = [
   }
 ];
 
+const api = createAPI(() => {});
+
+
 it(`Render Review`, () => {
-  let mock = new MockAdapter(axios);
-  mock.onGet(`/comments/0`).reply(200, reviews);
+  const apiMock = new MockAdapter(api);
+
+  apiMock
+    .onGet(`/comments/0`)
+    .reply(200, reviews);
+
 
   const store = mockStore({
     [NameSpace.REVIEWS]: {
