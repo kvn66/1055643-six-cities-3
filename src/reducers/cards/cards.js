@@ -5,7 +5,7 @@ const initialState = {
   cards: []
 };
 
-const ActionType = {
+export const ActionType = {
   LOAD_CARDS: `LOAD_CARDS`,
 };
 

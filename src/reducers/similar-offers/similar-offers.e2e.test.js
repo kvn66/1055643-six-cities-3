@@ -1,4 +1,8 @@
-import similarOffersReducer, {ActionType, ActionCreator} from "./similar-offers";
+import similarOffersReducer, {ActionType, ActionCreator, Operation} from "./similar-offers";
+import MockAdapter from "axios-mock-adapter";
+import createAPI from "../../api";
+
+const api = createAPI(() => {});
 
 const cards = [
   {
@@ -94,5 +98,26 @@ describe(`Action creators work correctly`, () => {
       type: ActionType.LOAD_SIMILAR_OFFERS,
       payload: cards,
     });
+  });
+});
+
+describe(`Operation work correctly`, () => {
+  it(`Should make a correct API call to /hotels/0/nearby`, function () {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const similarOffersLoader = Operation.loadSimilarOffers(0);
+
+    apiMock
+      .onGet(`/hotels/0/nearby`)
+      .reply(200, [{fake: true}]);
+
+    return similarOffersLoader(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionType.LOAD_SIMILAR_OFFERS,
+          payload: [{fake: true}],
+        });
+      });
   });
 });

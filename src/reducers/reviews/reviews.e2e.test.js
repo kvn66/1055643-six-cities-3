@@ -1,4 +1,8 @@
-import reviewsReducer, {ActionType, ActionCreator} from "./reviews";
+import reviewsReducer, {ActionType, ActionCreator, Operation} from "./reviews";
+import MockAdapter from "axios-mock-adapter";
+import createAPI from "../../api";
+
+const api = createAPI(() => {});
 
 const reviews = [
   {
@@ -52,5 +56,26 @@ describe(`Action creators work correctly`, () => {
       type: ActionType.LOAD_REVIEWS,
       payload: reviews,
     });
+  });
+});
+
+describe(`Operation work correctly`, () => {
+  it(`Should make a correct API call to /comments`, function () {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const reviewsLoader = Operation.loadReviews(0);
+
+    apiMock
+      .onGet(`/comments/0`)
+      .reply(200, [{fake: true}]);
+
+    return reviewsLoader(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionType.LOAD_REVIEWS,
+          payload: [{fake: true}],
+        });
+      });
   });
 });

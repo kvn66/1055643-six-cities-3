@@ -161,7 +161,7 @@ exports[`Render OfferDetailCard 1`] = `
             <li
               className="property__feature property__feature--entire"
             >
-              Apartment
+              apartment
             </li>
             <li
               className="property__feature property__feature--bedrooms"
@@ -189,8 +189,7 @@ exports[`Render OfferDetailCard 1`] = `
             <span
               className="property__price-text"
             >
-               
-              night
+               night
             </span>
           </div>
           <div
@@ -274,7 +273,7 @@ exports[`Render OfferDetailCard 1`] = `
                   alt="Host avatar"
                   className="property__avatar user__avatar"
                   height="74"
-                  src="/img/avatar-angelina.jpg"
+                  src="//img/avatar-angelina.jpg"
                   width="74"
                 />
               </div>
@@ -291,11 +290,6 @@ exports[`Render OfferDetailCard 1`] = `
                 className="property__text"
               >
                 A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.
-              </p>
-              <p
-                className="property__text"
-              >
-                An independent House, strategically located between Rembrand Square and National Opera, but where the bustle of the city comes to rest in this alley flowery and colorful.
               </p>
             </div>
           </div>
@@ -350,7 +344,7 @@ exports[`Render OfferDetailCard 1`] = `
                       <span
                         style={
                           Object {
-                            "width": "80%",
+                            "width": "90%",
                           }
                         }
                       />
@@ -410,7 +404,7 @@ exports[`Render OfferDetailCard 1`] = `
                       <span
                         style={
                           Object {
-                            "width": "80%",
+                            "width": "70%",
                           }
                         }
                       />
@@ -632,7 +626,7 @@ exports[`Render OfferDetailCard 1`] = `
                   alt="Place image"
                   className="place-card__image"
                   height="200"
-                  src="/img/apartment-02.jpg"
+                  src="/img/room.jpg"
                   width="260"
                 />
               </a>
@@ -650,13 +644,12 @@ exports[`Render OfferDetailCard 1`] = `
                     className="place-card__price-value"
                   >
                     €
-                    132
+                    120
                   </b>
                   <span
                     className="place-card__price-text"
                   >
-                    / 
-                    night
+                    / night
                   </span>
                 </div>
                 <button
@@ -703,107 +696,9 @@ exports[`Render OfferDetailCard 1`] = `
                 className="place-card__name"
               >
                 <a
-                  href="/offer/2"
+                  href="/offer/1"
                 >
-                  Canal View Prinsengracht
-                </a>
-              </h2>
-              <p
-                className="place-card__type"
-              >
-                Apartment
-              </p>
-            </div>
-          </article>
-          <article
-            className="near-places__card place-card"
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-          >
-            <div
-              className="near-places__image-wrapper place-card__image-wrapper"
-            >
-              <a
-                href="#"
-              >
-                <img
-                  alt="Place image"
-                  className="place-card__image"
-                  height="200"
-                  src="/img/apartment-03.jpg"
-                  width="260"
-                />
-              </a>
-            </div>
-            <div
-              className="place-card__info"
-            >
-              <div
-                className="place-card__price-wrapper"
-              >
-                <div
-                  className="place-card__price"
-                >
-                  <b
-                    className="place-card__price-value"
-                  >
-                    €
-                    180
-                  </b>
-                  <span
-                    className="place-card__price-text"
-                  >
-                    / 
-                    night
-                  </span>
-                </div>
-                <button
-                  className="place-card__bookmark-button place-card__bookmark-button--active button"
-                  type="button"
-                >
-                  <svg
-                    className="place-card__bookmark-icon"
-                    height="19"
-                    width="18"
-                  >
-                    <use
-                      xlinkHref="#icon-bookmark"
-                    />
-                  </svg>
-                  <span
-                    className="visually-hidden"
-                  >
-                    In bookmarks
-                  </span>
-                </button>
-              </div>
-              <div
-                className="place-card__rating rating"
-              >
-                <div
-                  className="place-card__stars rating__stars"
-                >
-                  <span
-                    style={
-                      Object {
-                        "width": "90%",
-                      }
-                    }
-                  />
-                  <span
-                    className="visually-hidden"
-                  >
-                    Rating
-                  </span>
-                </div>
-              </div>
-              <h2
-                className="place-card__name"
-              >
-                <a
-                  href="/offer/3"
-                >
-                  Nice, cozy, warm big bed apartment
+                  Beautiful &amp; luxurious apartment at great location
                 </a>
               </h2>
               <p

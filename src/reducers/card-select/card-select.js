@@ -1,7 +1,9 @@
 import {extend} from "../../utils.js";
 import {UNSELECTED_CARD_ID} from "../../const";
 
-export const SET_CARD_ID = `SET_CARD_ID`;
+export const ActionType = {
+  SET_CARD_ID: `SET_CARD_ID`,
+};
 
 const initialState = {
   cardId: UNSELECTED_CARD_ID,
@@ -10,7 +12,7 @@ const initialState = {
 export const ActionCreator = {
   setSelectedCardId: (id) => {
     return {
-      type: SET_CARD_ID,
+      type: ActionType.SET_CARD_ID,
       payload: id,
     };
   },
@@ -18,7 +20,7 @@ export const ActionCreator = {
 
 const cardSelectReducer = (state = initialState, action) => {
   switch (action.type) {
-    case SET_CARD_ID:
+    case ActionType.SET_CARD_ID:
       return extend(state, {
         cardId: action.payload,
       });

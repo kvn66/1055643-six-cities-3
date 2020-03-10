@@ -5,7 +5,6 @@ import Map from "../map/map.jsx";
 import SoringCardsMenu from "../sorting-cards-menu/sorting-cards-menu.jsx";
 import {ActionCreator} from "../../reducers/card-select/card-select";
 import {getCardsCount, getCardsForSelectedCity, getSelectedCityName, getSortedCardsForSelectedCity} from "../../reducers/cards/selectors";
-import {getSortingMethodId} from "../../reducers/cards-sorting-menu/selectors";
 import {getSelectedCardId} from "../../reducers/card-select/selectors";
 import {connect} from "react-redux";
 

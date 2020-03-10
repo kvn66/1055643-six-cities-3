@@ -1,13 +1,17 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import Reviews from "./reviews.jsx";
-import configureStore from "redux-mock-store";
+import configureMockStore from "redux-mock-store";
 import NameSpace from "../../reducers/name-space";
 import {Provider} from "react-redux";
 import MockAdapter from "axios-mock-adapter";
 import createAPI from "../../api";
+import thunk from 'redux-thunk';
 
-const mockStore = configureStore([]);
+const api = createAPI(() => {});
+
+const middlewares = [thunk.withExtraArgument(api)];
+const mockStore = configureMockStore(middlewares);
 
 const reviews = [
   {
@@ -37,8 +41,6 @@ const reviews = [
     },
   }
 ];
-
-const api = createAPI(() => {});
 
 
 it(`Render Review`, () => {

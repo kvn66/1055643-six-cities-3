@@ -3,11 +3,17 @@ import renderer from 'react-test-renderer';
 import {MemoryRouter} from "react-router-dom";
 import OfferDetailCard from "./offer-detail-card.jsx";
 import {Provider} from "react-redux";
-import configureStore from "redux-mock-store";
 import NameSpace from "../../reducers/name-space";
 import {InitValue} from "../../reducers/cards-sorting-menu/cards-sorting-menu";
+import configureMockStore from "redux-mock-store";
+import MockAdapter from "axios-mock-adapter";
+import createAPI from "../../api";
+import thunk from 'redux-thunk';
 
-const mockStore = configureStore([]);
+const api = createAPI(() => {});
+
+const middlewares = [thunk.withExtraArgument(api)];
+const mockStore = configureMockStore(middlewares);
 
 const cards = [
   {
@@ -110,6 +116,16 @@ const reviews = [
 ];
 
 it(`Render OfferDetailCard`, () => {
+  const apiMock = new MockAdapter(api);
+
+  apiMock
+    .onGet(`/comments/0`)
+    .reply(200, reviews);
+
+  apiMock
+    .onGet(`/hotels/0/nearby`)
+    .reply(200, cards);
+
   const store = mockStore({
     [NameSpace.CARDS]: {
       cards
