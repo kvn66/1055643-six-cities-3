@@ -1,4 +1,4 @@
-import NameSpace from "../name-space";
+import {NameSpace} from "../name-space";
 
 const NAME_SPACE = NameSpace.CITY_SELECT;
 

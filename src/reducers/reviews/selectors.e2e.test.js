@@ -1,5 +1,5 @@
 import {getReviews} from "./selectors";
-import NameSpace from "../name-space";
+import {NameSpace} from "../name-space";
 
 const reviews = [
   {

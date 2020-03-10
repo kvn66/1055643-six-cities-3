@@ -6,10 +6,6 @@ import {connect} from "react-redux";
 import {Operation as ReviewsOperation} from "../../reducers/reviews/reviews";
 
 class Reviews extends PureComponent {
-  constructor(props) {
-    super(props);
-  }
-
   componentDidMount() {
     const {cardId, loadReviews} = this.props;
     loadReviews(cardId);

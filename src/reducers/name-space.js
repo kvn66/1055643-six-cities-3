@@ -1,4 +1,4 @@
-const NameSpace = {
+export const NameSpace = {
   CARDS: `CARDS`,
   USER: `USER`,
   CITY_SELECT: `CITY_SELECT`,
@@ -7,5 +7,3 @@ const NameSpace = {
   REVIEWS: `REVIEWS`,
   SIMILAR_OFFERS: `SIMILAR_OFFERS`,
 };
-
-export default NameSpace;

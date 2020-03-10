@@ -1,5 +1,5 @@
 import {getSelectedCardId} from "./selectors";
-import NameSpace from "../name-space";
+import {NameSpace} from "../name-space";
 
 it(`getSelectedCardId should return cardId`, () => {
   expect(getSelectedCardId({

@@ -1,5 +1,5 @@
 import {createSelector} from "reselect";
-import NameSpace from "../name-space.js";
+import {NameSpace} from "../name-space.js";
 import {getSelectedCityId} from "../city-select/selectors";
 import {getSortingMethodId} from "../cards-sorting-menu/selectors";
 
