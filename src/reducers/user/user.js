@@ -1,3 +1,6 @@
+import {toCamel} from "convert-keys";
+import {AppRoute} from "../../const";
+
 export const AuthorizationStatus = {
   AUTH: true,
   NO_AUTH: false,
@@ -5,10 +8,12 @@ export const AuthorizationStatus = {
 
 const initialState = {
   userAuthorized: false,
+  userInfo: {},
 };
 
 const ActionType = {
   SET_AUTHORIZATION_STATUS: `SET_AUTHORIZATION_STATUS`,
+  SET_USER_INFO: `SET_USER_INFO`,
 };
 
 export const ActionCreator = {
@@ -18,6 +23,12 @@ export const ActionCreator = {
       payload: status,
     };
   },
+  setUserInfo: (userInfo) => {
+    return {
+      type: ActionType.SET_USER_INFO,
+      payload: userInfo,
+    };
+  },
 };
 
 const userReducer = (state = initialState, action) => {
@@ -25,6 +36,10 @@ const userReducer = (state = initialState, action) => {
     case ActionType.SET_AUTHORIZATION_STATUS:
       return Object.assign({}, state, {
         userAuthorized: action.payload,
+      });
+    case ActionType.SET_USER_INFO:
+      return Object.assign({}, state, {
+        userInfo: action.payload,
       });
     default:
       return state;
@@ -47,8 +62,10 @@ export const Operation = {
       email: authData.login,
       password: authData.password,
     })
-      .then(() => {
+      .then((response) => {
+        dispatch(ActionCreator.setUserInfo(toCamel(response.data)));
         dispatch(ActionCreator.setAuthorizationStatus(AuthorizationStatus.AUTH));
+        window.location.pathname = AppRoute.ROOT;
       });
   },
 };

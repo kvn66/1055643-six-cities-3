@@ -1,5 +1,5 @@
 import {combineReducers} from "redux";
-import NameSpace from "./name-space";
+import {NameSpace} from "./name-space";
 import cardsReducer from "./cards/cards";
 import userReducer from "./user/user";
 import citySelectReducer from "./city-select/city-select";
