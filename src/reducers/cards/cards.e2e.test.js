@@ -1,12 +1,9 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
-import App from "./app.jsx";
-import {Provider} from "react-redux";
-import configureStore from "redux-mock-store";
-import {InitValue} from "../../reducers/cards-sorting-menu/cards-sorting-menu";
-import NameSpace from "../../reducers/name-space";
+import cardsReducer, {ActionType, ActionCreator, Operation} from "./cards";
+import MockAdapter from "axios-mock-adapter";
+import createAPI from "../../api";
 
-const mockStore = configureStore([]);
+const api = createAPI(() => {});
+
 
 const cards = [
   {
@@ -79,67 +76,49 @@ const cards = [
   }
 ];
 
-const reviews = [
-  {
-    id: 0,
-    comment: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.
-          The building is green and from 18th century.`,
-    date: new Date(2020, 1, 14, 0, 0, 0, 0).toISOString(),
-    rating: 4.5,
-    user: {
-      id: 0,
-      name: `Max`,
-      avatarUrl: `/img/avatar-max.jpg`,
-      isPro: true
-    },
-  },
-  {
-    id: 1,
-    comment: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.
-          The building is green and from 18th century.`,
-    date: new Date(2020, 0, 1, 0, 0, 0, 0).toISOString(),
-    rating: 3.5,
-    user: {
-      id: 1,
-      name: `Bob`,
-      avatarUrl: `/img/avatar.svg`,
-      isPro: true
-    },
-  }
-];
-
-it(`Render app`, () => {
-  const store = mockStore({
-    [NameSpace.CARDS]: {
-      cards
-    },
-    [NameSpace.USER]: {
-      userAuthorized: false
-    },
-    [NameSpace.CITY_SELECT]: {
-      cityName: 0
-    },
-    [NameSpace.CARD_SELECT]: {
-      cardId: 0
-    },
-    [NameSpace.CARDS_SORTING_MENU]: {
-      sortingMethodId: InitValue.INITIAL_SORTING_METHOD_ID,
-      menuState: InitValue.INITIAL_MENU_STATE
-    },
-    [NameSpace.REVIEWS]: {
-      reviews
-    },
-    [NameSpace.SIMILAR_OFFERS]: {
-      similarOffers: [cards[1]]
-    },
+it(`Reducer without additional parameters should return initial state`, () => {
+  expect(cardsReducer(void 0, {})).toEqual({
+    cards: [],
   });
+});
 
-  const tree = renderer
-    .create(
-        <Provider store={store}>
-          <App/>
-        </Provider>
-    )
-    .toJSON();
-  expect(tree).toMatchSnapshot();
+it(`Reducer should save cards`, () => {
+  expect(cardsReducer({
+    cards: [],
+  }, {
+    type: ActionType.LOAD_CARDS,
+    payload: cards,
+  })).toEqual({
+    cards,
+  });
+});
+
+describe(`Action creators work correctly`, () => {
+  it(`Action creator for loadCards step returns correct action`, () => {
+    expect(ActionCreator.loadCards(cards)).toEqual({
+      type: ActionType.LOAD_CARDS,
+      payload: cards,
+    });
+  });
+});
+
+describe(`Operation work correctly`, () => {
+  it(`Should make a correct API call to /hotels`, function () {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const cardsLoader = Operation.loadCards();
+
+    apiMock
+      .onGet(`/hotels`)
+      .reply(200, [{fake: true}]);
+
+    return cardsLoader(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionType.LOAD_CARDS,
+          payload: [{fake: true}],
+        });
+      });
+  });
 });

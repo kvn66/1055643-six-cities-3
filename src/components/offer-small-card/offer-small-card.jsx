@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import {UNSELECTED_CARD_ID} from "../../const.js";
+import {UNSELECTED_CARD_ID, HotelType} from "../../const.js";
 
 const ClassName = {
   CITY: {
@@ -14,8 +14,8 @@ const ClassName = {
 };
 
 const OfferSmallCard = (props) => {
-  const {place, setSelectedCard, isDetail} = props;
-  const {id, images, priceValue, priceText, name, type, rating, isPremium} = place;
+  const {card, setSelectedCard, isDetail} = props;
+  const {id, previewImage, price, title, type, rating, isFavorite, isPremium} = card;
   const linkToDetail = `/offer/${id}`;
   const articleClassName = isDetail ? ClassName.DETAIL.ARTICLE : ClassName.CITY.ARTICLE;
   const imageClassName = isDetail ? ClassName.DETAIL.IMAGE : ClassName.CITY.IMAGE;
@@ -37,16 +37,16 @@ const OfferSmallCard = (props) => {
       }
       <div className={`${imageClassName} place-card__image-wrapper`}>
         <a href="#">
-          <img className="place-card__image" src={images[0]} width="260" height="200" alt="Place image"/>
+          <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place image"/>
         </a>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
-            <b className="place-card__price-value">&euro;{priceValue}</b>
-            <span className="place-card__price-text">&#47;&nbsp;{priceText}</span>
+            <b className="place-card__price-value">&euro;{price}</b>
+            <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className="place-card__bookmark-button place-card__bookmark-button--active button" type="button">
+          <button className={`place-card__bookmark-button ${isFavorite ? `place-card__bookmark-button--active` : ``} button`} type="button">
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"/>
             </svg>
@@ -60,40 +60,53 @@ const OfferSmallCard = (props) => {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href={linkToDetail}>{name}</a>
+          <a href={linkToDetail}>{title}</a>
         </h2>
-        <p className="place-card__type">{type}</p>
+        <p className="place-card__type">{HotelType[type]}</p>
       </div>
     </article>
   );
 };
 
 OfferSmallCard.propTypes = {
-  place: PropTypes.exact({
+  card: PropTypes.exact({
     id: PropTypes.number.isRequired,
-    coordinates: PropTypes.array.isRequired,
-    images: PropTypes.array.isRequired,
-    priceValue: PropTypes.number.isRequired,
-    priceText: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    descriptions: PropTypes.array.isRequired,
-    type: PropTypes.string.isRequired,
-    bedrooms: PropTypes.number.isRequired,
-    adults: PropTypes.number.isRequired,
-    rating: PropTypes.number.isRequired,
-    inside: PropTypes.array.isRequired,
-    isPremium: PropTypes.bool.isRequired,
-    owner: PropTypes.exact({
+    city: PropTypes.exact({
+      location: PropTypes.exact({
+        latitude: PropTypes.number.isRequired,
+        longitude: PropTypes.number.isRequired,
+        zoom: PropTypes.number.isRequired,
+      }).isRequired,
       name: PropTypes.string.isRequired,
-      avatar: PropTypes.string.isRequired,
-      isSuper: PropTypes.bool.isRequired
     }).isRequired,
-    reviews: PropTypes.array.isRequired,
+    bedrooms: PropTypes.number.isRequired,
+    images: PropTypes.array.isRequired,
+    description: PropTypes.string.isRequired,
+    goods: PropTypes.array.isRequired,
+    host: PropTypes.exact({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+      avatarUrl: PropTypes.string.isRequired,
+      isPro: PropTypes.bool.isRequired
+    }).isRequired,
+    isFavorite: PropTypes.bool.isRequired,
+    isPremium: PropTypes.bool.isRequired,
+    location: PropTypes.exact({
+      latitude: PropTypes.number.isRequired,
+      longitude: PropTypes.number.isRequired,
+      zoom: PropTypes.number.isRequired,
+    }).isRequired,
+    maxAdults: PropTypes.number.isRequired,
+    previewImage: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    rating: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
   }).isRequired,
   setSelectedCard: PropTypes.func.isRequired,
   isDetail: PropTypes.bool.isRequired
 };
 
-const MemoizedOfferSmallCard = React.memo(OfferSmallCard);
+export const MemoizedOfferSmallCard = React.memo(OfferSmallCard);
 
-export default MemoizedOfferSmallCard;
+export default OfferSmallCard;

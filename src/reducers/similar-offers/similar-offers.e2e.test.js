@@ -1,12 +1,8 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
-import App from "./app.jsx";
-import {Provider} from "react-redux";
-import configureStore from "redux-mock-store";
-import {InitValue} from "../../reducers/cards-sorting-menu/cards-sorting-menu";
-import NameSpace from "../../reducers/name-space";
+import similarOffersReducer, {ActionType, ActionCreator, Operation} from "./similar-offers";
+import MockAdapter from "axios-mock-adapter";
+import createAPI from "../../api";
 
-const mockStore = configureStore([]);
+const api = createAPI(() => {});
 
 const cards = [
   {
@@ -79,67 +75,49 @@ const cards = [
   }
 ];
 
-const reviews = [
-  {
-    id: 0,
-    comment: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.
-          The building is green and from 18th century.`,
-    date: new Date(2020, 1, 14, 0, 0, 0, 0).toISOString(),
-    rating: 4.5,
-    user: {
-      id: 0,
-      name: `Max`,
-      avatarUrl: `/img/avatar-max.jpg`,
-      isPro: true
-    },
-  },
-  {
-    id: 1,
-    comment: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.
-          The building is green and from 18th century.`,
-    date: new Date(2020, 0, 1, 0, 0, 0, 0).toISOString(),
-    rating: 3.5,
-    user: {
-      id: 1,
-      name: `Bob`,
-      avatarUrl: `/img/avatar.svg`,
-      isPro: true
-    },
-  }
-];
-
-it(`Render app`, () => {
-  const store = mockStore({
-    [NameSpace.CARDS]: {
-      cards
-    },
-    [NameSpace.USER]: {
-      userAuthorized: false
-    },
-    [NameSpace.CITY_SELECT]: {
-      cityName: 0
-    },
-    [NameSpace.CARD_SELECT]: {
-      cardId: 0
-    },
-    [NameSpace.CARDS_SORTING_MENU]: {
-      sortingMethodId: InitValue.INITIAL_SORTING_METHOD_ID,
-      menuState: InitValue.INITIAL_MENU_STATE
-    },
-    [NameSpace.REVIEWS]: {
-      reviews
-    },
-    [NameSpace.SIMILAR_OFFERS]: {
-      similarOffers: [cards[1]]
-    },
+it(`Reducer without additional parameters should return initial state`, () => {
+  expect(similarOffersReducer(void 0, {})).toEqual({
+    similarOffers: []
   });
+});
 
-  const tree = renderer
-    .create(
-        <Provider store={store}>
-          <App/>
-        </Provider>
-    )
-    .toJSON();
-  expect(tree).toMatchSnapshot();
+it(`Reducer should save similarOffers`, () => {
+  expect(similarOffersReducer({
+    similarOffers: []
+  }, {
+    type: ActionType.LOAD_SIMILAR_OFFERS,
+    payload: cards,
+  })).toEqual({
+    similarOffers: cards
+  });
+});
+
+describe(`Action creators work correctly`, () => {
+  it(`Action creator for setSelectedCityIdAction step returns correct action`, () => {
+    expect(ActionCreator.loadSimilarOffers(cards)).toEqual({
+      type: ActionType.LOAD_SIMILAR_OFFERS,
+      payload: cards,
+    });
+  });
+});
+
+describe(`Operation work correctly`, () => {
+  it(`Should make a correct API call to /hotels/0/nearby`, function () {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const similarOffersLoader = Operation.loadSimilarOffers(0);
+
+    apiMock
+      .onGet(`/hotels/0/nearby`)
+      .reply(200, [{fake: true}]);
+
+    return similarOffersLoader(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionType.LOAD_SIMILAR_OFFERS,
+          payload: [{fake: true}],
+        });
+      });
+  });
 });

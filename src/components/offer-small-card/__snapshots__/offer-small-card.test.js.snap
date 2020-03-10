@@ -46,8 +46,7 @@ exports[`Render MemoizedOfferSmallCard 1`] = `
         <span
           className="place-card__price-text"
         >
-          / 
-          night
+          / night
         </span>
       </div>
       <button

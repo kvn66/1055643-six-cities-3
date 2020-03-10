@@ -1,4 +1,4 @@
-import {extend} from "../utils.js";
+import {extend} from "../../utils.js";
 
 export const ActionType = {
   SET_MENU_STATE: `SET_MENU_STATE`,
@@ -15,15 +15,20 @@ const initialState = {
   menuState: InitValue.INITIAL_MENU_STATE
 };
 
-export const setSortingCardsMethodAction = (methodId) => ({
-  type: ActionType.SET_SORTING_METHOD,
-  payload: methodId,
-});
-
-export const setMenuStateAction = (state) => ({
-  type: ActionType.SET_MENU_STATE,
-  payload: state,
-});
+export const ActionCreator = {
+  setSortingCardsMethod: (methodId) => {
+    return {
+      type: ActionType.SET_SORTING_METHOD,
+      payload: methodId,
+    };
+  },
+  setMenuState: (state) => {
+    return {
+      type: ActionType.SET_MENU_STATE,
+      payload: state,
+    };
+  },
+};
 
 const cardsSortingMenuReducer = (state = initialState, action) => {
   switch (action.type) {

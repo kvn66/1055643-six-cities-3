@@ -8,10 +8,10 @@ const App = () => {
     <BrowserRouter>
       <Switch>
         <Route exact path="/">
-          <Main/>
+          <Main />
         </Route>
         <Route exact path="/offer/:id">
-          <OfferDetailCard/>
+          <OfferDetailCard />
         </Route>
       </Switch>
     </BrowserRouter>

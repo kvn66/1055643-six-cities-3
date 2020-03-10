@@ -52,7 +52,7 @@ exports[`Render Review 1`] = `
             <span
               style={
                 Object {
-                  "width": "80%",
+                  "width": "90%",
                 }
               }
             />
@@ -112,7 +112,7 @@ exports[`Render Review 1`] = `
             <span
               style={
                 Object {
-                  "width": "80%",
+                  "width": "70%",
                 }
               }
             />
