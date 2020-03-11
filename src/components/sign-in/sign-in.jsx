@@ -14,7 +14,7 @@ const SignIn = (props) => {
     evt.preventDefault();
 
     loginOnServer({
-      login: loginRef.current.value,
+      email: loginRef.current.value,
       password: passwordRef.current.value,
     });
   };
