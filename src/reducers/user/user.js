@@ -11,7 +11,7 @@ const initialState = {
   userInfo: {},
 };
 
-const ActionType = {
+export const ActionType = {
   SET_AUTHORIZATION_STATUS: `SET_AUTHORIZATION_STATUS`,
   SET_USER_INFO: `SET_USER_INFO`,
 };
@@ -48,8 +48,9 @@ const userReducer = (state = initialState, action) => {
 
 export const Operation = {
   checkAuth: () => (dispatch, getState, api) => {
-    return api.get(`/login`)
-      .then(() => {
+    return api.get(AppRoute.LOGIN)
+      .then((response) => {
+        dispatch(ActionCreator.setUserInfo(toCamel(response.data)));
         dispatch(ActionCreator.setAuthorizationStatus(AuthorizationStatus.AUTH));
       })
       .catch((err) => {
@@ -57,8 +58,8 @@ export const Operation = {
       });
   },
 
-  login: (authData) => (dispatch, getState, api) => {
-    return api.post(`/login`, {
+  loginOnServer: (authData) => (dispatch, getState, api) => {
+    return api.post(AppRoute.LOGIN, {
       email: authData.login,
       password: authData.password,
     })
@@ -66,6 +67,9 @@ export const Operation = {
         dispatch(ActionCreator.setUserInfo(toCamel(response.data)));
         dispatch(ActionCreator.setAuthorizationStatus(AuthorizationStatus.AUTH));
         window.location.pathname = AppRoute.ROOT;
+      })
+      .catch((err) => {
+        throw err;
       });
   },
 };

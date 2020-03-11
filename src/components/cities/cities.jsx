@@ -4,7 +4,7 @@ import {getSelectedCityId} from "../../reducers/city-select/selectors";
 import {getCityNames, getCardsCount} from "../../reducers/cards/selectors";
 import {ActionCreator} from "../../reducers/city-select/city-select";
 import City from "../city/city.jsx";
-import MemoizedCityNavItem from "../city-nav-item/city-nav-item.jsx";
+import {MemoizedCityNavItem} from "../city-nav-item/city-nav-item.jsx";
 import {connect} from "react-redux";
 
 const Cities = (props) => {

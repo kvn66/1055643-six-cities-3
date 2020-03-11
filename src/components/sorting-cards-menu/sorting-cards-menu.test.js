@@ -4,7 +4,7 @@ import SoringCardsMenu from "./sorting-cards-menu.jsx";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
 import {InitValue} from "../../reducers/cards-sorting-menu/cards-sorting-menu";
-import NameSpace from "../../reducers/name-space";
+import {NameSpace} from "../../reducers/name-space";
 
 const mockStore = configureStore([]);
 

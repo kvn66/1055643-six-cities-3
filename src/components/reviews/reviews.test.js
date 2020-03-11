@@ -2,7 +2,7 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import Reviews from "./reviews.jsx";
 import configureMockStore from "redux-mock-store";
-import NameSpace from "../../reducers/name-space";
+import {NameSpace} from "../../reducers/name-space";
 import {Provider} from "react-redux";
 import MockAdapter from "axios-mock-adapter";
 import createAPI from "../../api";
@@ -54,6 +54,9 @@ it(`Render Review`, () => {
   const store = mockStore({
     [NameSpace.REVIEWS]: {
       reviews
+    },
+    [NameSpace.USER]: {
+      userAuthorized: false
     },
   });
 

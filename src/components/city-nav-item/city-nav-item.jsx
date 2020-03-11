@@ -25,6 +25,6 @@ CityNavItem.propTypes = {
   selectedCityId: PropTypes.number.isRequired
 };
 
-const MemoizedCityNavItem = React.memo(CityNavItem);
+export const MemoizedCityNavItem = React.memo(CityNavItem);
 
-export default MemoizedCityNavItem;
+export default CityNavItem;
