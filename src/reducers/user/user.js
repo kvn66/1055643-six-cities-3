@@ -59,10 +59,7 @@ export const Operation = {
   },
 
   loginOnServer: (authData) => (dispatch, getState, api) => {
-    return api.post(AppRoute.LOGIN, {
-      email: authData.login,
-      password: authData.password,
-    })
+    return api.post(AppRoute.LOGIN, authData)
       .then((response) => {
         dispatch(ActionCreator.setUserInfo(toCamel(response.data)));
         dispatch(ActionCreator.setAuthorizationStatus(AuthorizationStatus.AUTH));
