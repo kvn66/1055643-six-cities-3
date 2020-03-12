@@ -13,3 +13,10 @@ export const HotelType = {
   house: `House`,
   hotel: `Hotel`
 };
+
+export const AppRoute = {
+  LOGIN: `/login`,
+  FAVORITES: `/favorites`,
+  OFFER: `/offer/:id`,
+  ROOT: `/`,
+};

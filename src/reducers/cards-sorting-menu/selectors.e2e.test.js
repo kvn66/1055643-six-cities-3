@@ -1,5 +1,5 @@
 import {getSortingMethodId, getMenuState} from "./selectors";
-import NameSpace from "../name-space";
+import {NameSpace} from "../name-space";
 import {InitValue} from "./cards-sorting-menu";
 
 const store = {

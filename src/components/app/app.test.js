@@ -4,7 +4,7 @@ import App from "./app.jsx";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
 import {InitValue} from "../../reducers/cards-sorting-menu/cards-sorting-menu";
-import NameSpace from "../../reducers/name-space";
+import {NameSpace} from "../../reducers/name-space";
 
 const mockStore = configureStore([]);
 
@@ -114,7 +114,14 @@ it(`Render app`, () => {
       cards
     },
     [NameSpace.USER]: {
-      userAuthorized: false
+      userAuthorized: false,
+      userInfo: {
+        id: 1,
+        name: `Oliver.conner`,
+        email: `Oliver.conner@gmail.com`,
+        avatarUrl: `/img/1.png`,
+        isPro: false
+      },
     },
     [NameSpace.CITY_SELECT]: {
       cityName: 0

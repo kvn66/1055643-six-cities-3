@@ -3,7 +3,7 @@ import renderer from 'react-test-renderer';
 import {MemoryRouter} from "react-router-dom";
 import OfferDetailCard from "./offer-detail-card.jsx";
 import {Provider} from "react-redux";
-import NameSpace from "../../reducers/name-space";
+import {NameSpace} from "../../reducers/name-space";
 import {InitValue} from "../../reducers/cards-sorting-menu/cards-sorting-menu";
 import configureMockStore from "redux-mock-store";
 import MockAdapter from "axios-mock-adapter";
@@ -131,7 +131,14 @@ it(`Render OfferDetailCard`, () => {
       cards
     },
     [NameSpace.USER]: {
-      userAuthorized: false
+      userAuthorized: false,
+      userInfo: {
+        id: 1,
+        name: `Oliver.conner`,
+        email: `Oliver.conner@gmail.com`,
+        avatarUrl: `/img/1.png`,
+        isPro: false
+      },
     },
     [NameSpace.CITY_SELECT]: {
       cityName: 0

@@ -1,5 +1,5 @@
 import {getAllCards, getCardsCount, getCityNames, getSelectedCityName, getCardsForSelectedCity, getSortedCardsForSelectedCity} from "./selectors";
-import NameSpace from "../name-space";
+import {NameSpace} from "../name-space";
 import {InitValue} from "../cards-sorting-menu/cards-sorting-menu";
 
 const cards = [

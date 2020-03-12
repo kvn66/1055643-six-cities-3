@@ -1,4 +1,4 @@
-import NameSpace from "../name-space.js";
+import {NameSpace} from "../name-space.js";
 import moment from 'moment';
 
 const REVIEWS_MIN = 0;

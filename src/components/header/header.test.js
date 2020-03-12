@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import Main from "./main.jsx";
+import Header from "./header.jsx";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
 import {InitValue} from "../../reducers/cards-sorting-menu/cards-sorting-menu";
@@ -108,7 +108,7 @@ const reviews = [
   }
 ];
 
-it(`Render Main`, () => {
+it(`Render Header`, () => {
   const store = mockStore({
     [NameSpace.CARDS]: {
       cards
@@ -144,7 +144,7 @@ it(`Render Main`, () => {
   const tree = renderer
     .create(
         <Provider store={store}>
-          <Main/>
+          <Header />
         </Provider>
     )
     .toJSON();

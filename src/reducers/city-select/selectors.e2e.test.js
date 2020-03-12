@@ -1,5 +1,5 @@
 import {getSelectedCityId} from "./selectors";
-import NameSpace from "../name-space";
+import {NameSpace} from "../name-space";
 
 const store = {
   [NameSpace.CITY_SELECT]: {
