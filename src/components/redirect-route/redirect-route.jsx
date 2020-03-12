@@ -24,7 +24,7 @@ const RedirectRoute = (props) => {
 };
 
 RedirectRoute.propTypes = {
-  authorizationStatus: PropTypes.bool.isRequired,
+  isAuthorized: PropTypes.bool.isRequired,
   statusForRedirect: PropTypes.bool.isRequired,
   exact: PropTypes.bool.isRequired,
   path: PropTypes.string.isRequired,
@@ -33,7 +33,7 @@ RedirectRoute.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  authorizationStatus: getAuthorizationStatus(state),
+  isAuthorized: getAuthorizationStatus(state),
 });
 
 export default connect(mapStateToProps)(RedirectRoute);
