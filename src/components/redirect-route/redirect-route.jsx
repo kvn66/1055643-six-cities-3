@@ -6,7 +6,7 @@ import {getAuthorizationStatus} from "../../reducers/user/selectors";
 
 
 const RedirectRoute = (props) => {
-  const {render, path, redirectTo, statusForRedirect, exact, authorizationStatus} = props;
+  const {render, path, redirectTo, statusForRedirect, exact, isAuthorized} = props;
 
   return (
     <Route
@@ -14,7 +14,7 @@ const RedirectRoute = (props) => {
       exact={exact}
       render={() => {
         return (
-          authorizationStatus === {statusForRedirect}
+          isAuthorized === {statusForRedirect}
             ? <Redirect to={redirectTo} />
             : render()
         );

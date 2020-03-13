@@ -12,6 +12,10 @@ const ReviewForm = (props) => {
   let rating = 0;
   let comment = ``;
 
+  const setButtonState = () => {
+    buttonRef.current.disabled = !(rating > 0 && comment.length > 50 && comment.length < 500);
+  };
+
   const lockForm = () => {
     formRef.current.querySelectorAll(`input, textarea, button`)
       .forEach((elem) => elem.setAttribute(`disabled`, `disabled`));
@@ -24,20 +28,19 @@ const ReviewForm = (props) => {
 
   const clearForm = () => {
     formRef.current.reset();
+    rating = 0;
+    comment = ``;
+    setButtonState();
   };
 
   const onSuccess = () => {
-    clearForm();
     unlockForm();
+    clearForm();
   };
 
   const onError = () => {
     shakeElement(formRef.current);
     unlockForm();
-  };
-
-  const setButtonState = () => {
-    buttonRef.current.disabled = !(rating > 0 && comment.length > 50 && comment.length < 500);
   };
 
   const changeRatingHandler = (evt) => {
@@ -48,7 +51,6 @@ const ReviewForm = (props) => {
   const changeTextHandler = (evt) => {
     comment = evt.target.value;
     setButtonState();
-    shakeElement(formRef.current.querySelector(`textarea`));
   };
 
   const submitHandler = (evt) => {
@@ -63,7 +65,7 @@ const ReviewForm = (props) => {
   };
 
   return (
-    <form ref={formRef} onSubmit={submitHandler} className="reviews__form form shake-horizontal" action="#" method="post">
+    <form ref={formRef} onSubmit={submitHandler} className="reviews__form" action="#" method="post">
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         <input onChange={changeRatingHandler}

@@ -20,7 +20,7 @@ export const getCityNames = createSelector(
     (cards) => {
       let cityNames = cards.map((card) => card.city.name);
       const cityNamesSet = new Set(cityNames);
-      cityNames = Array.from(cityNamesSet);
+      cityNames = (Array.from(cityNamesSet)).sort();
       return cityNames.slice(0, CITIES_MAX_COUNT);
     }
 );

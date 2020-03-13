@@ -33,6 +33,12 @@ const reviews = [
   }
 ];
 
+const commentPost = {
+  rating: 5,
+  comment: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.
+          The building is green and from 18th century.`
+};
+
 it(`Reducer without additional parameters should return initial state`, () => {
   expect(reviewsReducer(void 0, {})).toEqual({
     reviews: [],
@@ -60,7 +66,7 @@ describe(`Action creators work correctly`, () => {
 });
 
 describe(`Operation work correctly`, () => {
-  it(`Should make a correct API call to /comments`, function () {
+  it(`Should make a correct API GET call to /comments`, function () {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
     const reviewsLoader = Operation.loadReviews(0);
@@ -76,6 +82,27 @@ describe(`Operation work correctly`, () => {
           type: ActionType.LOAD_REVIEWS,
           payload: [{fake: true}],
         });
+      });
+  });
+  it(`Should make a correct API POST call to /comments`, function () {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const onSuccess = jest.fn();
+    const onError = jest.fn();
+    const reviewsSender = Operation.sendReview(0, commentPost, onSuccess, onError);
+
+    apiMock
+      .onPost(`/comments/0`, commentPost)
+      .reply(200, [{fake: true}]);
+
+    return reviewsSender(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionType.LOAD_REVIEWS,
+          payload: [{fake: true}],
+        });
+        expect(onSuccess).toHaveBeenCalledTimes(1);
       });
   });
 });

@@ -2,11 +2,10 @@ import React, {createRef} from "react";
 import {Operation as UserOperation} from "../../reducers/user/user";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
-import {getSelectedCityName} from "../../reducers/cards/selectors";
 import {MemoizedHeader} from "../header/header.jsx";
 
 const SignIn = (props) => {
-  const {cityName, loginOnServer} = props;
+  const {loginOnServer} = props;
   const loginRef = createRef();
   const passwordRef = createRef();
 
@@ -46,7 +45,7 @@ const SignIn = (props) => {
           <section className="locations locations--login locations--current">
             <div className="locations__item">
               <a className="locations__item-link" href="/">
-                <span>{cityName}</span>
+                <span>Amsterdam</span>
               </a>
             </div>
           </section>
@@ -57,14 +56,11 @@ const SignIn = (props) => {
 };
 
 SignIn.propTypes = {
-  cityName: PropTypes.string.isRequired,
   loginOnServer: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (store) => {
-  return {
-    cityName: getSelectedCityName(store),
-  };
+const mapStateToProps = () => {
+  return {};
 };
 
 const mapDispatchToProps = (dispatch) => {

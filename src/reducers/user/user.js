@@ -1,5 +1,5 @@
 import {toCamel} from "convert-keys";
-import {AppRoute} from "../../const";
+import {AppRoute, NetworkError} from "../../const";
 
 export const AuthorizationStatus = {
   AUTH: true,
@@ -8,7 +8,13 @@ export const AuthorizationStatus = {
 
 const initialState = {
   userAuthorized: false,
-  userInfo: {},
+  userInfo: {
+    id: -1,
+    name: ``,
+    email: ``,
+    avatarUrl: ``,
+    isPro: false
+  },
 };
 
 export const ActionType = {
@@ -54,6 +60,13 @@ export const Operation = {
         dispatch(ActionCreator.setAuthorizationStatus(AuthorizationStatus.AUTH));
       })
       .catch((err) => {
+        const {response} = err;
+
+        if (response && response.status === NetworkError.UNAUTHORIZED) {
+          dispatch(ActionCreator.setAuthorizationStatus(AuthorizationStatus.NO_AUTH));
+          return;
+        }
+
         throw err;
       });
   },
