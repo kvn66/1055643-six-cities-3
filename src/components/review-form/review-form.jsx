@@ -69,7 +69,7 @@ class ReviewForm extends PureComponent {
     const {formIsLocked, buttonIsLocked, rating, comment} = this.props;
 
     const ratingElement = RATING_TITLES.map((title, index) =>
-      <MemoizedReviewFormRatingItem key={index} id={5 - index} title={title} rating={rating} formIsLocked={formIsLocked} onChangeRating={this.changeRatingHandler} />
+      <MemoizedReviewFormRatingItem key={index} id={RATING_TITLES.length - index} title={title} rating={rating} formIsLocked={formIsLocked} onChangeRating={this.changeRatingHandler} />
     );
 
     return (
