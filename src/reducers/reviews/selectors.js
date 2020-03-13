@@ -11,3 +11,19 @@ export const getReviews = (state) => {
   const sortedReviews = reviews.slice().sort((a, b) => moment(b.date).diff(moment(a.date)));
   return sortedReviews.slice(REVIEWS_MIN, REVIEWS_MAX);
 };
+
+export const getFormIsLocked = (state) => {
+  return state[NAME_SPACE].formIsLocked;
+};
+
+export const getButtonIsLocked = (state) => {
+  return state[NAME_SPACE].buttonIsLocked;
+};
+
+export const getRating = (state) => {
+  return state[NAME_SPACE].rating;
+};
+
+export const getComment = (state) => {
+  return state[NAME_SPACE].comment;
+};

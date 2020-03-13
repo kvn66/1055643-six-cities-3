@@ -1,19 +1,24 @@
 import React, {createRef} from "react";
 import PropTypes from "prop-types";
-import {Operation as ReviewsOperation} from "../../reducers/reviews/reviews";
+import {Operation as ReviewsOperation, ActionCreator} from "../../reducers/reviews/reviews";
 import {connect} from "react-redux";
 import {shakeElement} from "../../utils";
+import {getFormIsLocked, getButtonIsLocked, getComment, getRating} from "../../reducers/reviews/selectors";
+import {NameSpace} from "../../reducers/name-space";
+
+const RADIX = 10;
 
 const ReviewForm = (props) => {
-  const {cardId, sendReview} = props;
-  const buttonRef = createRef();
+  const {cardId, formIsLocked, buttonIsLocked, rating, comment, sendReview, setFormLockState, setButtonLockState, setRating, setComment} = props;
   const formRef = createRef();
 
-  let rating = 0;
-  let comment = ``;
-
   const setButtonState = () => {
-    buttonRef.current.disabled = !(rating > 0 && comment.length > 50 && comment.length < 500);
+    const buttonState = !(rating > 0 && comment.length > 5 && comment.length < 500);
+    setButtonLockState(buttonState);
+    console.log(buttonState);
+    console.log(rating);
+    console.log(comment);
+    console.log(comment.length);
   };
 
   const lockForm = () => {
@@ -28,8 +33,8 @@ const ReviewForm = (props) => {
 
   const clearForm = () => {
     formRef.current.reset();
-    rating = 0;
-    comment = ``;
+    setRating(0);
+    setComment(``);
     setButtonState();
   };
 
@@ -44,12 +49,12 @@ const ReviewForm = (props) => {
   };
 
   const changeRatingHandler = (evt) => {
-    rating = evt.target.value;
+    setRating(parseInt(evt.target.value, RADIX));
     setButtonState();
   };
 
   const changeTextHandler = (evt) => {
-    comment = evt.target.value;
+    setComment(evt.target.value);
     setButtonState();
   };
 
@@ -125,7 +130,7 @@ const ReviewForm = (props) => {
           To submit review please make sure to set <span className="reviews__star">rating</span> and
           describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button ref={buttonRef} className="reviews__submit form__submit button" type="submit" disabled>Submit</button>
+        <button className="reviews__submit form__submit button" type="submit" disabled={buttonIsLocked}>Submit</button>
       </div>
     </form>
   );
@@ -133,16 +138,34 @@ const ReviewForm = (props) => {
 
 ReviewForm.propTypes = {
   cardId: PropTypes.number.isRequired,
+  formIsLocked: PropTypes.bool.isRequired,
+  buttonIsLocked: PropTypes.bool.isRequired,
+  rating: PropTypes.number.isRequired,
+  comment: PropTypes.string.isRequired,
   sendReview: PropTypes.func.isRequired,
+  setFormLockState: PropTypes.func.isRequired,
+  setButtonLockState: PropTypes.func.isRequired,
+  setRating: PropTypes.func.isRequired,
+  setComment: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = () => {
-  return {};
+const mapStateToProps = (state) => {
+  console.log(state.REVIEWS);
+  return {
+    formIsLocked: getFormIsLocked(state),
+    buttonIsLocked: getButtonIsLocked(state),
+    rating: getRating(state),
+    comment: state[NameSpace.REVIEWS].comment,
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    sendReview: (cardId, review, onSuccess, onError) => dispatch(ReviewsOperation.sendReview(cardId, review, onSuccess, onError))
+    sendReview: (cardId, review, onSuccess, onError) => dispatch(ReviewsOperation.sendReview(cardId, review, onSuccess, onError)),
+    setFormLockState: (lockState) => dispatch(ActionCreator.setFormLockState(lockState)),
+    setButtonLockState: (lockState) => dispatch(ActionCreator.setButtonLockState(lockState)),
+    setRating: (rating) => dispatch(ActionCreator.setRating(rating)),
+    setComment: (comment) => dispatch(ActionCreator.setComment(comment)),
   };
 };
 

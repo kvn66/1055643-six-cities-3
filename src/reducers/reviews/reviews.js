@@ -3,12 +3,20 @@ import {toCamel} from 'convert-keys';
 import {AppRoute} from "../../const";
 
 const initialState = {
-  reviews: []
+  reviews: [],
+  formIsLocked: false,
+  buttonIsLocked: true,
+  rating: 0,
+  comment: ``,
 };
 
 export const ActionType = {
   LOAD_REVIEWS: `LOAD_REVIEWS`,
   SEND_REVIEW: `SEND_REVIEW`,
+  SET_FORM_LOCK_STATE: `SET_FORM_LOCK_STATE`,
+  SET_BUTTON_LOCK_STATE: `SET_BUTTON_LOCK_STATE`,
+  SET_RATING: `SET_RATING`,
+  SET_COMMENT: `SET_COMMENT`,
 };
 
 export const ActionCreator = {
@@ -22,6 +30,30 @@ export const ActionCreator = {
     return {
       type: ActionType.SEND_REVIEW,
       payload: review,
+    };
+  },
+  setFormLockState: (lockState) => {
+    return {
+      type: ActionType.SET_FORM_LOCK_STATE,
+      payload: lockState,
+    };
+  },
+  setButtonLockState: (lockState) => {
+    return {
+      type: ActionType.SET_BUTTON_LOCK_STATE,
+      payload: lockState,
+    };
+  },
+  setRating: (rating) => {
+    return {
+      type: ActionType.SET_RATING,
+      payload: rating,
+    };
+  },
+  setComment: (comment) => {
+    return {
+      type: ActionType.SET_COMMENT,
+      payload: comment,
     };
   },
 };
@@ -54,6 +86,22 @@ const reviewsReducer = (state = initialState, action) => {
     case ActionType.LOAD_REVIEWS:
       return extend(state, {
         reviews: action.payload,
+      });
+    case ActionType.SET_FORM_LOCK_STATE:
+      return extend(state, {
+        formIsLocked: action.payload,
+      });
+    case ActionType.SET_BUTTON_LOCK_STATE:
+      return extend(state, {
+        buttonIsLocked: action.payload,
+      });
+    case ActionType.SET_RATING:
+      return extend(state, {
+        rating: action.payload,
+      });
+    case ActionType.SET_COMMENT:
+      return extend(state, {
+        comment: action.payload,
       });
     default:
       return state;

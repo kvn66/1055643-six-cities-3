@@ -14,7 +14,7 @@ const RedirectRoute = (props) => {
       exact={exact}
       render={() => {
         return (
-          isAuthorized === {statusForRedirect}
+          isAuthorized === statusForRedirect
             ? <Redirect to={redirectTo} />
             : render()
         );
