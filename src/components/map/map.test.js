@@ -83,6 +83,7 @@ it(`Render Map`, () => {
           cards={cards}
           similarOffers={[cards[1]]}
           selectedCardId = {ACTIVE_OFFER}
+          isDetail={false}
           sectionClassName = {MAP_CLASS_NAME}
         />
     )
