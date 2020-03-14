@@ -9,6 +9,7 @@ import {connect} from "react-redux";
 import {getAllCards} from "../../reducers/cards/selectors";
 import {Operation as SimilarOffersOperation} from "../../reducers/similar-offers/similar-offers";
 import {MemoizedHeader} from "../header/header.jsx";
+import {HotelType} from "../../const";
 
 const RADIX = 10;
 const SECTION_CLASS_NAME = `property__map`;
@@ -88,7 +89,7 @@ class OfferDetailCard extends PureComponent {
                 </div>
                 <ul className="property__features">
                   <li className="property__feature property__feature--entire">
-                    {type}
+                    {HotelType[type]}
                   </li>
                   <li className="property__feature property__feature--bedrooms">
                     {bedrooms} Bedrooms
@@ -138,7 +139,11 @@ class OfferDetailCard extends PureComponent {
               </div>
             </div>
             <Map
-              cards={cards} similarOffers={similarOffers} selectedCardId={cardId} sectionClassName={SECTION_CLASS_NAME}
+              cards={cards}
+              similarOffers={similarOffers}
+              selectedCardId={cardId}
+              isDetail={true}
+              sectionClassName={SECTION_CLASS_NAME}
             />
           </section>
           <div className="container">

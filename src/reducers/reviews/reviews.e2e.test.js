@@ -39,27 +39,185 @@ const commentPost = {
           The building is green and from 18th century.`
 };
 
-it(`Reducer without additional parameters should return initial state`, () => {
-  expect(reviewsReducer(void 0, {})).toEqual({
-    reviews: [],
+describe(`Reducer work correctly`, () => {
+  it(`Reducer without additional parameters should return initial state`, () => {
+    expect(reviewsReducer(void 0, {})).toEqual({
+      reviews: [],
+      formIsLocked: false,
+      buttonIsLocked: true,
+      isShake: false,
+      rating: 0,
+      comment: ``,
+    });
   });
-});
 
-it(`Reducer should save reviews`, () => {
-  expect(reviewsReducer({
-    reviews: [],
-  }, {
-    type: ActionType.LOAD_REVIEWS,
-    payload: reviews,
-  })).toEqual({
-    reviews,
+  it(`Reducer should save reviews`, () => {
+    expect(reviewsReducer({
+      reviews: [],
+      formIsLocked: false,
+      buttonIsLocked: true,
+      isShake: false,
+      rating: 0,
+      comment: ``,
+    }, {
+      type: ActionType.LOAD_REVIEWS,
+      payload: reviews,
+    })).toEqual({
+      reviews,
+      formIsLocked: false,
+      buttonIsLocked: true,
+      isShake: false,
+      rating: 0,
+      comment: ``,
+    });
+  });
+
+  it(`Reducer should save formIsLocked`, () => {
+    expect(reviewsReducer({
+      reviews: [],
+      formIsLocked: false,
+      buttonIsLocked: true,
+      isShake: false,
+      rating: 0,
+      comment: ``,
+    }, {
+      type: ActionType.SET_FORM_LOCK_STATE,
+      payload: true,
+    })).toEqual({
+      reviews: [],
+      formIsLocked: true,
+      buttonIsLocked: true,
+      isShake: false,
+      rating: 0,
+      comment: ``,
+    });
+  });
+
+  it(`Reducer should save buttonIsLocked`, () => {
+    expect(reviewsReducer({
+      reviews: [],
+      formIsLocked: false,
+      buttonIsLocked: true,
+      isShake: false,
+      rating: 0,
+      comment: ``,
+    }, {
+      type: ActionType.SET_BUTTON_LOCK_STATE,
+      payload: false,
+    })).toEqual({
+      reviews: [],
+      formIsLocked: false,
+      buttonIsLocked: false,
+      isShake: false,
+      rating: 0,
+      comment: ``,
+    });
+  });
+
+  it(`Reducer should save isShake`, () => {
+    expect(reviewsReducer({
+      reviews: [],
+      formIsLocked: false,
+      buttonIsLocked: true,
+      isShake: false,
+      rating: 0,
+      comment: ``,
+    }, {
+      type: ActionType.SET_SHAKE_STATE,
+      payload: true,
+    })).toEqual({
+      reviews: [],
+      formIsLocked: false,
+      buttonIsLocked: true,
+      isShake: true,
+      rating: 0,
+      comment: ``,
+    });
+  });
+
+  it(`Reducer should save rating`, () => {
+    expect(reviewsReducer({
+      reviews: [],
+      formIsLocked: false,
+      buttonIsLocked: true,
+      isShake: false,
+      rating: 0,
+      comment: ``,
+    }, {
+      type: ActionType.SET_RATING,
+      payload: 5,
+    })).toEqual({
+      reviews: [],
+      formIsLocked: false,
+      buttonIsLocked: true,
+      isShake: false,
+      rating: 5,
+      comment: ``,
+    });
+  });
+
+  it(`Reducer should save comment`, () => {
+    expect(reviewsReducer({
+      reviews: [],
+      formIsLocked: false,
+      buttonIsLocked: true,
+      isShake: false,
+      rating: 0,
+      comment: ``,
+    }, {
+      type: ActionType.SET_COMMENT,
+      payload: `test`,
+    })).toEqual({
+      reviews: [],
+      formIsLocked: false,
+      buttonIsLocked: true,
+      isShake: false,
+      rating: 0,
+      comment: `test`,
+    });
   });
 });
 
 describe(`Action creators work correctly`, () => {
-  it(`Action creator for setSelectedCityIdAction step returns correct action`, () => {
+  it(`Action creator for loadReviews step returns correct action`, () => {
     expect(ActionCreator.loadReviews(reviews)).toEqual({
       type: ActionType.LOAD_REVIEWS,
+      payload: reviews,
+    });
+  });
+  it(`Action creator for sendReview step returns correct action`, () => {
+    expect(ActionCreator.sendReview(reviews)).toEqual({
+      type: ActionType.SEND_REVIEW,
+      payload: reviews,
+    });
+  });
+  it(`Action creator for setFormLockState step returns correct action`, () => {
+    expect(ActionCreator.setFormLockState(reviews)).toEqual({
+      type: ActionType.SET_FORM_LOCK_STATE,
+      payload: reviews,
+    });
+  });
+  it(`Action creator for setButtonLockState step returns correct action`, () => {
+    expect(ActionCreator.setButtonLockState(reviews)).toEqual({
+      type: ActionType.SET_BUTTON_LOCK_STATE,
+      payload: reviews,
+    });
+  });
+  it(`Action creator for setShakeState step returns correct action`, () => {
+    expect(ActionCreator.setShakeState(reviews)).toEqual({
+      type: ActionType.SET_SHAKE_STATE,
+      payload: reviews,
+    });
+  });
+  it(`Action creator for setRating step returns correct action`, () => {
+    expect(ActionCreator.setRating(reviews)).toEqual({
+      type: ActionType.SET_RATING,
+      payload: reviews,
+    });
+  });
+  it(`Action creator for setComment step returns correct action`, () => {
+    expect(ActionCreator.setComment(reviews)).toEqual({
+      type: ActionType.SET_COMMENT,
       payload: reviews,
     });
   });

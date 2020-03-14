@@ -3,7 +3,7 @@
 exports[`Render ReviewForm 1`] = `
 <form
   action="#"
-  className="reviews__form"
+  className="reviews__form "
   method="post"
   onSubmit={[Function]}
 >
@@ -17,7 +17,9 @@ exports[`Render ReviewForm 1`] = `
     className="reviews__rating-form form__rating"
   >
     <input
+      checked={false}
       className="form__rating-input visually-hidden"
+      disabled={false}
       id="5-stars"
       name="rating"
       onChange={[Function]}
@@ -40,7 +42,9 @@ exports[`Render ReviewForm 1`] = `
       </svg>
     </label>
     <input
+      checked={false}
       className="form__rating-input visually-hidden"
+      disabled={false}
       id="4-stars"
       name="rating"
       onChange={[Function]}
@@ -63,7 +67,9 @@ exports[`Render ReviewForm 1`] = `
       </svg>
     </label>
     <input
+      checked={false}
       className="form__rating-input visually-hidden"
+      disabled={false}
       id="3-stars"
       name="rating"
       onChange={[Function]}
@@ -86,7 +92,9 @@ exports[`Render ReviewForm 1`] = `
       </svg>
     </label>
     <input
+      checked={false}
       className="form__rating-input visually-hidden"
+      disabled={false}
       id="2-stars"
       name="rating"
       onChange={[Function]}
@@ -109,8 +117,10 @@ exports[`Render ReviewForm 1`] = `
       </svg>
     </label>
     <input
+      checked={false}
       className="form__rating-input visually-hidden"
-      id="1-star"
+      disabled={false}
+      id="1-stars"
       name="rating"
       onChange={[Function]}
       type="radio"
@@ -118,7 +128,7 @@ exports[`Render ReviewForm 1`] = `
     />
     <label
       className="reviews__rating-label form__rating-label"
-      htmlFor="1-star"
+      htmlFor="1-stars"
       title="terribly"
     >
       <svg
@@ -134,10 +144,12 @@ exports[`Render ReviewForm 1`] = `
   </div>
   <textarea
     className="reviews__textarea form__textarea"
+    disabled={false}
     id="review"
     name="review"
     onChange={[Function]}
     placeholder="Tell how was your stay, what you like and what can be improved"
+    value=""
   />
   <div
     className="reviews__button-wrapper"

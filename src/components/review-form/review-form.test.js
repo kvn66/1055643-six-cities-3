@@ -62,7 +62,12 @@ it(`Render ReviewForm`, () => {
 
   const store = mockStore({
     [NameSpace.REVIEWS]: {
-      reviews
+      reviews,
+      formIsLocked: false,
+      buttonIsLocked: true,
+      isShake: false,
+      rating: 0,
+      comment: ``,
     },
     [NameSpace.USER]: {
       userAuthorized: true

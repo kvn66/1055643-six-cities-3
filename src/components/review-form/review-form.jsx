@@ -2,12 +2,13 @@ import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import {Operation as ReviewsOperation, ActionCreator} from "../../reducers/reviews/reviews";
 import {connect} from "react-redux";
-import {shakeElement} from "../../utils";
-import {getFormIsLocked, getButtonIsLocked, getComment, getRating} from "../../reducers/reviews/selectors";
+import {getFormIsLocked, getButtonIsLocked, getComment, getRating, getIsShake} from "../../reducers/reviews/selectors";
 import {MemoizedReviewFormRatingItem} from "../review-form-rating-item/review-form-rating-item.jsx";
 
 const RADIX = 10;
-const RATING_TITLES = [`terribly`, `badly`, `not bad`, `good`, `perfect`];
+const RATING_TITLES = [`perfect`, `good`, `not bad`, `badly`, `terribly`];
+const SHAKE_ANIMATION_TIMEOUT = 600;
+
 
 class ReviewForm extends PureComponent {
   constructor(props) {
@@ -18,6 +19,15 @@ class ReviewForm extends PureComponent {
     this.submitHandler = this.submitHandler.bind(this);
     this.onSuccess = this.onSuccess.bind(this);
     this.onError = this.onError.bind(this);
+  }
+
+  shake() {
+    const {setShakeState} = this.props;
+    setShakeState(true);
+    this.forceUpdate();
+    window.setTimeout(() => {
+      setShakeState(false);
+    }, SHAKE_ANIMATION_TIMEOUT);
   }
 
   setButtonState() {
@@ -37,7 +47,7 @@ class ReviewForm extends PureComponent {
   }
 
   onError() {
-    // shakeElement(formRef.current);
+    this.shake();
   }
 
   changeRatingHandler(evt) {
@@ -65,15 +75,24 @@ class ReviewForm extends PureComponent {
     this.setButtonState();
   }
 
+  componentWillUnmount() {
+    this.clearForm();
+  }
+
   render() {
-    const {formIsLocked, buttonIsLocked, rating, comment} = this.props;
+    const {formIsLocked, buttonIsLocked, isShake, rating, comment} = this.props;
 
     const ratingElement = RATING_TITLES.map((title, index) =>
       <MemoizedReviewFormRatingItem key={index} id={RATING_TITLES.length - index} title={title} rating={rating} formIsLocked={formIsLocked} onChangeRating={this.changeRatingHandler} />
     );
 
     return (
-      <form onSubmit={this.submitHandler} className="reviews__form" action="#" method="post">
+      <form
+        onSubmit={this.submitHandler}
+        className={`reviews__form ${isShake ? `shake` : ``}`}
+        action="#"
+        method="post"
+      >
         <label className="reviews__label form__label" htmlFor="review">Your review</label>
         <div className="reviews__rating-form form__rating">
           {ratingElement}
@@ -104,11 +123,13 @@ ReviewForm.propTypes = {
   cardId: PropTypes.number.isRequired,
   formIsLocked: PropTypes.bool.isRequired,
   buttonIsLocked: PropTypes.bool.isRequired,
+  isShake: PropTypes.bool.isRequired,
   rating: PropTypes.number.isRequired,
   comment: PropTypes.string.isRequired,
   sendReview: PropTypes.func.isRequired,
   setFormLockState: PropTypes.func.isRequired,
   setButtonLockState: PropTypes.func.isRequired,
+  setShakeState: PropTypes.func.isRequired,
   setRating: PropTypes.func.isRequired,
   setComment: PropTypes.func.isRequired,
 };
@@ -117,6 +138,7 @@ const mapStateToProps = (state) => {
   return {
     formIsLocked: getFormIsLocked(state),
     buttonIsLocked: getButtonIsLocked(state),
+    isShake: getIsShake(state),
     rating: getRating(state),
     comment: getComment(state),
   };
@@ -127,6 +149,7 @@ const mapDispatchToProps = (dispatch) => {
     sendReview: (cardId, review, onSuccess, onError) => dispatch(ReviewsOperation.sendReview(cardId, review, onSuccess, onError)),
     setFormLockState: (lockState) => dispatch(ActionCreator.setFormLockState(lockState)),
     setButtonLockState: (lockState) => dispatch(ActionCreator.setButtonLockState(lockState)),
+    setShakeState: (lockState) => dispatch(ActionCreator.setShakeState(lockState)),
     setRating: (rating) => dispatch(ActionCreator.setRating(rating)),
     setComment: (comment) => dispatch(ActionCreator.setComment(comment)),
   };
