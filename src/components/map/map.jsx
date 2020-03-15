@@ -35,12 +35,14 @@ export default class Map extends PureComponent {
   _addSelectedMarker(cards, selectedCardId) {
     if (selectedCardId !== UNSELECTED_CARD_ID) {
       const selectedCard = getCard(selectedCardId, cards);
-      const coordinates = [selectedCard.location.latitude, selectedCard.location.longitude];
-      this.markers.push(
-          leaflet
-            .marker(coordinates, {icon: this._iconActive})
-            .addTo(this.map)
-      );
+      if (selectedCard) {
+        const coordinates = [selectedCard.location.latitude, selectedCard.location.longitude];
+        this.markers.push(
+            leaflet
+              .marker(coordinates, {icon: this._iconActive})
+              .addTo(this.map)
+        );
+      }
     }
   }
 

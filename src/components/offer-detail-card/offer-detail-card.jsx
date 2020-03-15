@@ -249,5 +249,4 @@ OfferDetailCard.propTypes = {
   loadSimilarOffers: PropTypes.func.isRequired,
 };
 
-
 export default connect(mapStateToProps, mapDispatchToProps)(OfferDetailCard);

@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from 'prop-types';
+import {Link} from "react-router-dom";
 import {UNSELECTED_CARD_ID, HotelType} from "../../const.js";
+import {AppRoute} from "../../const";
 
 const ClassName = {
   CITY: {
@@ -16,7 +18,7 @@ const ClassName = {
 const OfferSmallCard = (props) => {
   const {card, setSelectedCard, isDetail} = props;
   const {id, previewImage, price, title, type, rating, isFavorite, isPremium} = card;
-  const linkToDetail = `/offer/${id}`;
+  const linkToDetail = `${AppRoute.OFFER}/${id}`;
   const articleClassName = isDetail ? ClassName.DETAIL.ARTICLE : ClassName.CITY.ARTICLE;
   const imageClassName = isDetail ? ClassName.DETAIL.IMAGE : ClassName.CITY.IMAGE;
 
@@ -28,6 +30,10 @@ const OfferSmallCard = (props) => {
     setSelectedCard(UNSELECTED_CARD_ID);
   };
 
+  const mouseClickLinkHandler = () => {
+    setSelectedCard(UNSELECTED_CARD_ID);
+  };
+
   return (
     <article onMouseEnter={mouseEnterHandler} onMouseLeave={mouseLeaveHandler} className={`${articleClassName} place-card`}>
       {isPremium && !isDetail &&
@@ -36,9 +42,9 @@ const OfferSmallCard = (props) => {
         </div>
       }
       <div className={`${imageClassName} place-card__image-wrapper`}>
-        <a href="#">
+        <Link onClick={mouseClickLinkHandler} to={linkToDetail}>
           <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place image"/>
-        </a>
+        </Link>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
@@ -60,7 +66,7 @@ const OfferSmallCard = (props) => {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href={linkToDetail}>{title}</a>
+          <Link onClick={mouseClickLinkHandler} to={linkToDetail}>{title}</Link>
         </h2>
         <p className="place-card__type">{HotelType[type]}</p>
       </div>
