@@ -20,8 +20,8 @@ export const getButtonIsLocked = (state) => {
   return state[NAME_SPACE].buttonIsLocked;
 };
 
-export const getIsShake = (state) => {
-  return state[NAME_SPACE].isShake;
+export const getIsError = (state) => {
+  return state[NAME_SPACE].isError;
 };
 
 export const getRating = (state) => {

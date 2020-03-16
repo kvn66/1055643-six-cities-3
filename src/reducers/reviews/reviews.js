@@ -5,7 +5,7 @@ const initialState = {
   reviews: [],
   formIsLocked: false,
   buttonIsLocked: true,
-  isShake: false,
+  isError: false,
   rating: 0,
   comment: ``,
 };
@@ -15,7 +15,7 @@ export const ActionType = {
   SEND_REVIEW: `SEND_REVIEW`,
   SET_FORM_LOCK_STATE: `SET_FORM_LOCK_STATE`,
   SET_BUTTON_LOCK_STATE: `SET_BUTTON_LOCK_STATE`,
-  SET_SHAKE_STATE: `SET_SHAKE_STATE`,
+  SET_ERROR_STATE: `SET_ERROR_STATE`,
   SET_RATING: `SET_RATING`,
   SET_COMMENT: `SET_COMMENT`,
 };
@@ -45,10 +45,10 @@ export const ActionCreator = {
       payload: lockState,
     };
   },
-  setShakeState: (shakeState) => {
+  setErrorState: (errorState) => {
     return {
-      type: ActionType.SET_SHAKE_STATE,
-      payload: shakeState,
+      type: ActionType.SET_ERROR_STATE,
+      payload: errorState,
     };
   },
   setRating: (rating) => {
@@ -102,9 +102,9 @@ const reviewsReducer = (state = initialState, action) => {
       return extend(state, {
         buttonIsLocked: action.payload,
       });
-    case ActionType.SET_SHAKE_STATE:
+    case ActionType.SET_ERROR_STATE:
       return extend(state, {
-        isShake: action.payload,
+        isError: action.payload,
       });
     case ActionType.SET_RATING:
       return extend(state, {

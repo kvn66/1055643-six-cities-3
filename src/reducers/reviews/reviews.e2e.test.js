@@ -45,7 +45,7 @@ describe(`Reducer work correctly`, () => {
       reviews: [],
       formIsLocked: false,
       buttonIsLocked: true,
-      isShake: false,
+      isError: false,
       rating: 0,
       comment: ``,
     });
@@ -56,7 +56,7 @@ describe(`Reducer work correctly`, () => {
       reviews: [],
       formIsLocked: false,
       buttonIsLocked: true,
-      isShake: false,
+      isError: false,
       rating: 0,
       comment: ``,
     }, {
@@ -66,7 +66,7 @@ describe(`Reducer work correctly`, () => {
       reviews,
       formIsLocked: false,
       buttonIsLocked: true,
-      isShake: false,
+      isError: false,
       rating: 0,
       comment: ``,
     });
@@ -77,7 +77,7 @@ describe(`Reducer work correctly`, () => {
       reviews: [],
       formIsLocked: false,
       buttonIsLocked: true,
-      isShake: false,
+      isError: false,
       rating: 0,
       comment: ``,
     }, {
@@ -87,7 +87,7 @@ describe(`Reducer work correctly`, () => {
       reviews: [],
       formIsLocked: true,
       buttonIsLocked: true,
-      isShake: false,
+      isError: false,
       rating: 0,
       comment: ``,
     });
@@ -98,7 +98,7 @@ describe(`Reducer work correctly`, () => {
       reviews: [],
       formIsLocked: false,
       buttonIsLocked: true,
-      isShake: false,
+      isError: false,
       rating: 0,
       comment: ``,
     }, {
@@ -108,7 +108,7 @@ describe(`Reducer work correctly`, () => {
       reviews: [],
       formIsLocked: false,
       buttonIsLocked: false,
-      isShake: false,
+      isError: false,
       rating: 0,
       comment: ``,
     });
@@ -119,17 +119,17 @@ describe(`Reducer work correctly`, () => {
       reviews: [],
       formIsLocked: false,
       buttonIsLocked: true,
-      isShake: false,
+      isError: false,
       rating: 0,
       comment: ``,
     }, {
-      type: ActionType.SET_SHAKE_STATE,
+      type: ActionType.SET_ERROR_STATE,
       payload: true,
     })).toEqual({
       reviews: [],
       formIsLocked: false,
       buttonIsLocked: true,
-      isShake: true,
+      isError: true,
       rating: 0,
       comment: ``,
     });
@@ -140,7 +140,7 @@ describe(`Reducer work correctly`, () => {
       reviews: [],
       formIsLocked: false,
       buttonIsLocked: true,
-      isShake: false,
+      isError: false,
       rating: 0,
       comment: ``,
     }, {
@@ -150,7 +150,7 @@ describe(`Reducer work correctly`, () => {
       reviews: [],
       formIsLocked: false,
       buttonIsLocked: true,
-      isShake: false,
+      isError: false,
       rating: 5,
       comment: ``,
     });
@@ -161,7 +161,7 @@ describe(`Reducer work correctly`, () => {
       reviews: [],
       formIsLocked: false,
       buttonIsLocked: true,
-      isShake: false,
+      isError: false,
       rating: 0,
       comment: ``,
     }, {
@@ -171,7 +171,7 @@ describe(`Reducer work correctly`, () => {
       reviews: [],
       formIsLocked: false,
       buttonIsLocked: true,
-      isShake: false,
+      isError: false,
       rating: 0,
       comment: `test`,
     });
@@ -204,8 +204,8 @@ describe(`Action creators work correctly`, () => {
     });
   });
   it(`Action creator for setShakeState step returns correct action`, () => {
-    expect(ActionCreator.setShakeState(reviews)).toEqual({
-      type: ActionType.SET_SHAKE_STATE,
+    expect(ActionCreator.setErrorState(reviews)).toEqual({
+      type: ActionType.SET_ERROR_STATE,
       payload: reviews,
     });
   });

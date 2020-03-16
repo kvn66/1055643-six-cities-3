@@ -1,4 +1,4 @@
-import {getReviews, getFormIsLocked, getButtonIsLocked, getIsShake, getRating, getComment} from "./selectors";
+import {getReviews, getFormIsLocked, getButtonIsLocked, getIsError, getRating, getComment} from "./selectors";
 import {NameSpace} from "../name-space";
 
 const reviews = [
@@ -35,7 +35,7 @@ const store = {
     reviews,
     formIsLocked: false,
     buttonIsLocked: true,
-    isShake: false,
+    isError: false,
     rating: 0,
     comment: `test`,
   },
@@ -54,7 +54,7 @@ it(`getButtonIsLocked should return true`, () => {
 });
 
 it(`getIsShake should return false`, () => {
-  expect(getIsShake(store)).toEqual(false);
+  expect(getIsError(store)).toEqual(false);
 });
 
 it(`getRating should return 0`, () => {
