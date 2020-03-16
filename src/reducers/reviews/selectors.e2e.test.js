@@ -1,4 +1,4 @@
-import {getReviews, getFormIsLocked, getButtonIsLocked, getIsError, getRating, getComment} from "./selectors";
+import {getReviews, getFormIsLocked, getIsError, getRating, getComment} from "./selectors";
 import {NameSpace} from "../name-space";
 
 const reviews = [

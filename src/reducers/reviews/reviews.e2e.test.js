@@ -165,7 +165,7 @@ describe(`Action creators work correctly`, () => {
       payload: reviews,
     });
   });
- it(`Action creator for setShakeState step returns correct action`, () => {
+  it(`Action creator for setShakeState step returns correct action`, () => {
     expect(ActionCreator.setErrorState(reviews)).toEqual({
       type: ActionType.SET_ERROR_STATE,
       payload: reviews,
