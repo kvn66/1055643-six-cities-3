@@ -12,7 +12,7 @@ import {Operation as FavoriteOperation} from "../../reducers/favorites/favorites
 const MAP_CLASS_NAME = `cities__map`;
 
 const City = (props) => {
-  const {cardsInStore, cards, sortedCards, cityName, selectedCard, setSelectedCard} = props;
+  const {cardsInStore, cards, sortedCards, cityName, selectedCard, setSelectedCard, sendFavoriteStatus} = props;
   const cardsElement = sortedCards.map((card) =>
     <MemoizedOfferSmallCard key={card.id} card={card} setSelectedCard = {setSelectedCard} onFavoriteButton = {sendFavoriteStatus} isDetail={false} />
   );
@@ -68,7 +68,7 @@ const mapStateToProps = (store) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setSelectedCard: (id) => dispatch(ActionCreator.setSelectedCardId(id))
+    setSelectedCard: (id) => dispatch(ActionCreator.setSelectedCardId(id)),
     sendFavoriteStatus: (id) => dispatch(FavoriteOperation.sendFavoriteStatus(id))
   };
 };

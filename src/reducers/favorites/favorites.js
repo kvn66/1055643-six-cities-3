@@ -3,6 +3,8 @@ import {toCamel} from 'convert-keys';
 import {AppRoute, NetworkError} from "../../const";
 import {AuthorizationStatus} from "../user/user";
 import {Operation as CardsOperation} from "../cards/cards.js";
+import {getCard} from "../../utils";
+import {NameSpace} from "../name-space";
 
 const initialState = {
   favorites: [],
@@ -41,9 +43,13 @@ export const Operation = {
         throw err;
       });
   },
-  sendFavoriteStatus: (cardId, status) => (dispatch, getState, api) => {
-    console.log(api);
-    return api.post(`/favorite/${cardId}`, status)
+  sendFavoriteStatus: (cardId) => (dispatch, getState, api) => {
+    const state = getState();
+    const cards = state[NameSpace.CARDS].cards;
+    const card = getCard(cardId, cards);
+    const status = card.isFavorite ? 0 : 1;
+    debugger;
+    return api.post(`/favorite/${cardId}/${status}`, status)
       .then((response) => {
         debugger;
         CardsOperation.setFavoriteState(toCamel(response.data));

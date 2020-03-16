@@ -36,8 +36,7 @@ const OfferSmallCard = (props) => {
 
   const mouseClickFavoriteButtonHandler = (evt) => {
     evt.preventDefault();
-    debugger;
-    onFavoriteButton(id, 1);
+    onFavoriteButton(id);
   };
 
   return (
