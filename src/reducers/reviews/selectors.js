@@ -16,10 +16,6 @@ export const getFormIsLocked = (state) => {
   return state[NAME_SPACE].formIsLocked;
 };
 
-export const getButtonIsLocked = (state) => {
-  return state[NAME_SPACE].buttonIsLocked;
-};
-
 export const getIsError = (state) => {
   return state[NAME_SPACE].isError;
 };

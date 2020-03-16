@@ -4,7 +4,6 @@ import {toCamel} from 'convert-keys';
 const initialState = {
   reviews: [],
   formIsLocked: false,
-  buttonIsLocked: true,
   isError: false,
   rating: 0,
   comment: ``,
@@ -14,7 +13,6 @@ export const ActionType = {
   LOAD_REVIEWS: `LOAD_REVIEWS`,
   SEND_REVIEW: `SEND_REVIEW`,
   SET_FORM_LOCK_STATE: `SET_FORM_LOCK_STATE`,
-  SET_BUTTON_LOCK_STATE: `SET_BUTTON_LOCK_STATE`,
   SET_ERROR_STATE: `SET_ERROR_STATE`,
   SET_RATING: `SET_RATING`,
   SET_COMMENT: `SET_COMMENT`,
@@ -36,12 +34,6 @@ export const ActionCreator = {
   setFormLockState: (lockState) => {
     return {
       type: ActionType.SET_FORM_LOCK_STATE,
-      payload: lockState,
-    };
-  },
-  setButtonLockState: (lockState) => {
-    return {
-      type: ActionType.SET_BUTTON_LOCK_STATE,
       payload: lockState,
     };
   },
@@ -97,10 +89,6 @@ const reviewsReducer = (state = initialState, action) => {
     case ActionType.SET_FORM_LOCK_STATE:
       return extend(state, {
         formIsLocked: action.payload,
-      });
-    case ActionType.SET_BUTTON_LOCK_STATE:
-      return extend(state, {
-        buttonIsLocked: action.payload,
       });
     case ActionType.SET_ERROR_STATE:
       return extend(state, {

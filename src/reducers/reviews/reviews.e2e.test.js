@@ -44,7 +44,6 @@ describe(`Reducer work correctly`, () => {
     expect(reviewsReducer(void 0, {})).toEqual({
       reviews: [],
       formIsLocked: false,
-      buttonIsLocked: true,
       isError: false,
       rating: 0,
       comment: ``,
@@ -55,7 +54,6 @@ describe(`Reducer work correctly`, () => {
     expect(reviewsReducer({
       reviews: [],
       formIsLocked: false,
-      buttonIsLocked: true,
       isError: false,
       rating: 0,
       comment: ``,
@@ -65,7 +63,6 @@ describe(`Reducer work correctly`, () => {
     })).toEqual({
       reviews,
       formIsLocked: false,
-      buttonIsLocked: true,
       isError: false,
       rating: 0,
       comment: ``,
@@ -76,7 +73,6 @@ describe(`Reducer work correctly`, () => {
     expect(reviewsReducer({
       reviews: [],
       formIsLocked: false,
-      buttonIsLocked: true,
       isError: false,
       rating: 0,
       comment: ``,
@@ -86,28 +82,6 @@ describe(`Reducer work correctly`, () => {
     })).toEqual({
       reviews: [],
       formIsLocked: true,
-      buttonIsLocked: true,
-      isError: false,
-      rating: 0,
-      comment: ``,
-    });
-  });
-
-  it(`Reducer should save buttonIsLocked`, () => {
-    expect(reviewsReducer({
-      reviews: [],
-      formIsLocked: false,
-      buttonIsLocked: true,
-      isError: false,
-      rating: 0,
-      comment: ``,
-    }, {
-      type: ActionType.SET_BUTTON_LOCK_STATE,
-      payload: false,
-    })).toEqual({
-      reviews: [],
-      formIsLocked: false,
-      buttonIsLocked: false,
       isError: false,
       rating: 0,
       comment: ``,
@@ -118,7 +92,6 @@ describe(`Reducer work correctly`, () => {
     expect(reviewsReducer({
       reviews: [],
       formIsLocked: false,
-      buttonIsLocked: true,
       isError: false,
       rating: 0,
       comment: ``,
@@ -128,7 +101,6 @@ describe(`Reducer work correctly`, () => {
     })).toEqual({
       reviews: [],
       formIsLocked: false,
-      buttonIsLocked: true,
       isError: true,
       rating: 0,
       comment: ``,
@@ -139,7 +111,6 @@ describe(`Reducer work correctly`, () => {
     expect(reviewsReducer({
       reviews: [],
       formIsLocked: false,
-      buttonIsLocked: true,
       isError: false,
       rating: 0,
       comment: ``,
@@ -149,7 +120,6 @@ describe(`Reducer work correctly`, () => {
     })).toEqual({
       reviews: [],
       formIsLocked: false,
-      buttonIsLocked: true,
       isError: false,
       rating: 5,
       comment: ``,
@@ -160,7 +130,6 @@ describe(`Reducer work correctly`, () => {
     expect(reviewsReducer({
       reviews: [],
       formIsLocked: false,
-      buttonIsLocked: true,
       isError: false,
       rating: 0,
       comment: ``,
@@ -170,7 +139,6 @@ describe(`Reducer work correctly`, () => {
     })).toEqual({
       reviews: [],
       formIsLocked: false,
-      buttonIsLocked: true,
       isError: false,
       rating: 0,
       comment: `test`,
@@ -197,13 +165,7 @@ describe(`Action creators work correctly`, () => {
       payload: reviews,
     });
   });
-  it(`Action creator for setButtonLockState step returns correct action`, () => {
-    expect(ActionCreator.setButtonLockState(reviews)).toEqual({
-      type: ActionType.SET_BUTTON_LOCK_STATE,
-      payload: reviews,
-    });
-  });
-  it(`Action creator for setShakeState step returns correct action`, () => {
+ it(`Action creator for setShakeState step returns correct action`, () => {
     expect(ActionCreator.setErrorState(reviews)).toEqual({
       type: ActionType.SET_ERROR_STATE,
       payload: reviews,

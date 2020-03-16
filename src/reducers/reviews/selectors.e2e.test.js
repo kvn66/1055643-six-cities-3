@@ -34,7 +34,6 @@ const store = {
   [NameSpace.REVIEWS]: {
     reviews,
     formIsLocked: false,
-    buttonIsLocked: true,
     isError: false,
     rating: 0,
     comment: `test`,
@@ -47,10 +46,6 @@ it(`getReviews should return reviews`, () => {
 
 it(`getFormIsLocked should return false`, () => {
   expect(getFormIsLocked(store)).toEqual(false);
-});
-
-it(`getButtonIsLocked should return true`, () => {
-  expect(getButtonIsLocked(store)).toEqual(true);
 });
 
 it(`getIsShake should return false`, () => {
