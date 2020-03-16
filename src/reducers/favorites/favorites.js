@@ -1,122 +1,78 @@
 import {extend} from "../../utils.js";
 import {toCamel} from 'convert-keys';
+import {AppRoute, NetworkError} from "../../const";
+import {AuthorizationStatus} from "../user/user";
+import {Operation as CardsOperation} from "../cards/cards.js";
 
 const initialState = {
   favorites: [],
-  formIsLocked: false,
-  buttonIsLocked: true,
-  isShake: false,
-  rating: 0,
-  comment: ``,
 };
 
 export const ActionType = {
-  LOAD_REVIEWS: `LOAD_REVIEWS`,
-  SEND_REVIEW: `SEND_REVIEW`,
-  SET_FORM_LOCK_STATE: `SET_FORM_LOCK_STATE`,
-  SET_BUTTON_LOCK_STATE: `SET_BUTTON_LOCK_STATE`,
-  SET_SHAKE_STATE: `SET_SHAKE_STATE`,
-  SET_RATING: `SET_RATING`,
-  SET_COMMENT: `SET_COMMENT`,
+  LOAD_FAVORITES: `LOAD_FAVORITES`,
+  SEND_FAVORITE_STATUS: `SEND_FAVORITE_STATUS`,
 };
 
 export const ActionCreator = {
-  loadReviews: (reviews) => {
+  loadFavorites: (favorites) => {
     return {
-      type: ActionType.LOAD_REVIEWS,
-      payload: reviews,
-    };
-  },
-  sendReview: (review) => {
-    return {
-      type: ActionType.SEND_REVIEW,
-      payload: review,
-    };
-  },
-  setFormLockState: (lockState) => {
-    return {
-      type: ActionType.SET_FORM_LOCK_STATE,
-      payload: lockState,
-    };
-  },
-  setButtonLockState: (lockState) => {
-    return {
-      type: ActionType.SET_BUTTON_LOCK_STATE,
-      payload: lockState,
-    };
-  },
-  setShakeState: (shakeState) => {
-    return {
-      type: ActionType.SET_SHAKE_STATE,
-      payload: shakeState,
-    };
-  },
-  setRating: (rating) => {
-    return {
-      type: ActionType.SET_RATING,
-      payload: rating,
-    };
-  },
-  setComment: (comment) => {
-    return {
-      type: ActionType.SET_COMMENT,
-      payload: comment,
+      type: ActionType.LOAD_FAVORITES,
+      payload: favorites,
     };
   },
 };
 
 export const Operation = {
-  loadReviews: (cardId) => (dispatch, getState, api) => {
-    return api.get(`/comments/${cardId}`)
+  loadFavorites: () => (dispatch, getState, api) => {
+    return api.get(`/favorite`)
       .then((response) => {
-        dispatch(ActionCreator.loadReviews(toCamel(response.data)));
+        debugger;
+        dispatch(ActionCreator.loadFavorites(toCamel(response.data)));
       })
       .catch((err) => {
+        const {response} = err;
+
+        if (response && response.status === NetworkError.UNAUTHORIZED) {
+          dispatch(ActionCreator.setAuthorizationStatus(AuthorizationStatus.NO_AUTH));
+          window.location.pathname = AppRoute.LOGIN;
+          return;
+        }
+
         throw err;
       });
   },
-  sendReview: (cardId, review, onSuccess, onError) => (dispatch, getState, api) => {
-    return api.post(`/comments/${cardId}`, review)
+  sendFavoriteStatus: (cardId, status) => (dispatch, getState, api) => {
+    console.log(api);
+    return api.post(`/favorite/${cardId}`, status)
       .then((response) => {
-        dispatch(ActionCreator.loadReviews(toCamel(response.data)));
-        onSuccess();
+        debugger;
+        CardsOperation.setFavoriteState(toCamel(response.data));
+        Operation.loadFavorites();
       })
       .catch((err) => {
-        onError();
+        const {response} = err;
+        debugger;
+
+        if (response && response.status === NetworkError.UNAUTHORIZED) {
+          dispatch(ActionCreator.setAuthorizationStatus(AuthorizationStatus.NO_AUTH));
+          window.location.pathname = AppRoute.LOGIN;
+          return;
+        }
+
         throw err;
       });
   },
 };
 
-const reviewsReducer = (state = initialState, action) => {
+const favoritesReducer = (state = initialState, action) => {
   switch (action.type) {
-    case ActionType.LOAD_REVIEWS:
+    case ActionType.LOAD_FAVORITES:
       return extend(state, {
-        reviews: action.payload,
-      });
-    case ActionType.SET_FORM_LOCK_STATE:
-      return extend(state, {
-        formIsLocked: action.payload,
-      });
-    case ActionType.SET_BUTTON_LOCK_STATE:
-      return extend(state, {
-        buttonIsLocked: action.payload,
-      });
-    case ActionType.SET_SHAKE_STATE:
-      return extend(state, {
-        isShake: action.payload,
-      });
-    case ActionType.SET_RATING:
-      return extend(state, {
-        rating: action.payload,
-      });
-    case ActionType.SET_COMMENT:
-      return extend(state, {
-        comment: action.payload,
+        favorites: action.payload,
       });
     default:
       return state;
   }
 };
 
-export default reviewsReducer;
+export default favoritesReducer;

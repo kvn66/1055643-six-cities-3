@@ -24,7 +24,6 @@ class ReviewForm extends PureComponent {
   shake() {
     const {setShakeState} = this.props;
     setShakeState(true);
-    this.forceUpdate();
     window.setTimeout(() => {
       setShakeState(false);
     }, SHAKE_ANIMATION_TIMEOUT);

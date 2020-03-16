@@ -7,13 +7,14 @@ import {ActionCreator} from "../../reducers/card-select/card-select";
 import {getCardsCount, getCardsForSelectedCity, getSelectedCityName, getSortedCardsForSelectedCity} from "../../reducers/cards/selectors";
 import {getSelectedCardId} from "../../reducers/card-select/selectors";
 import {connect} from "react-redux";
+import {Operation as FavoriteOperation} from "../../reducers/favorites/favorites.js";
 
 const MAP_CLASS_NAME = `cities__map`;
 
 const City = (props) => {
   const {cardsInStore, cards, sortedCards, cityName, selectedCard, setSelectedCard} = props;
   const cardsElement = sortedCards.map((card) =>
-    <MemoizedOfferSmallCard key={card.id} card={card} setSelectedCard = {setSelectedCard} isDetail={false} />
+    <MemoizedOfferSmallCard key={card.id} card={card} setSelectedCard = {setSelectedCard} onFavoriteButton = {sendFavoriteStatus} isDetail={false} />
   );
 
   return (
@@ -68,6 +69,7 @@ const mapStateToProps = (store) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     setSelectedCard: (id) => dispatch(ActionCreator.setSelectedCardId(id))
+    sendFavoriteStatus: (id) => dispatch(FavoriteOperation.sendFavoriteStatus(id))
   };
 };
 
@@ -148,6 +150,7 @@ City.propTypes = {
   cityName: PropTypes.string,
   selectedCard: PropTypes.number,
   setSelectedCard: PropTypes.func.isRequired,
+  sendFavoriteStatus: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(City);

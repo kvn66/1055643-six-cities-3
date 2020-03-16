@@ -25,6 +25,11 @@ export const Operation = {
         dispatch(ActionCreator.loadCards(toCamel(response.data)));
       });
   },
+  setFavoriteState: (card) => (dispatch, getState) => {
+    debugger;
+    const state = getState();
+    console.log(state);
+  },
 };
 
 const cardsReducer = (state = initialState, action) => {

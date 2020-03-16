@@ -16,7 +16,7 @@ const ClassName = {
 };
 
 const OfferSmallCard = (props) => {
-  const {card, setSelectedCard, isDetail} = props;
+  const {card, setSelectedCard, onFavoriteButton, isDetail} = props;
   const {id, previewImage, price, title, type, rating, isFavorite, isPremium} = card;
   const linkToDetail = `${AppRoute.OFFER}/${id}`;
   const articleClassName = isDetail ? ClassName.DETAIL.ARTICLE : ClassName.CITY.ARTICLE;
@@ -32,6 +32,12 @@ const OfferSmallCard = (props) => {
 
   const mouseClickLinkHandler = () => {
     setSelectedCard(UNSELECTED_CARD_ID);
+  };
+
+  const mouseClickFavoriteButtonHandler = (evt) => {
+    evt.preventDefault();
+    debugger;
+    onFavoriteButton(id, 1);
   };
 
   return (
@@ -52,7 +58,7 @@ const OfferSmallCard = (props) => {
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className={`place-card__bookmark-button ${isFavorite ? `place-card__bookmark-button--active` : ``} button`} type="button">
+          <button onClick={mouseClickFavoriteButtonHandler} className={`place-card__bookmark-button ${isFavorite ? `place-card__bookmark-button--active` : ``} button`} type="button">
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"/>
             </svg>
@@ -110,6 +116,7 @@ OfferSmallCard.propTypes = {
     type: PropTypes.string.isRequired,
   }).isRequired,
   setSelectedCard: PropTypes.func.isRequired,
+  onFavoriteButton: PropTypes.func.isRequired,
   isDetail: PropTypes.bool.isRequired
 };
 
