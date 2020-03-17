@@ -20,6 +20,6 @@ export const HotelType = {
 export const AppRoute = {
   LOGIN: `/login`,
   FAVORITES: `/favorites`,
-  OFFER: `/offer/:id`,
+  OFFER: `/offer`,
   ROOT: `/`,
 };

@@ -19,6 +19,7 @@ exports[`Render app 1`] = `
           <a
             className="header__logo-link"
             href="/"
+            onClick={[Function]}
           >
             <img
               alt="6 cities logo"
@@ -41,6 +42,7 @@ exports[`Render app 1`] = `
               <a
                 className="header__nav-link header__nav-link--profile"
                 href="/login"
+                onClick={[Function]}
               >
                 <div
                   className="header__avatar-wrapper user__avatar-wrapper"
@@ -189,7 +191,8 @@ exports[`Render app 1`] = `
                 className="cities__image-wrapper place-card__image-wrapper"
               >
                 <a
-                  href="#"
+                  href="/offer/0"
+                  onClick={[Function]}
                 >
                   <img
                     alt="Place image"
@@ -223,6 +226,7 @@ exports[`Render app 1`] = `
                   </div>
                   <button
                     className="place-card__bookmark-button place-card__bookmark-button--active button"
+                    onClick={[Function]}
                     type="button"
                   >
                     <svg
@@ -266,6 +270,7 @@ exports[`Render app 1`] = `
                 >
                   <a
                     href="/offer/0"
+                    onClick={[Function]}
                   >
                     Beautiful &amp; luxurious apartment at great location
                   </a>
@@ -293,7 +298,8 @@ exports[`Render app 1`] = `
                 className="cities__image-wrapper place-card__image-wrapper"
               >
                 <a
-                  href="#"
+                  href="/offer/1"
+                  onClick={[Function]}
                 >
                   <img
                     alt="Place image"
@@ -327,6 +333,7 @@ exports[`Render app 1`] = `
                   </div>
                   <button
                     className="place-card__bookmark-button place-card__bookmark-button--active button"
+                    onClick={[Function]}
                     type="button"
                   >
                     <svg
@@ -370,6 +377,7 @@ exports[`Render app 1`] = `
                 >
                   <a
                     href="/offer/1"
+                    onClick={[Function]}
                   >
                     Beautiful &amp; luxurious apartment at great location
                   </a>

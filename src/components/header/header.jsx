@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {Link} from "react-router-dom";
 import {getAuthorizationStatus, getUserInfo} from "../../reducers/user/selectors";
 import {connect} from "react-redux";
 import {AppRoute} from "../../const";
@@ -12,14 +13,14 @@ const Header = (props) => {
       <div className="container">
         <div className="header__wrapper">
           <div className="header__left">
-            <a className="header__logo-link" href="/">
+            <Link className="header__logo-link" to={AppRoute.ROOT}>
               <img className="header__logo" src="/img/logo.svg" alt="6 cities logo" width="81" height="41"/>
-            </a>
+            </Link>
           </div>
           <nav className="header__nav">
             <ul className="header__nav-list">
               <li className="header__nav-item user">
-                <a className="header__nav-link header__nav-link--profile" href={isAuthorized ? AppRoute.FAVORITES : AppRoute.LOGIN}>
+                <Link className="header__nav-link header__nav-link--profile" to={isAuthorized ? AppRoute.FAVORITES : AppRoute.LOGIN}>
                   <div className="header__avatar-wrapper user__avatar-wrapper">
                   </div>
                   {isAuthorized ?
@@ -29,7 +30,7 @@ const Header = (props) => {
                       <span className="header__login">Sign in</span>
                     )
                   }
-                </a>
+                </Link>
               </li>
             </ul>
           </nav>

@@ -1,6 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import {MemoizedOfferSmallCard} from "./offer-small-card.jsx";
+import {BrowserRouter} from "react-router-dom";
 
 const card = {
   id: 0,
@@ -41,11 +42,14 @@ it(`Render MemoizedOfferSmallCard`, () => {
 
   const tree = renderer
     .create(
-        <MemoizedOfferSmallCard
-          card={card}
-          setSelectedCard={()=>{}}
-          isDetail={false}
-        />
+        <BrowserRouter>
+          <MemoizedOfferSmallCard
+            card={card}
+            setSelectedCard={()=>{}}
+            onFavoriteButton={()=>{}}
+            isDetail={false}
+          />
+        </BrowserRouter>
     )
     .toJSON();
   expect(tree).toMatchSnapshot();
