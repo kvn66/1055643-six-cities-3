@@ -133,7 +133,8 @@ exports[`Render Cities 1`] = `
               className="cities__image-wrapper place-card__image-wrapper"
             >
               <a
-                href="#"
+                href="/offer/0"
+                onClick={[Function]}
               >
                 <img
                   alt="Place image"
@@ -167,6 +168,7 @@ exports[`Render Cities 1`] = `
                 </div>
                 <button
                   className="place-card__bookmark-button place-card__bookmark-button--active button"
+                  onClick={[Function]}
                   type="button"
                 >
                   <svg
@@ -210,6 +212,7 @@ exports[`Render Cities 1`] = `
               >
                 <a
                   href="/offer/0"
+                  onClick={[Function]}
                 >
                   Beautiful &amp; luxurious apartment at great location
                 </a>
@@ -237,7 +240,8 @@ exports[`Render Cities 1`] = `
               className="cities__image-wrapper place-card__image-wrapper"
             >
               <a
-                href="#"
+                href="/offer/1"
+                onClick={[Function]}
               >
                 <img
                   alt="Place image"
@@ -271,6 +275,7 @@ exports[`Render Cities 1`] = `
                 </div>
                 <button
                   className="place-card__bookmark-button place-card__bookmark-button--active button"
+                  onClick={[Function]}
                   type="button"
                 >
                   <svg
@@ -314,6 +319,7 @@ exports[`Render Cities 1`] = `
               >
                 <a
                   href="/offer/1"
+                  onClick={[Function]}
                 >
                   Beautiful &amp; luxurious apartment at great location
                 </a>

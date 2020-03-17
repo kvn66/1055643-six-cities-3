@@ -1,24 +1,34 @@
 import {extend} from "../../utils.js";
 import {toCamel} from 'convert-keys';
 import {AppRoute, NetworkError} from "../../const";
-import {AuthorizationStatus} from "../user/user";
-import {Operation as CardsOperation} from "../cards/cards.js";
-import {getCard} from "../../utils";
-import {NameSpace} from "../name-space";
+import {AuthorizationStatus, ActionCreator as UserCreator} from "../user/user";
+import {ActionCreator as CardsCreator} from "../cards/cards";
+import {ActionCreator as SimilarOffersCreator} from "../similar-offers/similar-offers";
+import {getCard, getCardIndex, replaceCardInArray} from "../../utils";
+import {getAllCards} from "../cards/selectors";
+import {getSimilarOffers} from "../similar-offers/selectors";
 
 const initialState = {
   favorites: [],
 };
 
+const applyFavoriteState = (card, dispatch, getState) => {
+  const cards = getAllCards(getState());
+  dispatch(CardsCreator.loadCards(replaceCardInArray(card, cards)));
+  const similarOffers = getSimilarOffers(getState());
+  if (getCardIndex(card.id, similarOffers) !== -1) {
+    dispatch(SimilarOffersCreator.loadSimilarOffers(replaceCardInArray(card, similarOffers)));
+  }
+};
+
 export const ActionType = {
-  LOAD_FAVORITES: `LOAD_FAVORITES`,
-  SEND_FAVORITE_STATUS: `SEND_FAVORITE_STATUS`,
+  SAVE_FAVORITES: `SAVE_FAVORITES`,
 };
 
 export const ActionCreator = {
-  loadFavorites: (favorites) => {
+  saveFavorites: (favorites) => {
     return {
-      type: ActionType.LOAD_FAVORITES,
+      type: ActionType.SAVE_FAVORITES,
       payload: favorites,
     };
   },
@@ -28,14 +38,13 @@ export const Operation = {
   loadFavorites: () => (dispatch, getState, api) => {
     return api.get(`/favorite`)
       .then((response) => {
-        debugger;
-        dispatch(ActionCreator.loadFavorites(toCamel(response.data)));
+        dispatch(ActionCreator.saveFavorites(toCamel(response.data)));
       })
       .catch((err) => {
         const {response} = err;
 
         if (response && response.status === NetworkError.UNAUTHORIZED) {
-          dispatch(ActionCreator.setAuthorizationStatus(AuthorizationStatus.NO_AUTH));
+          dispatch(UserCreator.setAuthorizationStatus(AuthorizationStatus.NO_AUTH));
           window.location.pathname = AppRoute.LOGIN;
           return;
         }
@@ -44,23 +53,18 @@ export const Operation = {
       });
   },
   sendFavoriteStatus: (cardId) => (dispatch, getState, api) => {
-    const state = getState();
-    const cards = state[NameSpace.CARDS].cards;
+    const cards = getAllCards(getState());
     const card = getCard(cardId, cards);
     const status = card.isFavorite ? 0 : 1;
-    debugger;
     return api.post(`/favorite/${cardId}/${status}`, status)
       .then((response) => {
-        debugger;
-        CardsOperation.setFavoriteState(toCamel(response.data));
-        Operation.loadFavorites();
+        applyFavoriteState(toCamel(response.data), dispatch, getState);
       })
       .catch((err) => {
         const {response} = err;
-        debugger;
 
         if (response && response.status === NetworkError.UNAUTHORIZED) {
-          dispatch(ActionCreator.setAuthorizationStatus(AuthorizationStatus.NO_AUTH));
+          dispatch(UserCreator.setAuthorizationStatus(AuthorizationStatus.NO_AUTH));
           window.location.pathname = AppRoute.LOGIN;
           return;
         }
@@ -72,7 +76,7 @@ export const Operation = {
 
 const favoritesReducer = (state = initialState, action) => {
   switch (action.type) {
-    case ActionType.LOAD_FAVORITES:
+    case ActionType.SAVE_FAVORITES:
       return extend(state, {
         favorites: action.payload,
       });

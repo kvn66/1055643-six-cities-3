@@ -19,6 +19,7 @@ exports[`Render Review 1`] = `
           <a
             className="header__logo-link"
             href="/"
+            onClick={[Function]}
           >
             <img
               alt="6 cities logo"
@@ -41,6 +42,7 @@ exports[`Render Review 1`] = `
               <a
                 className="header__nav-link header__nav-link--profile"
                 href="/login"
+                onClick={[Function]}
               >
                 <div
                   className="header__avatar-wrapper user__avatar-wrapper"
@@ -126,6 +128,7 @@ exports[`Render Review 1`] = `
           <a
             className="locations__item-link"
             href="/"
+            onClick={[Function]}
           >
             <span>
               Amsterdam

@@ -7,7 +7,7 @@ import {ActionCreator} from "../../reducers/card-select/card-select";
 import {getCardsCount, getCardsForSelectedCity, getSelectedCityName, getSortedCardsForSelectedCity} from "../../reducers/cards/selectors";
 import {getSelectedCardId} from "../../reducers/card-select/selectors";
 import {connect} from "react-redux";
-import {Operation as FavoriteOperation} from "../../reducers/favorites/favorites.js";
+import {Operation as FavoriteOperation} from "../../reducers/favorites/favorites";
 
 const MAP_CLASS_NAME = `cities__map`;
 
@@ -45,7 +45,7 @@ const City = (props) => {
             <div className="cities__status-wrapper tabs__content">
               <b className="cities__status">No places to stay available</b>
               <p className="cities__status-description">
-                We could not find any property availbale at the moment in {cityName}
+                We could not find any property available at the moment in {cityName}
               </p>
             </div>
           </section>

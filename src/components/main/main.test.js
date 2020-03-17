@@ -5,6 +5,7 @@ import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
 import {InitValue} from "../../reducers/cards-sorting-menu/cards-sorting-menu";
 import {NameSpace} from "../../reducers/name-space";
+import {BrowserRouter} from "react-router-dom";
 
 const mockStore = configureStore([]);
 
@@ -144,7 +145,9 @@ it(`Render Main`, () => {
   const tree = renderer
     .create(
         <Provider store={store}>
-          <Main/>
+          <BrowserRouter>
+            <Main/>
+          </BrowserRouter>
         </Provider>
     )
     .toJSON();

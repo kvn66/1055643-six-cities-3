@@ -1,19 +1,5 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
-import SignIn from "./sign-in.jsx";
-import configureMockStore from "redux-mock-store";
-import {NameSpace} from "../../reducers/name-space";
-import {Provider} from "react-redux";
-import MockAdapter from "axios-mock-adapter";
-import createAPI from "../../api";
-import thunk from 'redux-thunk';
-import {AppRoute} from "../../const";
-import {BrowserRouter} from "react-router-dom";
-
-const api = createAPI(() => {});
-
-const middlewares = [thunk.withExtraArgument(api)];
-const mockStore = configureMockStore(middlewares);
+import {getFavorites} from "./selectors";
+import {NameSpace} from "../name-space";
 
 const cards = [
   {
@@ -86,58 +72,13 @@ const cards = [
   }
 ];
 
-const userInfo = {
-  id: 1,
-  name: `Oliver.conner`,
-  email: `Oliver.conner@gmail.com`,
-  avatarUrl: `/img/1.png`,
-  isPro: false
+
+const store = {
+  [NameSpace.FAVORITES]: {
+    favorites: cards,
+  },
 };
 
-const loginInfo = {
-  email: `Oliver.conner@gmail.com`,
-  password: 12345,
-};
-
-it(`Render Review`, () => {
-  const apiMock = new MockAdapter(api);
-
-  apiMock
-    .onGet(AppRoute.LOGIN)
-    .reply(200, userInfo);
-
-  apiMock
-    .onPost(AppRoute.LOGIN, loginInfo)
-    .reply(200, userInfo);
-
-
-  const store = mockStore({
-    [NameSpace.CARDS]: {
-      cards
-    },
-    [NameSpace.USER]: {
-      userAuthorized: false,
-      userInfo: {
-        id: 1,
-        name: `Oliver.conner`,
-        email: `Oliver.conner@gmail.com`,
-        avatarUrl: `/img/1.png`,
-        isPro: false
-      },
-    },
-    [NameSpace.CITY_SELECT]: {
-      cityName: 0
-    },
-  });
-
-  const tree = renderer
-    .create(
-        <Provider store={store}>
-          <BrowserRouter>
-            <SignIn />
-          </BrowserRouter>
-        </Provider>
-    )
-    .toJSON();
-  expect(tree).toMatchSnapshot();
+it(`getFavorites should return favorites`, () => {
+  expect(getFavorites(store)).toEqual(cards);
 });
