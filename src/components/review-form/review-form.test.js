@@ -65,7 +65,7 @@ it(`Render ReviewForm`, () => {
       reviews,
       formIsLocked: false,
       buttonIsLocked: true,
-      isShake: false,
+      isError: false,
       rating: 0,
       comment: ``,
     },

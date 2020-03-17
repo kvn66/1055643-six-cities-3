@@ -4,8 +4,7 @@ import {toCamel} from 'convert-keys';
 const initialState = {
   reviews: [],
   formIsLocked: false,
-  buttonIsLocked: true,
-  isShake: false,
+  isError: false,
   rating: 0,
   comment: ``,
 };
@@ -14,8 +13,7 @@ export const ActionType = {
   LOAD_FAVORITES: `LOAD_REVIEWS`,
   SEND_FAVORITE_STATUS: `SEND_REVIEW`,
   SET_FORM_LOCK_STATE: `SET_FORM_LOCK_STATE`,
-  SET_BUTTON_LOCK_STATE: `SET_BUTTON_LOCK_STATE`,
-  SET_SHAKE_STATE: `SET_SHAKE_STATE`,
+  SET_ERROR_STATE: `SET_ERROR_STATE`,
   SET_RATING: `SET_RATING`,
   SET_COMMENT: `SET_COMMENT`,
 };
@@ -39,16 +37,10 @@ export const ActionCreator = {
       payload: lockState,
     };
   },
-  setButtonLockState: (lockState) => {
+  setErrorState: (errorState) => {
     return {
-      type: ActionType.SET_BUTTON_LOCK_STATE,
-      payload: lockState,
-    };
-  },
-  setShakeState: (shakeState) => {
-    return {
-      type: ActionType.SET_SHAKE_STATE,
-      payload: shakeState,
+      type: ActionType.SET_ERROR_STATE,
+      payload: errorState,
     };
   },
   setRating: (rating) => {
@@ -98,13 +90,9 @@ const reviewsReducer = (state = initialState, action) => {
       return extend(state, {
         formIsLocked: action.payload,
       });
-    case ActionType.SET_BUTTON_LOCK_STATE:
+    case ActionType.SET_ERROR_STATE:
       return extend(state, {
-        buttonIsLocked: action.payload,
-      });
-    case ActionType.SET_SHAKE_STATE:
-      return extend(state, {
-        isShake: action.payload,
+        isError: action.payload,
       });
     case ActionType.SET_RATING:
       return extend(state, {
