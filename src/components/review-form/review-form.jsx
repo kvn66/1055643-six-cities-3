@@ -9,6 +9,16 @@ const RADIX = 10;
 const RATING_TITLES = [`perfect`, `good`, `not bad`, `badly`, `terribly`];
 
 const ReviewForm = (props) => {
+  const lockForm = () => {
+    const {setFormLockState} = props;
+    setFormLockState(true);
+  };
+
+  const unlockForm = () => {
+    const {setFormLockState} = props;
+    setFormLockState(false);
+  };
+
   const clearForm = () => {
     const {setRating, setComment} = props;
     setRating(0);
@@ -18,12 +28,14 @@ const ReviewForm = (props) => {
   const onSuccess = () => {
     const {setErrorState} = props;
     setErrorState(false);
+    unlockForm();
     clearForm();
   };
 
   const onError = () => {
     const {setErrorState} = props;
     setErrorState(true);
+    unlockForm();
   };
 
   const changeRatingHandler = (evt) => {
@@ -44,6 +56,7 @@ const ReviewForm = (props) => {
       comment
     };
 
+    lockForm();
     sendReview(cardId, commentPost, onSuccess, onError);
   };
 
