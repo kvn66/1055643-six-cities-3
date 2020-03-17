@@ -2,6 +2,7 @@ import React from "react";
 import {Switch, Route, BrowserRouter} from "react-router-dom";
 import Main from "../main/main.jsx";
 import OfferDetailCard from "../offer-detail-card/offer-detail-card.jsx";
+import Favorites from "../favorites/favorites.jsx";
 import {AppRoute} from "../../const";
 import RedirectRoute from "../redirect-route/redirect-route.jsx";
 import SignIn from "../sign-in/sign-in.jsx";
@@ -35,7 +36,7 @@ const App = () => {
           statusForRedirect={AuthorizationStatus.NO_AUTH}
           render={() => {
             return (
-              <div />
+              <Favorites />
             );
           }}
         />
