@@ -5,7 +5,7 @@ import {connect} from "react-redux";
 import {AppRoute} from "../../const";
 
 const Header = (props) => {
-  const {authorizationStatus, userInfo} = props;
+  const {isAuthorized, userInfo} = props;
 
   return (
     <header className="header">
@@ -19,10 +19,10 @@ const Header = (props) => {
           <nav className="header__nav">
             <ul className="header__nav-list">
               <li className="header__nav-item user">
-                <a className="header__nav-link header__nav-link--profile" href={authorizationStatus ? AppRoute.FAVORITES : AppRoute.LOGIN}>
+                <a className="header__nav-link header__nav-link--profile" href={isAuthorized ? AppRoute.FAVORITES : AppRoute.LOGIN}>
                   <div className="header__avatar-wrapper user__avatar-wrapper">
                   </div>
-                  {authorizationStatus ?
+                  {isAuthorized ?
                     (
                       <span className="header__user-name user__name">{userInfo.email}</span>
                     ) : (
@@ -40,7 +40,7 @@ const Header = (props) => {
 };
 
 Header.propTypes = {
-  authorizationStatus: PropTypes.bool.isRequired,
+  isAuthorized: PropTypes.bool.isRequired,
   userInfo: PropTypes.exact({
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
@@ -52,7 +52,7 @@ Header.propTypes = {
 
 const mapStateToProps = (store) => {
   return {
-    authorizationStatus: getAuthorizationStatus(store),
+    isAuthorized: getAuthorizationStatus(store),
     userInfo: getUserInfo(store),
   };
 };

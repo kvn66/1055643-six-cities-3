@@ -45,8 +45,8 @@ export default class Map extends PureComponent {
   }
 
   componentDidMount() {
-    const {cards, similarOffers, selectedCardId} = this.props;
-    const card = cards[0];
+    const {cards, similarOffers, selectedCardId, isDetail} = this.props;
+    const card = isDetail ? getCard(selectedCardId, cards) : cards[0];
     const {location} = card.city;
     const cityCoordinates = [location.latitude, location.longitude];
     const cityZoom = location.zoom;
@@ -74,8 +74,8 @@ export default class Map extends PureComponent {
   }
 
   componentDidUpdate() {
-    const {cards, similarOffers, selectedCardId} = this.props;
-    const card = cards[0];
+    const {cards, similarOffers, selectedCardId, isDetail} = this.props;
+    const card = isDetail ? getCard(selectedCardId, cards) : cards[0];
     const {location} = card.city;
     const cityCoordinates = [location.latitude, location.longitude];
     const cityZoom = location.zoom;
@@ -178,5 +178,6 @@ Map.propTypes = {
       }).isRequired
   ).isRequired,
   selectedCardId: PropTypes.number.isRequired,
+  isDetail: PropTypes.bool.isRequired,
   sectionClassName: PropTypes.string.isRequired
 };

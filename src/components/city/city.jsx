@@ -29,7 +29,13 @@ const City = (props) => {
             </div>
           </section>
           <div className="cities__right-section">
-            <Map cards={cards} similarOffers={cards} selectedCardId={selectedCard} sectionClassName={MAP_CLASS_NAME}/>
+            <Map
+              cards={cards}
+              similarOffers={cards}
+              selectedCardId={selectedCard}
+              isDetail={false}
+              sectionClassName={MAP_CLASS_NAME}
+            />
           </div>
         </div>
       ) : (

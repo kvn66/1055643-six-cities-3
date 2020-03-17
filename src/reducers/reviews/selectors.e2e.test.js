@@ -1,4 +1,4 @@
-import {getReviews} from "./selectors";
+import {getReviews, getFormIsLocked, getIsError, getRating, getComment} from "./selectors";
 import {NameSpace} from "../name-space";
 
 const reviews = [
@@ -32,10 +32,30 @@ const reviews = [
 
 const store = {
   [NameSpace.REVIEWS]: {
-    reviews
+    reviews,
+    formIsLocked: false,
+    isError: false,
+    rating: 0,
+    comment: `test`,
   },
 };
 
 it(`getReviews should return reviews`, () => {
   expect(getReviews(store)).toEqual(reviews);
+});
+
+it(`getFormIsLocked should return false`, () => {
+  expect(getFormIsLocked(store)).toEqual(false);
+});
+
+it(`getIsShake should return false`, () => {
+  expect(getIsError(store)).toEqual(false);
+});
+
+it(`getRating should return 0`, () => {
+  expect(getRating(store)).toEqual(0);
+});
+
+it(`getComment should return test`, () => {
+  expect(getComment(store)).toEqual(`test`);
 });

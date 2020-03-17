@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import MemoizedCityNavItem from "./city-nav-item.jsx";
+import {MemoizedCityNavItem} from "./city-nav-item.jsx";
 
 const CITY_ID = 0;
 

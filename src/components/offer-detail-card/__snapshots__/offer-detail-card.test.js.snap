@@ -161,7 +161,7 @@ exports[`Render OfferDetailCard 1`] = `
             <li
               className="property__feature property__feature--entire"
             >
-              apartment
+              Apartment
             </li>
             <li
               className="property__feature property__feature--bedrooms"

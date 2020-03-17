@@ -22,7 +22,13 @@ const loginInfo = {
 it(`Reducer without additional parameters should return initial state`, () => {
   expect(userReducer(void 0, {})).toEqual({
     userAuthorized: false,
-    userInfo: {},
+    userInfo: {
+      id: -1,
+      name: ``,
+      email: ``,
+      avatarUrl: ``,
+      isPro: false
+    },
   });
 });
 
