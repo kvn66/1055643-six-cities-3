@@ -79,7 +79,6 @@ export const Operation = {
         // window.location.pathname = AppRoute.ROOT;
       })
       .catch((err) => {
-        console.log(err);
         throw err;
       });
   },
