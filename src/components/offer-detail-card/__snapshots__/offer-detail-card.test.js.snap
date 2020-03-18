@@ -118,7 +118,7 @@ exports[`Render OfferDetailCard 1`] = `
               type="button"
             >
               <svg
-                className="property__bookmark-icon"
+                className="place-card__bookmark-icon"
                 height="33"
                 width="31"
               >
@@ -459,6 +459,13 @@ exports[`Render OfferDetailCard 1`] = `
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
           >
+            <div
+              className="place-card__mark"
+            >
+              <span>
+                Premium
+              </span>
+            </div>
             <div
               className="near-places__image-wrapper place-card__image-wrapper"
             >

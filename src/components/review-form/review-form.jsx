@@ -4,6 +4,7 @@ import {Operation as ReviewsOperation, ActionCreator} from "../../reducers/revie
 import {connect} from "react-redux";
 import {getFormIsLocked, getComment, getRating, getIsError} from "../../reducers/reviews/selectors";
 import {MemoizedReviewFormRatingItem} from "../review-form-rating-item/review-form-rating-item.jsx";
+import {LockState} from "../../const";
 
 const RADIX = 10;
 const RATING_TITLES = [`perfect`, `good`, `not bad`, `badly`, `terribly`];
@@ -11,12 +12,12 @@ const RATING_TITLES = [`perfect`, `good`, `not bad`, `badly`, `terribly`];
 const ReviewForm = (props) => {
   const lockForm = () => {
     const {setFormLockState} = props;
-    setFormLockState(true);
+    setFormLockState(LockState.LOCK);
   };
 
   const unlockForm = () => {
     const {setFormLockState} = props;
-    setFormLockState(false);
+    setFormLockState(LockState.UNLOCK);
   };
 
   const clearForm = () => {

@@ -3,18 +3,17 @@ import PropTypes from 'prop-types';
 import {MemoizedOfferSmallCard} from "../offer-small-card/offer-small-card.jsx";
 import Map from "../map/map.jsx";
 import SoringCardsMenu from "../sorting-cards-menu/sorting-cards-menu.jsx";
-import {ActionCreator} from "../../reducers/card-select/card-select";
 import {getCardsCount, getCardsForSelectedCity, getSelectedCityName, getSortedCardsForSelectedCity} from "../../reducers/cards/selectors";
 import {getSelectedCardId} from "../../reducers/card-select/selectors";
 import {connect} from "react-redux";
-import {Operation as FavoriteOperation} from "../../reducers/favorites/favorites";
+import {CardClassName} from "../../const";
 
 const MAP_CLASS_NAME = `cities__map`;
 
 const City = (props) => {
-  const {cardsInStore, cards, sortedCards, cityName, selectedCard, setSelectedCard, sendFavoriteStatus} = props;
+  const {cardsInStore, cards, sortedCards, cityName, selectedCard} = props;
   const cardsElement = sortedCards.map((card) =>
-    <MemoizedOfferSmallCard key={card.id} card={card} setSelectedCard = {setSelectedCard} onFavoriteButton = {sendFavoriteStatus} isDetail={false} />
+    <MemoizedOfferSmallCard key={card.id} card={card} className={CardClassName.CITY} />
   );
 
   return (
@@ -63,13 +62,6 @@ const mapStateToProps = (store) => {
     sortedCards: getSortedCardsForSelectedCity(store),
     cityName: getSelectedCityName(store),
     selectedCard: getSelectedCardId(store),
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    setSelectedCard: (id) => dispatch(ActionCreator.setSelectedCardId(id)),
-    sendFavoriteStatus: (id) => dispatch(FavoriteOperation.sendFavoriteStatus(id))
   };
 };
 
@@ -149,8 +141,6 @@ City.propTypes = {
   ).isRequired,
   cityName: PropTypes.string,
   selectedCard: PropTypes.number,
-  setSelectedCard: PropTypes.func.isRequired,
-  sendFavoriteStatus: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(City);
+export default connect(mapStateToProps)(City);

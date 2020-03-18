@@ -3,24 +3,14 @@ import PropTypes from 'prop-types';
 import {Link} from "react-router-dom";
 import {UNSELECTED_CARD_ID, HotelType} from "../../const.js";
 import {AppRoute} from "../../const";
-
-const ClassName = {
-  CITY: {
-    ARTICLE: `cities__place-card`,
-    IMAGE: `cities__image-wrapper`
-  },
-  DETAIL: {
-    ARTICLE: `near-places__card`,
-    IMAGE: `near-places__image-wrapper`
-  }
-};
+import {ActionCreator} from "../../reducers/card-select/card-select";
+import {Operation as FavoriteOperation} from "../../reducers/favorites/favorites";
+import {connect} from "react-redux";
 
 const OfferSmallCard = (props) => {
-  const {card, setSelectedCard, onFavoriteButton, isDetail} = props;
+  const {card, setSelectedCard, sendFavoriteStatus, className} = props;
   const {id, previewImage, price, title, type, rating, isFavorite, isPremium} = card;
   const linkToDetail = `${AppRoute.OFFER}/${id}`;
-  const articleClassName = isDetail ? ClassName.DETAIL.ARTICLE : ClassName.CITY.ARTICLE;
-  const imageClassName = isDetail ? ClassName.DETAIL.IMAGE : ClassName.CITY.IMAGE;
 
   const mouseEnterHandler = () => {
     setSelectedCard(id);
@@ -36,17 +26,17 @@ const OfferSmallCard = (props) => {
 
   const mouseClickFavoriteButtonHandler = (evt) => {
     evt.preventDefault();
-    onFavoriteButton(id);
+    sendFavoriteStatus(id);
   };
 
   return (
-    <article onMouseEnter={mouseEnterHandler} onMouseLeave={mouseLeaveHandler} className={`${articleClassName} place-card`}>
-      {isPremium && !isDetail &&
+    <article onMouseEnter={mouseEnterHandler} onMouseLeave={mouseLeaveHandler} className={`${className.ARTICLE} place-card`}>
+      {isPremium &&
         <div className="place-card__mark">
           <span>Premium</span>
         </div>
       }
-      <div className={`${imageClassName} place-card__image-wrapper`}>
+      <div className={`${className.IMAGE} place-card__image-wrapper`}>
         <Link onClick={mouseClickLinkHandler} to={linkToDetail}>
           <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place image"/>
         </Link>
@@ -57,7 +47,11 @@ const OfferSmallCard = (props) => {
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button onClick={mouseClickFavoriteButtonHandler} className={`place-card__bookmark-button ${isFavorite ? `place-card__bookmark-button--active` : ``} button`} type="button">
+          <button
+            onClick={mouseClickFavoriteButtonHandler}
+            className={`place-card__bookmark-button ${isFavorite ? `place-card__bookmark-button--active` : ``} button`}
+            type="button"
+          >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"/>
             </svg>
@@ -77,6 +71,17 @@ const OfferSmallCard = (props) => {
       </div>
     </article>
   );
+};
+
+const mapStateToProps = () => {
+  return {};
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setSelectedCard: (id) => dispatch(ActionCreator.setSelectedCardId(id)),
+    sendFavoriteStatus: (id) => dispatch(FavoriteOperation.sendFavoriteStatus(id))
+  };
 };
 
 OfferSmallCard.propTypes = {
@@ -114,11 +119,14 @@ OfferSmallCard.propTypes = {
     title: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
   }).isRequired,
+  className: PropTypes.exact({
+    ARTICLE: PropTypes.string.isRequired,
+    IMAGE: PropTypes.string.isRequired,
+  }).isRequired,
   setSelectedCard: PropTypes.func.isRequired,
-  onFavoriteButton: PropTypes.func.isRequired,
-  isDetail: PropTypes.bool.isRequired
+  sendFavoriteStatus: PropTypes.func.isRequired,
 };
 
-export const MemoizedOfferSmallCard = React.memo(OfferSmallCard);
+export const MemoizedOfferSmallCard = connect(mapStateToProps, mapDispatchToProps)(React.memo(OfferSmallCard));
 
-export default OfferSmallCard;
+export default connect(mapStateToProps, mapDispatchToProps)(OfferSmallCard);

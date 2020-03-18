@@ -9,7 +9,7 @@ import {connect} from "react-redux";
 import {getAllCards} from "../../reducers/cards/selectors";
 import {Operation as SimilarOffersOperation} from "../../reducers/similar-offers/similar-offers";
 import {MemoizedHeader} from "../header/header.jsx";
-import {HotelType} from "../../const";
+import {CardClassName, HotelType} from "../../const";
 import {Operation as FavoriteOperation} from "../../reducers/favorites/favorites";
 
 const RADIX = 10;
@@ -42,7 +42,7 @@ class OfferDetailCard extends PureComponent {
 
   render() {
     const cardId = this.idParam;
-    const {cards, similarOffers, sendFavoriteStatus} = this.props;
+    const {cards, similarOffers} = this.props;
     const card = getCard(cardId, cards);
 
     if (!card) {
@@ -51,7 +51,7 @@ class OfferDetailCard extends PureComponent {
 
     const {images, price, title, description, type, bedrooms, maxAdults, rating, goods, isFavorite, isPremium, host} = card;
     const cardsElement = similarOffers.map((offer) =>
-      <MemoizedOfferSmallCard key={offer.id} card={offer} setSelectedCard={() => {}} onFavoriteButton = {sendFavoriteStatus} isDetail={true} />
+      <MemoizedOfferSmallCard key={offer.id} card={offer} className={CardClassName.DETAIL} />
     );
 
     return (
@@ -83,7 +83,7 @@ class OfferDetailCard extends PureComponent {
                     {title}
                   </h1>
                   <button onClick={this.mouseClickFavoriteButtonHandler} className={`property__bookmark-button button ${isFavorite ? `property__bookmark-button--active` : ``}`} type="button">
-                    <svg className="property__bookmark-icon" width="31" height="33">
+                    <svg className="place-card__bookmark-icon" width="31" height="33">
                       <use xlinkHref="#icon-bookmark"/>
                     </svg>
                     <span className="visually-hidden">To bookmarks</span>

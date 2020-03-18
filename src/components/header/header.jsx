@@ -58,6 +58,6 @@ const mapStateToProps = (store) => {
   };
 };
 
-export const MemoizedHeader = React.memo(connect(mapStateToProps)(Header));
+export const MemoizedHeader = connect(mapStateToProps)(React.memo(Header));
 
 export default connect(mapStateToProps)(Header);

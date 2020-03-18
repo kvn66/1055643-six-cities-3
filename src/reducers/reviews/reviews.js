@@ -1,9 +1,10 @@
 import {extend} from "../../utils.js";
 import {toCamel} from 'convert-keys';
+import {LockState} from "../../const";
 
 const initialState = {
   reviews: [],
-  formIsLocked: false,
+  formIsLocked: LockState.UNLOCK,
   isError: false,
   rating: 0,
   comment: ``,

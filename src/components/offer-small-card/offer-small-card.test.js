@@ -2,6 +2,11 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import {MemoizedOfferSmallCard} from "./offer-small-card.jsx";
 import {BrowserRouter} from "react-router-dom";
+import configureMockStore from "redux-mock-store";
+import {Provider} from "react-redux";
+import {CardClassName} from "../../const";
+
+const mockStore = configureMockStore();
 
 const card = {
   id: 0,
@@ -40,15 +45,17 @@ const card = {
 
 it(`Render MemoizedOfferSmallCard`, () => {
 
+  const store = mockStore({});
+
   const tree = renderer
     .create(
         <BrowserRouter>
-          <MemoizedOfferSmallCard
-            card={card}
-            setSelectedCard={()=>{}}
-            onFavoriteButton={()=>{}}
-            isDetail={false}
-          />
+          <Provider store={store}>
+            <MemoizedOfferSmallCard
+              card={card}
+              className={CardClassName.CITY}
+            />
+          </Provider>
         </BrowserRouter>
     )
     .toJSON();

@@ -19,6 +19,7 @@ const applyFavoriteState = (card, dispatch, getState) => {
   if (getCardIndex(card.id, similarOffers) !== -1) {
     dispatch(SimilarOffersCreator.loadSimilarOffers(replaceCardInArray(card, similarOffers)));
   }
+  dispatch(Operation.loadFavorites());
 };
 
 export const ActionType = {
