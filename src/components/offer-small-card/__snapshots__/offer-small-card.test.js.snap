@@ -17,7 +17,8 @@ exports[`Render MemoizedOfferSmallCard 1`] = `
     className="cities__image-wrapper place-card__image-wrapper"
   >
     <a
-      href="#"
+      href="/offer/0"
+      onClick={[Function]}
     >
       <img
         alt="Place image"
@@ -51,6 +52,7 @@ exports[`Render MemoizedOfferSmallCard 1`] = `
       </div>
       <button
         className="place-card__bookmark-button place-card__bookmark-button--active button"
+        onClick={[Function]}
         type="button"
       >
         <svg
@@ -94,6 +96,7 @@ exports[`Render MemoizedOfferSmallCard 1`] = `
     >
       <a
         href="/offer/0"
+        onClick={[Function]}
       >
         Beautiful &amp; luxurious apartment at great location
       </a>

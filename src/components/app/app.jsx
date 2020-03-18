@@ -14,7 +14,7 @@ const App = () => {
         <Route exact path={AppRoute.ROOT}>
           <Main />
         </Route>
-        <Route exact path={AppRoute.OFFER}>
+        <Route exact path={`${AppRoute.OFFER}/:id`}>
           <OfferDetailCard />
         </Route>
         <RedirectRoute

@@ -5,6 +5,7 @@ import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
 import {InitValue} from "../../reducers/cards-sorting-menu/cards-sorting-menu";
 import {NameSpace} from "../../reducers/name-space";
+import {BrowserRouter} from "react-router-dom";
 
 const mockStore = configureStore([]);
 
@@ -108,7 +109,7 @@ const reviews = [
   }
 ];
 
-it(`Render Cities`, () => {
+it(`Render City`, () => {
   const store = mockStore({
     [NameSpace.CARDS]: {
       cards
@@ -137,9 +138,11 @@ it(`Render Cities`, () => {
   const tree = renderer
     .create(
         <Provider store={store}>
-          <City
-            setSelectedCard={() => {}}
-          />
+          <BrowserRouter>
+            <City
+              setSelectedCard={() => {}}
+            />
+          </BrowserRouter>
         </Provider>
     )
     .toJSON();

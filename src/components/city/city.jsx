@@ -7,13 +7,14 @@ import {ActionCreator} from "../../reducers/card-select/card-select";
 import {getCardsCount, getCardsForSelectedCity, getSelectedCityName, getSortedCardsForSelectedCity} from "../../reducers/cards/selectors";
 import {getSelectedCardId} from "../../reducers/card-select/selectors";
 import {connect} from "react-redux";
+import {Operation as FavoriteOperation} from "../../reducers/favorites/favorites";
 
 const MAP_CLASS_NAME = `cities__map`;
 
 const City = (props) => {
-  const {cardsInStore, cards, sortedCards, cityName, selectedCard, setSelectedCard} = props;
+  const {cardsInStore, cards, sortedCards, cityName, selectedCard, setSelectedCard, sendFavoriteStatus} = props;
   const cardsElement = sortedCards.map((card) =>
-    <MemoizedOfferSmallCard key={card.id} card={card} setSelectedCard = {setSelectedCard} isDetail={false} />
+    <MemoizedOfferSmallCard key={card.id} card={card} setSelectedCard = {setSelectedCard} onFavoriteButton = {sendFavoriteStatus} isDetail={false} />
   );
 
   return (
@@ -44,7 +45,7 @@ const City = (props) => {
             <div className="cities__status-wrapper tabs__content">
               <b className="cities__status">No places to stay available</b>
               <p className="cities__status-description">
-                We could not find any property availbale at the moment in {cityName}
+                We could not find any property available at the moment in {cityName}
               </p>
             </div>
           </section>
@@ -67,7 +68,8 @@ const mapStateToProps = (store) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setSelectedCard: (id) => dispatch(ActionCreator.setSelectedCardId(id))
+    setSelectedCard: (id) => dispatch(ActionCreator.setSelectedCardId(id)),
+    sendFavoriteStatus: (id) => dispatch(FavoriteOperation.sendFavoriteStatus(id))
   };
 };
 
@@ -148,6 +150,7 @@ City.propTypes = {
   cityName: PropTypes.string,
   selectedCard: PropTypes.number,
   setSelectedCard: PropTypes.func.isRequired,
+  sendFavoriteStatus: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(City);

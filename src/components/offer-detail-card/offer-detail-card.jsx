@@ -10,6 +10,7 @@ import {getAllCards} from "../../reducers/cards/selectors";
 import {Operation as SimilarOffersOperation} from "../../reducers/similar-offers/similar-offers";
 import {MemoizedHeader} from "../header/header.jsx";
 import {HotelType} from "../../const";
+import {Operation as FavoriteOperation} from "../../reducers/favorites/favorites";
 
 const RADIX = 10;
 const SECTION_CLASS_NAME = `property__map`;
@@ -24,6 +25,14 @@ class OfferDetailCard extends PureComponent {
     if (url[0] === `offer` && url[1] !== ``) {
       this.idParam = parseInt(url[1], RADIX);
     }
+
+    this.mouseClickFavoriteButtonHandler = this.mouseClickFavoriteButtonHandler.bind(this);
+  }
+
+  mouseClickFavoriteButtonHandler(evt) {
+    const {sendFavoriteStatus} = this.props;
+    evt.preventDefault();
+    sendFavoriteStatus(this.idParam);
   }
 
   componentDidMount() {
@@ -33,16 +42,16 @@ class OfferDetailCard extends PureComponent {
 
   render() {
     const cardId = this.idParam;
-    const {cards, similarOffers} = this.props;
+    const {cards, similarOffers, sendFavoriteStatus} = this.props;
     const card = getCard(cardId, cards);
 
     if (!card) {
       return null;
     }
 
-    const {images, price, title, description, type, bedrooms, maxAdults, rating, goods, isPremium, host} = card;
+    const {images, price, title, description, type, bedrooms, maxAdults, rating, goods, isFavorite, isPremium, host} = card;
     const cardsElement = similarOffers.map((offer) =>
-      <MemoizedOfferSmallCard key={offer.id} card={offer} setSelectedCard={() => {}} isDetail={true} />
+      <MemoizedOfferSmallCard key={offer.id} card={offer} setSelectedCard={() => {}} onFavoriteButton = {sendFavoriteStatus} isDetail={true} />
     );
 
     return (
@@ -73,7 +82,7 @@ class OfferDetailCard extends PureComponent {
                   <h1 className="property__name">
                     {title}
                   </h1>
-                  <button className="property__bookmark-button button" type="button">
+                  <button onClick={this.mouseClickFavoriteButtonHandler} className={`property__bookmark-button button ${isFavorite ? `property__bookmark-button--active` : ``}`} type="button">
                     <svg className="property__bookmark-icon" width="31" height="33">
                       <use xlinkHref="#icon-bookmark"/>
                     </svg>
@@ -169,7 +178,8 @@ const mapStateToProps = (store) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    loadSimilarOffers: (id) => dispatch(SimilarOffersOperation.loadSimilarOffers(id))
+    loadSimilarOffers: (id) => dispatch(SimilarOffersOperation.loadSimilarOffers(id)),
+    sendFavoriteStatus: (id) => dispatch(FavoriteOperation.sendFavoriteStatus(id)),
   };
 };
 
@@ -247,7 +257,7 @@ OfferDetailCard.propTypes = {
       }).isRequired
   ).isRequired,
   loadSimilarOffers: PropTypes.func.isRequired,
+  sendFavoriteStatus: PropTypes.func.isRequired,
 };
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(OfferDetailCard);
