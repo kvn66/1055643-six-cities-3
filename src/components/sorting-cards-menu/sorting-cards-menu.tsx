@@ -1,8 +1,7 @@
 import * as React from "react";
-import PropTypes from 'prop-types';
 import {ActionCreator} from "../../reducers/cards-sorting-menu/cards-sorting-menu";
 import {connect} from "react-redux";
-import SortingCardsMenuItem from "../sorting-cards-menu-item/sorting-cards-menu-item.jsx";
+import SortingCardsMenuItem from "../sorting-cards-menu-item/sorting-cards-menu-item";
 import {SORTING_METHODS} from "../../const";
 import {getSortingMethodId, getMenuState} from "../../reducers/cards-sorting-menu/selectors";
 
@@ -11,26 +10,33 @@ const MenuState = {
   CLOSED: false,
 };
 
-const SoringCardsMenu = (props) => {
+type Props = {
+  selectedSortingMethod: number;
+  menuState: boolean;
+  setSortingMethod: (methodId: number) => void;
+  setMenuState: (state: boolean) => void;
+}
+
+const SoringCardsMenu: React.FunctionComponent<Props> = (props: Props) => {
   const {selectedSortingMethod, menuState, setSortingMethod, setMenuState} = props;
 
-  const menuClickHandler = () => {
+  const menuClickHandler = (): void => {
     setMenuState(!menuState);
   };
 
-  const changeSortingMethod = (sortingMethod) => {
+  const changeSortingMethod = (sortingMethod: number) => {
     setSortingMethod(sortingMethod);
     setMenuState(MenuState.CLOSED);
   };
 
   const sortingCardsList = SORTING_METHODS.map((method, index) =>
-    <SortingCardsMenuItem key={index} sortingMethod={index} selectedSortingMethod={selectedSortingMethod} setSortingMethod={changeSortingMethod} />
+    <SortingCardsMenuItem key={index} sortingMethod={index} selectedSortingMethod={selectedSortingMethod} tabIndex={index+1} setSortingMethod={changeSortingMethod} />
   );
 
   return (
     <form className="places__sorting" action="#" method="get">
       <span className="places__sorting-caption">Sort by </span>
-      <span onClick={menuClickHandler} className="places__sorting-type" tabIndex="0">
+      <span onClick={menuClickHandler} className="places__sorting-type" tabIndex={0}>
         {SORTING_METHODS[selectedSortingMethod]}
         <svg className="places__sorting-arrow" width="7" height="4">
           <use xlinkHref="#icon-arrow-select"/>
@@ -56,13 +62,5 @@ const mapDispatchToProps = (dispatch) => {
     setMenuState: (state) => dispatch(ActionCreator.setMenuState(state))
   };
 };
-
-SoringCardsMenu.propTypes = {
-  selectedSortingMethod: PropTypes.number.isRequired,
-  menuState: PropTypes.bool.isRequired,
-  setSortingMethod: PropTypes.func.isRequired,
-  setMenuState: PropTypes.func.isRequired,
-};
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(SoringCardsMenu);

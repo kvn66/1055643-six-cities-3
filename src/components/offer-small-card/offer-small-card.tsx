@@ -1,13 +1,20 @@
 import * as React from "react";
-import PropTypes from 'prop-types';
 import {Link} from "react-router-dom";
-import {UNSELECTED_CARD_ID, HotelType} from "../../const.js";
+import {UNSELECTED_CARD_ID, HotelType} from "../../const";
 import {AppRoute} from "../../const";
 import {ActionCreator} from "../../reducers/card-select/card-select";
 import {Operation as FavoriteOperation} from "../../reducers/favorites/favorites";
 import {connect} from "react-redux";
+import {CardType, ClassNameType} from "../../types";
 
-const OfferSmallCard = (props) => {
+type Props = {
+  card: CardType;
+  className: ClassNameType;
+  setSelectedCard: (id: number) => void;
+  sendFavoriteStatus: (id: number) => void;
+}
+
+const OfferSmallCard: React.FunctionComponent<Props> = (props: Props) => {
   const {card, setSelectedCard, sendFavoriteStatus, className} = props;
   const {id, previewImage, price, title, type, rating, isFavorite, isPremium} = card;
   const linkToDetail = `${AppRoute.OFFER}/${id}`;
@@ -82,49 +89,6 @@ const mapDispatchToProps = (dispatch) => {
     setSelectedCard: (id) => dispatch(ActionCreator.setSelectedCardId(id)),
     sendFavoriteStatus: (id) => dispatch(FavoriteOperation.sendFavoriteStatus(id))
   };
-};
-
-OfferSmallCard.propTypes = {
-  card: PropTypes.exact({
-    id: PropTypes.number.isRequired,
-    city: PropTypes.exact({
-      location: PropTypes.exact({
-        latitude: PropTypes.number.isRequired,
-        longitude: PropTypes.number.isRequired,
-        zoom: PropTypes.number.isRequired,
-      }).isRequired,
-      name: PropTypes.string.isRequired,
-    }).isRequired,
-    bedrooms: PropTypes.number.isRequired,
-    images: PropTypes.array.isRequired,
-    description: PropTypes.string.isRequired,
-    goods: PropTypes.array.isRequired,
-    host: PropTypes.exact({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-      avatarUrl: PropTypes.string.isRequired,
-      isPro: PropTypes.bool.isRequired
-    }).isRequired,
-    isFavorite: PropTypes.bool.isRequired,
-    isPremium: PropTypes.bool.isRequired,
-    location: PropTypes.exact({
-      latitude: PropTypes.number.isRequired,
-      longitude: PropTypes.number.isRequired,
-      zoom: PropTypes.number.isRequired,
-    }).isRequired,
-    maxAdults: PropTypes.number.isRequired,
-    previewImage: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    rating: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-  }).isRequired,
-  className: PropTypes.exact({
-    ARTICLE: PropTypes.string.isRequired,
-    IMAGE: PropTypes.string.isRequired,
-  }).isRequired,
-  setSelectedCard: PropTypes.func.isRequired,
-  sendFavoriteStatus: PropTypes.func.isRequired,
 };
 
 export const MemoizedOfferSmallCard = connect(mapStateToProps, mapDispatchToProps)(React.memo(OfferSmallCard));

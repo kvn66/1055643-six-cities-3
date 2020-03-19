@@ -1,22 +1,31 @@
 import * as React from "react";
-import PropTypes from "prop-types";
 import {getCard, parseUrl} from "../../utils";
-import Map from "../map/map.tsx";
-import {MemoizedOfferSmallCard} from "../offer-small-card/offer-small-card.jsx";
-import Reviews from "../reviews/reviews.jsx";
+import Map from "../map/map";
+import {MemoizedOfferSmallCard} from "../offer-small-card/offer-small-card";
+import Reviews from "../reviews/reviews";
 import {getSimilarOffers} from "../../reducers/similar-offers/selectors";
 import {connect} from "react-redux";
 import {getAllCards} from "../../reducers/cards/selectors";
 import {Operation as SimilarOffersOperation} from "../../reducers/similar-offers/similar-offers";
-import {MemoizedHeader} from "../header/header.tsx";
+import {MemoizedHeader} from "../header/header";
 import {CardClassName, HotelType} from "../../const";
 import {Operation as FavoriteOperation} from "../../reducers/favorites/favorites";
+import {CardsType} from "../../types";
 
 const RADIX = 10;
 const SECTION_CLASS_NAME = `property__map`;
 
 
-class OfferDetailCard extends React.PureComponent {
+type Props = {
+  cards: CardsType;
+  similarOffers: CardsType;
+  loadSimilarOffers: (id: number) => void;
+  sendFavoriteStatus: (id: number) => void;
+}
+
+class OfferDetailCard extends React.PureComponent<Props, {}> {
+  private readonly idParam: number;
+
   constructor(props) {
     super(props);
 
@@ -181,83 +190,6 @@ const mapDispatchToProps = (dispatch) => {
     loadSimilarOffers: (id) => dispatch(SimilarOffersOperation.loadSimilarOffers(id)),
     sendFavoriteStatus: (id) => dispatch(FavoriteOperation.sendFavoriteStatus(id)),
   };
-};
-
-OfferDetailCard.propTypes = {
-  cards: PropTypes.arrayOf(
-      PropTypes.exact({
-        id: PropTypes.number.isRequired,
-        city: PropTypes.exact({
-          location: PropTypes.exact({
-            latitude: PropTypes.number.isRequired,
-            longitude: PropTypes.number.isRequired,
-            zoom: PropTypes.number.isRequired,
-          }).isRequired,
-          name: PropTypes.string.isRequired,
-        }).isRequired,
-        bedrooms: PropTypes.number.isRequired,
-        images: PropTypes.array.isRequired,
-        description: PropTypes.string.isRequired,
-        goods: PropTypes.array.isRequired,
-        host: PropTypes.exact({
-          id: PropTypes.number.isRequired,
-          name: PropTypes.string.isRequired,
-          avatarUrl: PropTypes.string.isRequired,
-          isPro: PropTypes.bool.isRequired
-        }).isRequired,
-        isFavorite: PropTypes.bool.isRequired,
-        isPremium: PropTypes.bool.isRequired,
-        location: PropTypes.exact({
-          latitude: PropTypes.number.isRequired,
-          longitude: PropTypes.number.isRequired,
-          zoom: PropTypes.number.isRequired,
-        }).isRequired,
-        maxAdults: PropTypes.number.isRequired,
-        previewImage: PropTypes.string.isRequired,
-        price: PropTypes.number.isRequired,
-        rating: PropTypes.number.isRequired,
-        title: PropTypes.string.isRequired,
-        type: PropTypes.string.isRequired,
-      }).isRequired
-  ).isRequired,
-  similarOffers: PropTypes.arrayOf(
-      PropTypes.exact({
-        id: PropTypes.number.isRequired,
-        city: PropTypes.exact({
-          location: PropTypes.exact({
-            latitude: PropTypes.number.isRequired,
-            longitude: PropTypes.number.isRequired,
-            zoom: PropTypes.number.isRequired,
-          }).isRequired,
-          name: PropTypes.string.isRequired,
-        }).isRequired,
-        bedrooms: PropTypes.number.isRequired,
-        images: PropTypes.array.isRequired,
-        description: PropTypes.string.isRequired,
-        goods: PropTypes.array.isRequired,
-        host: PropTypes.exact({
-          id: PropTypes.number.isRequired,
-          name: PropTypes.string.isRequired,
-          avatarUrl: PropTypes.string.isRequired,
-          isPro: PropTypes.bool.isRequired
-        }).isRequired,
-        isFavorite: PropTypes.bool.isRequired,
-        isPremium: PropTypes.bool.isRequired,
-        location: PropTypes.exact({
-          latitude: PropTypes.number.isRequired,
-          longitude: PropTypes.number.isRequired,
-          zoom: PropTypes.number.isRequired,
-        }).isRequired,
-        maxAdults: PropTypes.number.isRequired,
-        previewImage: PropTypes.string.isRequired,
-        price: PropTypes.number.isRequired,
-        rating: PropTypes.number.isRequired,
-        title: PropTypes.string.isRequired,
-        type: PropTypes.string.isRequired,
-      }).isRequired
-  ).isRequired,
-  loadSimilarOffers: PropTypes.func.isRequired,
-  sendFavoriteStatus: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(OfferDetailCard);

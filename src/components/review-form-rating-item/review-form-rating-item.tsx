@@ -1,7 +1,14 @@
 import * as React from "react";
-import PropTypes from 'prop-types';
 
-const ReviewFormRatingItem = (props) => {
+type Props = {
+  id: number;
+  title: string;
+  rating: number;
+  formIsLocked: boolean;
+  onChangeRating: (evt: { target: { value: string; }; }) => void;
+}
+
+const ReviewFormRatingItem: React.FunctionComponent<Props> = (props: Props) => {
   const {id, title, rating, formIsLocked, onChangeRating} = props;
 
   return (
@@ -19,14 +26,6 @@ const ReviewFormRatingItem = (props) => {
       </label>
     </React.Fragment>
   );
-};
-
-ReviewFormRatingItem.propTypes = {
-  id: PropTypes.number.isRequired,
-  title: PropTypes.string.isRequired,
-  rating: PropTypes.number.isRequired,
-  formIsLocked: PropTypes.bool.isRequired,
-  onChangeRating: PropTypes.func.isRequired
 };
 
 export const MemoizedReviewFormRatingItem = React.memo(ReviewFormRatingItem);

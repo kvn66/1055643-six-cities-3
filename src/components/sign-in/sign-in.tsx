@@ -2,17 +2,22 @@ import * as React from "react";
 import {Link, Redirect} from "react-router-dom";
 import {Operation as UserOperation} from "../../reducers/user/user";
 import {connect} from "react-redux";
-import PropTypes from "prop-types";
-import {MemoizedHeader} from "../header/header.tsx";
+import {MemoizedHeader} from "../header/header";
 import {AppRoute} from "../../const";
 import {getAuthorizationStatus} from "../../reducers/user/selectors";
+import {AuthDataType} from "../../types";
 
-const SignIn = (props) => {
+type Props = {
+  isAuthorized: boolean;
+  loginOnServer: (authData: AuthDataType) => void;
+}
+
+const SignIn: React.FunctionComponent<Props> = (props: Props) => {
   const {isAuthorized, loginOnServer} = props;
-  const loginRef = React.createRef();
-  const passwordRef = React.createRef();
+  const loginRef: React.RefObject<HTMLInputElement> = React.createRef();
+  const passwordRef: React.RefObject<HTMLInputElement> = React.createRef();
 
-  const submitHandler = (evt) => {
+  const submitHandler = (evt: { preventDefault: () => void; }) => {
     evt.preventDefault();
 
     loginOnServer({
@@ -36,14 +41,14 @@ const SignIn = (props) => {
                 <form onSubmit={submitHandler} className="login__form form" action="#" method="post">
                   <div className="login__input-wrapper form__input-wrapper">
                     <label className="visually-hidden">E-mail</label>
-                    <input ref={loginRef} className="login__input form__input" type="email" name="email" placeholder="Email" required=""/>
+                    <input ref={loginRef} className="login__input form__input" type="email" name="email" placeholder="Email" required/>
                   </div>
                   <div className="login__input-wrapper form__input-wrapper">
                     <label className="visually-hidden">Password</label>
                     <input
                       ref={passwordRef}
                       className="login__input form__input" type="password" name="password" placeholder="Password"
-                      required=""
+                      required
                     />
                   </div>
                   <button className="login__submit form__submit button" type="submit">Sign in</button>
@@ -61,11 +66,6 @@ const SignIn = (props) => {
         </div>
       )
   );
-};
-
-SignIn.propTypes = {
-  isAuthorized: PropTypes.bool.isRequired,
-  loginOnServer: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (store) => {

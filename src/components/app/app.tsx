@@ -1,14 +1,14 @@
 import * as React from "react";
 import {Switch, Route, BrowserRouter} from "react-router-dom";
-import Main from "../main/main.jsx";
-import OfferDetailCard from "../offer-detail-card/offer-detail-card.jsx";
-import Favorites from "../favorites/favorites.jsx";
+import Main from "../main/main";
+import OfferDetailCard from "../offer-detail-card/offer-detail-card";
+import Favorites from "../favorites/favorites";
 import {AppRoute} from "../../const";
-import RedirectRoute from "../redirect-route/redirect-route.jsx";
-import SignIn from "../sign-in/sign-in.jsx";
+import RedirectRoute from "../redirect-route/redirect-route";
+import SignIn from "../sign-in/sign-in";
 import {AuthorizationStatus} from "../../reducers/user/user";
 
-const App = () => {
+const App: React.FunctionComponent = () => {
   return (
     <BrowserRouter>
       <Switch>

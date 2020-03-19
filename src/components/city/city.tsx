@@ -1,8 +1,8 @@
 import * as React from "react";
-import PropTypes from 'prop-types';
-import {MemoizedOfferSmallCard} from "../offer-small-card/offer-small-card.jsx";
-import Map from "../map/map.jsx";
-import SoringCardsMenu from "../sorting-cards-menu/sorting-cards-menu.jsx";
+import {CardsType} from "../../types";
+import {MemoizedOfferSmallCard} from "../offer-small-card/offer-small-card";
+import Map from "../map/map";
+import SoringCardsMenu from "../sorting-cards-menu/sorting-cards-menu";
 import {getCardsCount, getCardsForSelectedCity, getSelectedCityName, getSortedCardsForSelectedCity} from "../../reducers/cards/selectors";
 import {getSelectedCardId} from "../../reducers/card-select/selectors";
 import {connect} from "react-redux";
@@ -10,7 +10,15 @@ import {CardClassName} from "../../const";
 
 const MAP_CLASS_NAME = `cities__map`;
 
-const City = (props) => {
+type Props = {
+  cardsInStore: number;
+  cards: CardsType;
+  sortedCards: CardsType;
+  cityName: string;
+  selectedCard: number;
+}
+
+const City: React.FunctionComponent<Props> = (props: Props) => {
   const {cardsInStore, cards, sortedCards, cityName, selectedCard} = props;
   const cardsElement = sortedCards.map((card) =>
     <MemoizedOfferSmallCard key={card.id} card={card} className={CardClassName.CITY} />
@@ -63,84 +71,6 @@ const mapStateToProps = (store) => {
     cityName: getSelectedCityName(store),
     selectedCard: getSelectedCardId(store),
   };
-};
-
-City.propTypes = {
-  cardsInStore: PropTypes.number.isRequired,
-  cards: PropTypes.arrayOf(
-      PropTypes.exact({
-        id: PropTypes.number.isRequired,
-        city: PropTypes.exact({
-          location: PropTypes.exact({
-            latitude: PropTypes.number.isRequired,
-            longitude: PropTypes.number.isRequired,
-            zoom: PropTypes.number.isRequired,
-          }).isRequired,
-          name: PropTypes.string.isRequired,
-        }).isRequired,
-        bedrooms: PropTypes.number.isRequired,
-        images: PropTypes.array.isRequired,
-        description: PropTypes.string.isRequired,
-        goods: PropTypes.array.isRequired,
-        host: PropTypes.exact({
-          id: PropTypes.number.isRequired,
-          name: PropTypes.string.isRequired,
-          avatarUrl: PropTypes.string.isRequired,
-          isPro: PropTypes.bool.isRequired
-        }).isRequired,
-        isFavorite: PropTypes.bool.isRequired,
-        isPremium: PropTypes.bool.isRequired,
-        location: PropTypes.exact({
-          latitude: PropTypes.number.isRequired,
-          longitude: PropTypes.number.isRequired,
-          zoom: PropTypes.number.isRequired,
-        }).isRequired,
-        maxAdults: PropTypes.number.isRequired,
-        previewImage: PropTypes.string.isRequired,
-        price: PropTypes.number.isRequired,
-        rating: PropTypes.number.isRequired,
-        title: PropTypes.string.isRequired,
-        type: PropTypes.string.isRequired,
-      }).isRequired
-  ).isRequired,
-  sortedCards: PropTypes.arrayOf(
-      PropTypes.exact({
-        id: PropTypes.number.isRequired,
-        city: PropTypes.exact({
-          location: PropTypes.exact({
-            latitude: PropTypes.number.isRequired,
-            longitude: PropTypes.number.isRequired,
-            zoom: PropTypes.number.isRequired,
-          }).isRequired,
-          name: PropTypes.string.isRequired,
-        }).isRequired,
-        bedrooms: PropTypes.number.isRequired,
-        images: PropTypes.array.isRequired,
-        description: PropTypes.string.isRequired,
-        goods: PropTypes.array.isRequired,
-        host: PropTypes.exact({
-          id: PropTypes.number.isRequired,
-          name: PropTypes.string.isRequired,
-          avatarUrl: PropTypes.string.isRequired,
-          isPro: PropTypes.bool.isRequired
-        }).isRequired,
-        isFavorite: PropTypes.bool.isRequired,
-        isPremium: PropTypes.bool.isRequired,
-        location: PropTypes.exact({
-          latitude: PropTypes.number.isRequired,
-          longitude: PropTypes.number.isRequired,
-          zoom: PropTypes.number.isRequired,
-        }).isRequired,
-        maxAdults: PropTypes.number.isRequired,
-        previewImage: PropTypes.string.isRequired,
-        price: PropTypes.number.isRequired,
-        rating: PropTypes.number.isRequired,
-        title: PropTypes.string.isRequired,
-        type: PropTypes.string.isRequired,
-      }).isRequired
-  ).isRequired,
-  cityName: PropTypes.string,
-  selectedCard: PropTypes.number,
 };
 
 export default connect(mapStateToProps)(City);

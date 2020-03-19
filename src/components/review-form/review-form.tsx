@@ -1,55 +1,69 @@
 import * as React from "react";
-import PropTypes from "prop-types";
 import {Operation as ReviewsOperation, ActionCreator} from "../../reducers/reviews/reviews";
 import {connect} from "react-redux";
 import {getFormIsLocked, getComment, getRating, getIsError} from "../../reducers/reviews/selectors";
-import {MemoizedReviewFormRatingItem} from "../review-form-rating-item/review-form-rating-item.jsx";
+import {MemoizedReviewFormRatingItem} from "../review-form-rating-item/review-form-rating-item";
 import {LockState} from "../../const";
+import {CommentPostType} from "../../types";
 
 const RADIX = 10;
 const RATING_TITLES = [`perfect`, `good`, `not bad`, `badly`, `terribly`];
 
-const ReviewForm = (props) => {
-  const lockForm = () => {
+type Props = {
+  cardId: number;
+  formIsLocked: boolean;
+  buttonIsLocked: boolean;
+  isError: boolean;
+  rating: number;
+  comment: string;
+  sendReview: (cardId: number, review: CommentPostType, onSuccess: () => void, onError: () => void) => void;
+  setFormLockState: (lockState: boolean) => void;
+  setErrorState: (lockState: boolean) => void;
+  setRating: (rating: number) => void;
+  setComment: (comment: string) => void;
+}
+
+const ReviewForm: React.FunctionComponent<Props> = (props: Props) => {
+  const lockForm = (): void => {
     const {setFormLockState} = props;
     setFormLockState(LockState.LOCK);
   };
 
-  const unlockForm = () => {
+  const unlockForm = (): void => {
     const {setFormLockState} = props;
     setFormLockState(LockState.UNLOCK);
   };
 
-  const clearForm = () => {
+  const clearForm = (): void => {
     const {setRating, setComment} = props;
     setRating(0);
     setComment(``);
   };
 
-  const onSuccess = () => {
+  const onSuccess = (): void => {
     const {setErrorState} = props;
     setErrorState(false);
     unlockForm();
     clearForm();
   };
 
-  const onError = () => {
+  const onError = (): void => {
     const {setErrorState} = props;
     setErrorState(true);
     unlockForm();
   };
 
-  const changeRatingHandler = (evt) => {
+  const changeRatingHandler = (evt: { target: { value: string; }; }): void => {
     const {setRating} = props;
     setRating(parseInt(evt.target.value, RADIX));
   };
 
-  const changeTextHandler = (evt) => {
+  const changeTextHandler = (evt: { target: { value: string; }; }) => {
     const {setComment} = props;
     setComment(evt.target.value);
   };
 
-  const submitHandler = (evt) => {
+  const submitHandler = (evt: { preventDefault: () => void; }): void => {
     const {cardId, rating, comment, sendReview} = props;
     evt.preventDefault();
     const commentPost = {
@@ -100,20 +114,6 @@ const ReviewForm = (props) => {
       </div>
     </form>
   );
-};
-
-ReviewForm.propTypes = {
-  cardId: PropTypes.number.isRequired,
-  formIsLocked: PropTypes.bool.isRequired,
-  buttonIsLocked: PropTypes.bool.isRequired,
-  isError: PropTypes.bool.isRequired,
-  rating: PropTypes.number.isRequired,
-  comment: PropTypes.string.isRequired,
-  sendReview: PropTypes.func.isRequired,
-  setFormLockState: PropTypes.func.isRequired,
-  setErrorState: PropTypes.func.isRequired,
-  setRating: PropTypes.func.isRequired,
-  setComment: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => {

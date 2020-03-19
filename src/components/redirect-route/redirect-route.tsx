@@ -1,11 +1,19 @@
 import * as React from "react";
-import PropTypes from "prop-types";
 import {Route, Redirect} from "react-router-dom";
 import {connect} from "react-redux";
 import {getAuthorizationStatus} from "../../reducers/user/selectors";
 
 
-const RedirectRoute = (props) => {
+type Props = {
+  isAuthorized: boolean;
+  statusForRedirect: boolean;
+  exact: boolean;
+  path: string;
+  redirectTo: string;
+  render: () => void;
+}
+
+const RedirectRoute: React.FunctionComponent<Props> = (props: Props) => {
   const {render, path, redirectTo, statusForRedirect, exact, isAuthorized} = props;
 
   return (
@@ -21,15 +29,6 @@ const RedirectRoute = (props) => {
       }}
     />
   );
-};
-
-RedirectRoute.propTypes = {
-  isAuthorized: PropTypes.bool.isRequired,
-  statusForRedirect: PropTypes.bool.isRequired,
-  exact: PropTypes.bool.isRequired,
-  path: PropTypes.string.isRequired,
-  redirectTo: PropTypes.string.isRequired,
-  render: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

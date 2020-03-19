@@ -1,8 +1,8 @@
 import * as React from "react";
-import Cities from "../cities/cities.tsx";
-import {MemoizedHeader} from "../header/header.tsx";
+import Cities from "../cities/cities";
+import {MemoizedHeader} from "../header/header";
 
-const Main = () => {
+const Main: React.FunctionComponent = () => {
   return (
     <div className="page page--gray page--main">
       <MemoizedHeader />

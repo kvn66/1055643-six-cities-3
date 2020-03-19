@@ -1,11 +1,16 @@
 import * as React from "react";
-import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
 import {getAuthorizationStatus, getUserInfo} from "../../reducers/user/selectors";
 import {connect} from "react-redux";
 import {AppRoute} from "../../const";
+import {UserInfoType} from "../../types";
 
-const Header = (props) => {
+type Props = {
+  isAuthorized: boolean;
+  userInfo: UserInfoType;
+}
+
+const Header: React.FunctionComponent<Props> = (props: Props) => {
   const {isAuthorized, userInfo} = props;
 
   return (
@@ -38,17 +43,6 @@ const Header = (props) => {
       </div>
     </header>
   );
-};
-
-Header.propTypes = {
-  isAuthorized: PropTypes.bool.isRequired,
-  userInfo: PropTypes.exact({
-    id: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
-    email: PropTypes.string.isRequired,
-    avatarUrl: PropTypes.string.isRequired,
-    isPro: PropTypes.bool.isRequired
-  }).isRequired,
 };
 
 const mapStateToProps = (store) => {

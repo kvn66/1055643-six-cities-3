@@ -1,8 +1,12 @@
 import * as React from "react";
-import PropTypes from "prop-types";
-import moment from 'moment';
+import * as moment from 'moment';
+import {ReviewType} from "../../types";
 
-const Review = (props) => {
+type Props = {
+  review: ReviewType;
+}
+
+const Review: React.FunctionComponent<Props> = (props: Props) => {
   const {review} = props;
   const {date, comment, rating, user} = review;
 
@@ -33,21 +37,6 @@ const Review = (props) => {
       </div>
     </li>
   );
-};
-
-Review.propTypes = {
-  review: PropTypes.exact({
-    id: PropTypes.number.isRequired,
-    comment: PropTypes.string.isRequired,
-    date: PropTypes.string.isRequired,
-    rating: PropTypes.number.isRequired,
-    user: PropTypes.exact({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-      avatarUrl: PropTypes.string.isRequired,
-      isPro: PropTypes.bool.isRequired
-    }).isRequired,
-  }).isRequired
 };
 
 export default Review;

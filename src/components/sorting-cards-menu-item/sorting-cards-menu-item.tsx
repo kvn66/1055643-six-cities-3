@@ -1,23 +1,23 @@
 import * as React from "react";
-import PropTypes from 'prop-types';
 import {SORTING_METHODS} from "../../const";
 
-const SortingCardsMenuItem = (props) => {
-  const {sortingMethod, selectedSortingMethod, setSortingMethod} = props;
+type Props = {
+  sortingMethod: number;
+  selectedSortingMethod: number;
+  tabIndex: number;
+  setSortingMethod: (methodId: number) => void;
+}
 
-  const mouseClickHandler = () => {
+const SortingCardsMenuItem: React.FunctionComponent<Props> = (props: Props) => {
+  const {sortingMethod, selectedSortingMethod, tabIndex, setSortingMethod} = props;
+
+  const mouseClickHandler = (): void => {
     setSortingMethod(sortingMethod);
   };
 
   return (
-    <li onClick={mouseClickHandler} className={`places__option ${selectedSortingMethod === sortingMethod ? `places__option--active` : ``}`} tabIndex="0">{SORTING_METHODS[sortingMethod]}</li>
+    <li onClick={mouseClickHandler} className={`places__option ${selectedSortingMethod === sortingMethod ? `places__option--active` : ``}`} tabIndex={tabIndex}>{SORTING_METHODS[sortingMethod]}</li>
   );
-};
-
-SortingCardsMenuItem.propTypes = {
-  sortingMethod: PropTypes.number.isRequired,
-  selectedSortingMethod: PropTypes.number.isRequired,
-  setSortingMethod: PropTypes.func.isRequired,
 };
 
 export default SortingCardsMenuItem;

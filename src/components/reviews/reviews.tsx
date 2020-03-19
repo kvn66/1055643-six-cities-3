@@ -1,13 +1,20 @@
 import * as React from "react";
-import PropTypes from "prop-types";
-import Review from "../review/review.tsx";
-import ReviewForm from "../review-form/review-form.tsx";
+import Review from "../review/review";
+import ReviewForm from "../review-form/review-form";
 import {getReviews} from "../../reducers/reviews/selectors";
 import {connect} from "react-redux";
 import {Operation as ReviewsOperation} from "../../reducers/reviews/reviews";
 import {getAuthorizationStatus} from "../../reducers/user/selectors";
+import {ReviewType} from "../../types";
 
-class Reviews extends React.PureComponent {
+type Props = {
+  cardId: number;
+  reviews: ReviewType[];
+  isAuthorized: boolean;
+  loadReviews: (id: number) => void;
+}
+
+class Reviews extends React.PureComponent<Props, {}> {
   componentDidMount() {
     const {cardId, loadReviews} = this.props;
     loadReviews(cardId);
@@ -44,26 +51,6 @@ const mapDispatchToProps = (dispatch) => {
   return {
     loadReviews: (id) => dispatch(ReviewsOperation.loadReviews(id))
   };
-};
-
-Reviews.propTypes = {
-  cardId: PropTypes.number.isRequired,
-  reviews: PropTypes.arrayOf(
-      PropTypes.exact({
-        id: PropTypes.number.isRequired,
-        comment: PropTypes.string.isRequired,
-        date: PropTypes.string.isRequired,
-        rating: PropTypes.number.isRequired,
-        user: PropTypes.exact({
-          id: PropTypes.number.isRequired,
-          name: PropTypes.string.isRequired,
-          avatarUrl: PropTypes.string.isRequired,
-          isPro: PropTypes.bool.isRequired
-        }).isRequired,
-      }).isRequired
-  ).isRequired,
-  isAuthorized: PropTypes.bool.isRequired,
-  loadReviews: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Reviews);

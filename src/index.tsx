@@ -1,13 +1,13 @@
 import * as React from "react";
-import ReactDOM from "react-dom";
-import App from "./components/app/app.jsx";
+import * as ReactDOM from "react-dom";
+import App from "./components/app/app";
 import {createStore, applyMiddleware} from 'redux';
 import {Provider} from 'react-redux';
 import thunk from "redux-thunk";
 import rootReducer from './reducers/root-reducer';
-import createAPI from "./api.js";
-import {Operation as CardsOperation} from "./reducers/cards/cards.js";
-import {Operation as UserOperation, ActionCreator, AuthorizationStatus} from "./reducers/user/user.js";
+import createAPI from "./api";
+import {Operation as CardsOperation} from "./reducers/cards/cards";
+import {Operation as UserOperation, ActionCreator, AuthorizationStatus} from "./reducers/user/user";
 import {composeWithDevTools} from 'redux-devtools-extension';
 
 const onUnauthorized = () => {
