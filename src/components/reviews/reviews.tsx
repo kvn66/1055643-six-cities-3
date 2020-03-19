@@ -1,13 +1,13 @@
-import React, {PureComponent} from "react";
+import * as React from "react";
 import PropTypes from "prop-types";
-import Review from "../review/review.jsx";
-import ReviewForm from "../review-form/review-form.jsx";
+import Review from "../review/review.tsx";
+import ReviewForm from "../review-form/review-form.tsx";
 import {getReviews} from "../../reducers/reviews/selectors";
 import {connect} from "react-redux";
 import {Operation as ReviewsOperation} from "../../reducers/reviews/reviews";
 import {getAuthorizationStatus} from "../../reducers/user/selectors";
 
-class Reviews extends PureComponent {
+class Reviews extends React.PureComponent {
   componentDidMount() {
     const {cardId, loadReviews} = this.props;
     loadReviews(cardId);

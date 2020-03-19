@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import {MemoizedFavoritesItem} from "./favorites-item.jsx";
+import {MemoizedFavoritesItem} from "./favorites-item.tsx";
 import {BrowserRouter} from "react-router-dom";
 import configureMockStore from "redux-mock-store";
 import {Provider} from "react-redux";

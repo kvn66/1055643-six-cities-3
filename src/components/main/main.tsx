@@ -1,6 +1,6 @@
-import React from "react";
-import Cities from "../cities/cities.jsx";
-import {MemoizedHeader} from "../header/header.jsx";
+import * as React from "react";
+import Cities from "../cities/cities.tsx";
+import {MemoizedHeader} from "../header/header.tsx";
 
 const Main = () => {
   return (

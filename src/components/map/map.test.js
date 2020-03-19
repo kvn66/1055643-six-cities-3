@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import Map from "./map.jsx";
+import Map from "./map.tsx";
 
 const ACTIVE_OFFER = 0;
 const MAP_CLASS_NAME = `cities__map`;

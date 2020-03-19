@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import SortingCardsMenuItem from "./sorting-cards-menu-item.jsx";
+import SortingCardsMenuItem from "./sorting-cards-menu-item.tsx";
 
 it(`Render SortingCardsMenuItem`, () => {
   const tree = renderer

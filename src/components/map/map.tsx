@@ -1,15 +1,15 @@
-import React, {PureComponent, createRef} from "react";
+import * as React from "react";
 import PropTypes from "prop-types";
 import leaflet from "leaflet";
 import {UNSELECTED_CARD_ID} from "../../const.js";
 import {getCard} from "../../utils";
 
 
-export default class Map extends PureComponent {
+export default class Map extends React.PureComponent {
   constructor(props) {
     super(props);
 
-    this._mapRef = createRef();
+    this._mapRef = React.createRef();
     this.markers = [];
 
     this._icon = leaflet.icon({

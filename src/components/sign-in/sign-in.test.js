@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import SignIn from "./sign-in.jsx";
+import SignIn from "./sign-in.tsx";
 import configureMockStore from "redux-mock-store";
 import {NameSpace} from "../../reducers/name-space";
 import {Provider} from "react-redux";

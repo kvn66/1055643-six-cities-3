@@ -1,4 +1,4 @@
-import React, {PureComponent} from "react";
+import * as React from "react";
 import PropTypes from 'prop-types';
 import {Link} from "react-router-dom";
 import {MemoizedFavoritesItem} from "../favorites-item/favorites-item.jsx";
@@ -8,7 +8,7 @@ import {MemoizedHeader} from "../header/header.jsx";
 import {getSortedFavorites} from "../../reducers/favorites/selectors";
 import {AppRoute} from "../../const";
 
-class Favorites extends PureComponent {
+class Favorites extends React.PureComponent {
   componentDidMount() {
     const {loadFavorites} = this.props;
     loadFavorites();

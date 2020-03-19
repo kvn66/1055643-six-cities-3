@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import {MemoizedReviewFormRatingItem} from "./review-form-rating-item.jsx";
+import {MemoizedReviewFormRatingItem} from "./review-form-rating-item.tsx";
 
 it(`Render MemoizedReviewFormRatingItem`, () => {
   const tree = renderer

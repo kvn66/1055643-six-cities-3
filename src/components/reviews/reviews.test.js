@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import Reviews from "./reviews.jsx";
+import Reviews from "./reviews.tsx";
 import configureMockStore from "redux-mock-store";
 import {NameSpace} from "../../reducers/name-space";
 import {Provider} from "react-redux";

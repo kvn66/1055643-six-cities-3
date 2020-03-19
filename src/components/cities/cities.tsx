@@ -1,13 +1,21 @@
-import React from "react";
-import PropTypes from 'prop-types';
+import * as React from "react";
 import {getSelectedCityId} from "../../reducers/city-select/selectors";
 import {getCityNames, getCardsCount} from "../../reducers/cards/selectors";
 import {ActionCreator} from "../../reducers/city-select/city-select";
-import City from "../city/city.jsx";
+import City from "../city/city";
 import {MemoizedCityNavItem} from "../city-nav-item/city-nav-item.jsx";
 import {connect} from "react-redux";
 
-const Cities = (props) => {
+type cityNames = string[];
+
+  type Props = {
+  cardsCount: number;
+  cityNames: cityNames;
+  selectedCityId: number;
+  setSelectedCity: (id: number) => void;
+  }
+
+const Cities = (props: Props) => {
   const {cardsCount, cityNames, selectedCityId, setSelectedCity} = props;
 
   const cityNav = cityNames.map((cityName, index) =>
@@ -42,13 +50,5 @@ const mapDispatchToProps = (dispatch) => {
     setSelectedCity: (id) => dispatch(ActionCreator.setSelectedCityId(id))
   };
 };
-
-Cities.propTypes = {
-  cardsCount: PropTypes.number.isRequired,
-  cityNames: PropTypes.arrayOf(PropTypes.string).isRequired,
-  selectedCityId: PropTypes.number.isRequired,
-  setSelectedCity: PropTypes.func.isRequired,
-};
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cities);

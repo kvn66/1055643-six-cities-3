@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import {Switch, Route, BrowserRouter} from "react-router-dom";
 import Main from "../main/main.jsx";
 import OfferDetailCard from "../offer-detail-card/offer-detail-card.jsx";

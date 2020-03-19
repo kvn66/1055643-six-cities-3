@@ -1,14 +1,14 @@
-import React, {PureComponent} from "react";
+import * as React from "react";
 import PropTypes from "prop-types";
 import {getCard, parseUrl} from "../../utils";
-import Map from "../map/map.jsx";
+import Map from "../map/map.tsx";
 import {MemoizedOfferSmallCard} from "../offer-small-card/offer-small-card.jsx";
 import Reviews from "../reviews/reviews.jsx";
 import {getSimilarOffers} from "../../reducers/similar-offers/selectors";
 import {connect} from "react-redux";
 import {getAllCards} from "../../reducers/cards/selectors";
 import {Operation as SimilarOffersOperation} from "../../reducers/similar-offers/similar-offers";
-import {MemoizedHeader} from "../header/header.jsx";
+import {MemoizedHeader} from "../header/header.tsx";
 import {CardClassName, HotelType} from "../../const";
 import {Operation as FavoriteOperation} from "../../reducers/favorites/favorites";
 
@@ -16,7 +16,7 @@ const RADIX = 10;
 const SECTION_CLASS_NAME = `property__map`;
 
 
-class OfferDetailCard extends PureComponent {
+class OfferDetailCard extends React.PureComponent {
   constructor(props) {
     super(props);
 

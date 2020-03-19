@@ -1,16 +1,16 @@
-import React, {createRef} from "react";
+import * as React from "react";
 import {Link, Redirect} from "react-router-dom";
 import {Operation as UserOperation} from "../../reducers/user/user";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
-import {MemoizedHeader} from "../header/header.jsx";
+import {MemoizedHeader} from "../header/header.tsx";
 import {AppRoute} from "../../const";
 import {getAuthorizationStatus} from "../../reducers/user/selectors";
 
 const SignIn = (props) => {
   const {isAuthorized, loginOnServer} = props;
-  const loginRef = createRef();
-  const passwordRef = createRef();
+  const loginRef = React.createRef();
+  const passwordRef = React.createRef();
 
   const submitHandler = (evt) => {
     evt.preventDefault();

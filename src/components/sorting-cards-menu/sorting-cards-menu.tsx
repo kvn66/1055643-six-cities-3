@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import PropTypes from 'prop-types';
 import {ActionCreator} from "../../reducers/cards-sorting-menu/cards-sorting-menu";
 import {connect} from "react-redux";
