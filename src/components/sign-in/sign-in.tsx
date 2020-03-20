@@ -17,7 +17,7 @@ const SignIn: React.FunctionComponent<Props> = (props: Props) => {
   const loginRef: React.RefObject<HTMLInputElement> = React.createRef();
   const passwordRef: React.RefObject<HTMLInputElement> = React.createRef();
 
-  const submitHandler = (evt: { preventDefault: () => void; }) => {
+  const submitHandler = (evt: { preventDefault: () => void }) => {
     evt.preventDefault();
 
     loginOnServer({

@@ -10,25 +10,25 @@ import {CardType, ClassNameType} from "../../types";
 type Props = {
   card: CardType;
   className: ClassNameType;
-  setSelectedCard: (id: number) => void;
+  setSelectedCardId: (id: number) => void;
   sendFavoriteStatus: (id: number) => void;
 }
 
 const OfferSmallCard: React.FunctionComponent<Props> = (props: Props) => {
-  const {card, setSelectedCard, sendFavoriteStatus, className} = props;
+  const {card, setSelectedCardId, sendFavoriteStatus, className} = props;
   const {id, previewImage, price, title, type, rating, isFavorite, isPremium} = card;
   const linkToDetail = `${AppRoute.OFFER}/${id}`;
 
   const mouseEnterHandler = () => {
-    setSelectedCard(id);
+    setSelectedCardId(id);
   };
 
   const mouseLeaveHandler = () => {
-    setSelectedCard(UNSELECTED_CARD_ID);
+    setSelectedCardId(UNSELECTED_CARD_ID);
   };
 
   const mouseClickLinkHandler = () => {
-    setSelectedCard(UNSELECTED_CARD_ID);
+    setSelectedCardId(UNSELECTED_CARD_ID);
   };
 
   const mouseClickFavoriteButtonHandler = (evt) => {
@@ -86,7 +86,7 @@ const mapStateToProps = () => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setSelectedCard: (id) => dispatch(ActionCreator.setSelectedCardId(id)),
+    setSelectedCardId: (id) => dispatch(ActionCreator.setSelectedCardId(id)),
     sendFavoriteStatus: (id) => dispatch(FavoriteOperation.sendFavoriteStatus(id))
   };
 };

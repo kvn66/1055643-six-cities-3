@@ -30,7 +30,7 @@ const SoringCardsMenu: React.FunctionComponent<Props> = (props: Props) => {
   };
 
   const sortingCardsList = SORTING_METHODS.map((method, index) =>
-    <SortingCardsMenuItem key={index} sortingMethod={index} selectedSortingMethod={selectedSortingMethod} tabIndex={index+1} setSortingMethod={changeSortingMethod} />
+    <SortingCardsMenuItem key={index} sortingMethod={index} selectedSortingMethod={selectedSortingMethod} tabIndex={index + 1} setSortingMethod={changeSortingMethod} />
   );
 
   return (

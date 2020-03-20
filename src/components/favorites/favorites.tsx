@@ -6,7 +6,7 @@ import {connect} from "react-redux";
 import {MemoizedHeader} from "../header/header";
 import {getSortedFavorites} from "../../reducers/favorites/selectors";
 import {AppRoute} from "../../const";
-import {CardsType, FavoritesType} from "../../types";
+import {FavoritesType} from "../../types";
 
 type Props = {
   favorites: FavoritesType;

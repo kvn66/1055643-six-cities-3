@@ -53,17 +53,17 @@ const ReviewForm: React.FunctionComponent<Props> = (props: Props) => {
     unlockForm();
   };
 
-  const changeRatingHandler = (evt: { target: { value: string; }; }): void => {
+  const changeRatingHandler = (evt: { target: { value: string } }): void => {
     const {setRating} = props;
     setRating(parseInt(evt.target.value, RADIX));
   };
 
-  const changeTextHandler = (evt: { target: { value: string; }; }) => {
+  const changeTextHandler = (evt: { target: { value: string } }) => {
     const {setComment} = props;
     setComment(evt.target.value);
   };
 
-  const submitHandler = (evt: { preventDefault: () => void; }): void => {
+  const submitHandler = (evt: { preventDefault: () => void }): void => {
     const {cardId, rating, comment, sendReview} = props;
     evt.preventDefault();
     const commentPost = {

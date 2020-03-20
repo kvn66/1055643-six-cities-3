@@ -6,11 +6,9 @@ import City from "../city/city";
 import {MemoizedCityNavItem} from "../city-nav-item/city-nav-item";
 import {connect} from "react-redux";
 
-type cityNames = string[];
-
 type Props = {
   cardsCount: number;
-  cityNames: cityNames;
+  cityNames: string[];
   selectedCityId: number;
   setSelectedCity: (id: number) => void;
 }

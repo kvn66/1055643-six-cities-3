@@ -5,7 +5,7 @@ type Props = {
   title: string;
   rating: number;
   formIsLocked: boolean;
-  onChangeRating: (evt: { target: { value: string; }; }) => void;
+  onChangeRating: (evt: { target: { value: string } }) => void;
 }
 
 const ReviewFormRatingItem: React.FunctionComponent<Props> = (props: Props) => {
