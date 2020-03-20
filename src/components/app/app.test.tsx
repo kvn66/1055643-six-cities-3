@@ -1,15 +1,15 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
-import Cities from "./cities.tsx";
+import * as React from 'react';
+import * as renderer from 'react-test-renderer';
+import App from "./app";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
 import {InitValue} from "../../reducers/cards-sorting-menu/cards-sorting-menu";
 import {NameSpace} from "../../reducers/name-space";
-import {BrowserRouter} from "react-router-dom";
+import {CardType, ReviewType} from "../../types";
 
 const mockStore = configureStore([]);
 
-const cards = [
+const cards: CardType[] = [
   {
     id: 0,
     city: {
@@ -80,7 +80,7 @@ const cards = [
   }
 ];
 
-const reviews = [
+const reviews: ReviewType[] = [
   {
     id: 0,
     comment: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.
@@ -109,13 +109,20 @@ const reviews = [
   }
 ];
 
-it(`Render Cities`, () => {
+it(`Render app`, () => {
   const store = mockStore({
     [NameSpace.CARDS]: {
       cards
     },
     [NameSpace.USER]: {
-      userAuthorized: false
+      userAuthorized: false,
+      userInfo: {
+        id: 1,
+        name: `Oliver.conner`,
+        email: `Oliver.conner@gmail.com`,
+        avatarUrl: `/img/1.png`,
+        isPro: false
+      },
     },
     [NameSpace.CITY_SELECT]: {
       cityName: 0
@@ -138,11 +145,7 @@ it(`Render Cities`, () => {
   const tree = renderer
     .create(
         <Provider store={store}>
-          <BrowserRouter>
-            <Cities
-              setSelectedCity={() => {}}
-            />
-          </BrowserRouter>
+          <App/>
         </Provider>
     )
     .toJSON();

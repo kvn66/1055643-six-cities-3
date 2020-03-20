@@ -1,19 +1,22 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
-import ReviewForm from "./review-form.tsx";
+import * as React from 'react';
+import * as renderer from 'react-test-renderer';
+import ReviewForm from "./review-form";
 import configureMockStore from "redux-mock-store";
 import {NameSpace} from "../../reducers/name-space";
 import {Provider} from "react-redux";
 import MockAdapter from "axios-mock-adapter";
 import createAPI from "../../api";
 import thunk from 'redux-thunk';
+import {ReviewType} from "../../types";
 
-const api = createAPI(() => {});
+const testFn = jest.fn();
+
+const api = createAPI(testFn);
 
 const middlewares = [thunk.withExtraArgument(api)];
 const mockStore = configureMockStore(middlewares);
 
-const reviews = [
+const reviews: ReviewType[] = [
   {
     id: 0,
     comment: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.

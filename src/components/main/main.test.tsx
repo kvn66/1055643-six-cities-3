@@ -1,15 +1,16 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
-import Header from "./header.tsx";
+import * as React from 'react';
+import * as renderer from 'react-test-renderer';
+import Main from "./main";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
 import {InitValue} from "../../reducers/cards-sorting-menu/cards-sorting-menu";
 import {NameSpace} from "../../reducers/name-space";
 import {BrowserRouter} from "react-router-dom";
+import {CardType, ReviewType} from "../../types";
 
 const mockStore = configureStore([]);
 
-const cards = [
+const cards: CardType[] = [
   {
     id: 0,
     city: {
@@ -80,7 +81,7 @@ const cards = [
   }
 ];
 
-const reviews = [
+const reviews: ReviewType[] = [
   {
     id: 0,
     comment: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.
@@ -109,7 +110,7 @@ const reviews = [
   }
 ];
 
-it(`Render Header`, () => {
+it(`Render Main`, () => {
   const store = mockStore({
     [NameSpace.CARDS]: {
       cards
@@ -146,7 +147,7 @@ it(`Render Header`, () => {
     .create(
         <Provider store={store}>
           <BrowserRouter>
-            <Header />
+            <Main/>
           </BrowserRouter>
         </Provider>
     )

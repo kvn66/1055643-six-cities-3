@@ -1,6 +1,6 @@
 import * as React from "react";
 import {getCard, parseUrl} from "../../utils";
-import Map from "../map/map";
+import CityMap from "../city-map/city-map";
 import {MemoizedOfferSmallCard} from "../offer-small-card/offer-small-card";
 import Reviews from "../reviews/reviews";
 import {getSimilarOffers} from "../../reducers/similar-offers/selectors";
@@ -10,15 +10,15 @@ import {Operation as SimilarOffersOperation} from "../../reducers/similar-offers
 import {MemoizedHeader} from "../header/header";
 import {CardClassName, HotelType} from "../../const";
 import {Operation as FavoriteOperation} from "../../reducers/favorites/favorites";
-import {CardsType} from "../../types";
+import {CardType} from "../../types";
 
 const RADIX = 10;
 const SECTION_CLASS_NAME = `property__map`;
 
 
 type Props = {
-  cards: CardsType;
-  similarOffers: CardsType;
+  cards: CardType[];
+  similarOffers: CardType[];
   loadSimilarOffers: (id: number) => void;
   sendFavoriteStatus: (id: number) => void;
 }
@@ -156,7 +156,7 @@ class OfferDetailCard extends React.PureComponent<Props, {}> {
                 <Reviews cardId={cardId}/>
               </div>
             </div>
-            <Map
+            <CityMap
               cards={cards}
               similarOffers={similarOffers}
               selectedCardId={cardId}

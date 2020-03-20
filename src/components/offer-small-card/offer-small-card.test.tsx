@@ -1,14 +1,15 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
-import {MemoizedOfferSmallCard} from "./offer-small-card.tsx";
+import * as React from 'react';
+import * as renderer from 'react-test-renderer';
+import {MemoizedOfferSmallCard} from "./offer-small-card";
 import {BrowserRouter} from "react-router-dom";
 import configureMockStore from "redux-mock-store";
 import {Provider} from "react-redux";
 import {CardClassName} from "../../const";
+import {CardType} from "../../types";
 
 const mockStore = configureMockStore();
 
-const card = {
+const card: CardType = {
   id: 0,
   city: {
     location: {

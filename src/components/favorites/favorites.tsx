@@ -6,10 +6,10 @@ import {connect} from "react-redux";
 import {MemoizedHeader} from "../header/header";
 import {getSortedFavorites} from "../../reducers/favorites/selectors";
 import {AppRoute} from "../../const";
-import {FavoritesType} from "../../types";
+import {FavoritesForCityType} from "../../types";
 
 type Props = {
-  favorites: FavoritesType;
+  favorites: FavoritesForCityType[];
   loadFavorites: () => void;
 }
 

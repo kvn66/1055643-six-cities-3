@@ -35,14 +35,10 @@ export type CardType = {
   type: string;
 }
 
-export type CardsType = CardType[];
-
 export type FavoritesForCityType = {
   city: string;
-  cards: CardsType;
+  cards: CardType[];
 }
-
-export type FavoritesType = FavoritesForCityType[];
 
 export type UserInfoType = {
   id: number;

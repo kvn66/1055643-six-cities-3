@@ -1,6 +1,8 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
-import {MemoizedReviewFormRatingItem} from "./review-form-rating-item.tsx";
+import * as React from 'react';
+import * as renderer from 'react-test-renderer';
+import {MemoizedReviewFormRatingItem} from "./review-form-rating-item";
+
+const testFn = jest.fn();
 
 it(`Render MemoizedReviewFormRatingItem`, () => {
   const tree = renderer
@@ -10,7 +12,7 @@ it(`Render MemoizedReviewFormRatingItem`, () => {
           title={`terribly`}
           rating={4}
           formIsLocked={false}
-          onChangeRating={()=>{}}
+          onChangeRating={testFn}
         />
     )
     .toJSON();

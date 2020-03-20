@@ -1,7 +1,7 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
+import * as React from 'react';
+import * as renderer from 'react-test-renderer';
 import {MemoryRouter} from "react-router-dom";
-import OfferDetailCard from "./offer-detail-card.tsx";
+import OfferDetailCard from "./offer-detail-card";
 import {Provider} from "react-redux";
 import {NameSpace} from "../../reducers/name-space";
 import {InitValue} from "../../reducers/cards-sorting-menu/cards-sorting-menu";
@@ -9,13 +9,16 @@ import configureMockStore from "redux-mock-store";
 import MockAdapter from "axios-mock-adapter";
 import createAPI from "../../api";
 import thunk from 'redux-thunk';
+import {CardType, ReviewType} from "../../types";
 
-const api = createAPI(() => {});
+const testFn = jest.fn();
+
+const api = createAPI(testFn);
 
 const middlewares = [thunk.withExtraArgument(api)];
 const mockStore = configureMockStore(middlewares);
 
-const cards = [
+const cards: CardType[] = [
   {
     id: 0,
     city: {
@@ -86,7 +89,7 @@ const cards = [
   }
 ];
 
-const reviews = [
+const reviews: ReviewType[] = [
   {
     id: 0,
     comment: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.

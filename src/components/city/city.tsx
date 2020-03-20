@@ -1,7 +1,7 @@
 import * as React from "react";
-import {CardsType} from "../../types";
+import {CardType} from "../../types";
 import {MemoizedOfferSmallCard} from "../offer-small-card/offer-small-card";
-import Map from "../map/map";
+import CityMap from "../city-map/city-map";
 import SoringCardsMenu from "../sorting-cards-menu/sorting-cards-menu";
 import {getCardsCount, getCardsForSelectedCity, getSelectedCityName, getSortedCardsForSelectedCity} from "../../reducers/cards/selectors";
 import {getSelectedCardId} from "../../reducers/card-select/selectors";
@@ -12,8 +12,8 @@ const MAP_CLASS_NAME = `cities__map`;
 
 type Props = {
   cardsInStore: number;
-  cards: CardsType;
-  sortedCards: CardsType;
+  cards: CardType[];
+  sortedCards: CardType[];
   cityName: string;
   selectedCard: number;
 }
@@ -37,7 +37,7 @@ const City: React.FunctionComponent<Props> = (props: Props) => {
             </div>
           </section>
           <div className="cities__right-section">
-            <Map
+            <CityMap
               cards={cards}
               similarOffers={cards}
               selectedCardId={selectedCard}

@@ -2,23 +2,24 @@ import * as React from "react";
 import * as leaflet from "leaflet";
 import {UNSELECTED_CARD_ID} from "../../const";
 import {getCard} from "../../utils";
-import {CardsType} from "../../types";
+import {CardType} from "../../types";
+import {Icon, Marker, Map} from "leaflet";
 
 
 type Props = {
-  cards: CardsType;
-  similarOffers: CardsType;
+  cards: CardType[];
+  similarOffers: CardType[];
   selectedCardId: number;
   isDetail: boolean;
   sectionClassName: string;
 }
 
-export default class Map extends React.PureComponent<Props, {}> {
-  private readonly _mapRef: React.RefObject<any>;
-  private _markers: any[];
-  private _icon: any;
-  private _iconActive: any;
-  private _map: any;
+export default class CityMap extends React.PureComponent<Props, {}> {
+  private readonly _mapRef: React.RefObject<HTMLElement>;
+  private _markers: Marker[];
+  private readonly _icon: Icon;
+  private _iconActive: Icon;
+  private _map: Map;
 
   constructor(props) {
     super(props);
@@ -37,20 +38,20 @@ export default class Map extends React.PureComponent<Props, {}> {
     });
   }
 
-  addMarkers(similarOffers: CardsType, selectedCardId: number): void {
+  addMarkers(similarOffers: CardType[], selectedCardId: number): void {
     this._markers = similarOffers.filter((cardItem) => cardItem.id !== selectedCardId).map((similarOffer) => {
-      const coordinates = [similarOffer.location.latitude, similarOffer.location.longitude];
+      const coordinates: [number, number] = [similarOffer.location.latitude, similarOffer.location.longitude];
       return leaflet
         .marker(coordinates, {icon: this._icon})
         .addTo(this._map);
     });
   }
 
-  addSelectedMarker(cards: CardsType, selectedCardId: number): void {
+  addSelectedMarker(cards: CardType[], selectedCardId: number): void {
     if (selectedCardId !== UNSELECTED_CARD_ID) {
       const selectedCard = getCard(selectedCardId, cards);
       if (selectedCard) {
-        const coordinates = [selectedCard.location.latitude, selectedCard.location.longitude];
+        const coordinates: [number, number] = [selectedCard.location.latitude, selectedCard.location.longitude];
         this._markers.push(
             leaflet
               .marker(coordinates, {icon: this._iconActive})
@@ -64,7 +65,7 @@ export default class Map extends React.PureComponent<Props, {}> {
     const {cards, similarOffers, selectedCardId, isDetail} = this.props;
     const card = isDetail ? getCard(selectedCardId, cards) : cards[0];
     const {location} = card.city;
-    const cityCoordinates = [location.latitude, location.longitude];
+    const cityCoordinates: [number, number] = [location.latitude, location.longitude];
     const cityZoom = location.zoom;
 
     if (this._mapRef.current) {
@@ -72,7 +73,6 @@ export default class Map extends React.PureComponent<Props, {}> {
         center: cityCoordinates,
         zoom: cityZoom,
         zoomControl: false,
-        marker: true
       });
 
       this._map.setView(cityCoordinates, cityZoom);
@@ -93,7 +93,7 @@ export default class Map extends React.PureComponent<Props, {}> {
     const {cards, similarOffers, selectedCardId, isDetail} = this.props;
     const card = isDetail ? getCard(selectedCardId, cards) : cards[0];
     const {location} = card.city;
-    const cityCoordinates = [location.latitude, location.longitude];
+    const cityCoordinates: [number, number] = [location.latitude, location.longitude];
     const cityZoom = location.zoom;
 
     if (this._mapRef.current) {

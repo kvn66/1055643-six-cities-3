@@ -1,21 +1,16 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
-import SignIn from "./sign-in.tsx";
-import configureMockStore from "redux-mock-store";
-import {NameSpace} from "../../reducers/name-space";
+import * as React from 'react';
+import * as renderer from 'react-test-renderer';
+import Cities from "./cities";
 import {Provider} from "react-redux";
-import MockAdapter from "axios-mock-adapter";
-import createAPI from "../../api";
-import thunk from 'redux-thunk';
-import {AppRoute} from "../../const";
+import configureStore from "redux-mock-store";
+import {InitValue} from "../../reducers/cards-sorting-menu/cards-sorting-menu";
+import {NameSpace} from "../../reducers/name-space";
 import {BrowserRouter} from "react-router-dom";
+import {CardType, ReviewType} from "../../types";
 
-const api = createAPI(() => {});
+const mockStore = configureStore([]);
 
-const middlewares = [thunk.withExtraArgument(api)];
-const mockStore = configureMockStore(middlewares);
-
-const cards = [
+const cards: CardType[] = [
   {
     id: 0,
     city: {
@@ -86,55 +81,69 @@ const cards = [
   }
 ];
 
-const userInfo = {
-  id: 1,
-  name: `Oliver.conner`,
-  email: `Oliver.conner@gmail.com`,
-  avatarUrl: `/img/1.png`,
-  isPro: false
-};
+const reviews: ReviewType[] = [
+  {
+    id: 0,
+    comment: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.
+          The building is green and from 18th century.`,
+    date: new Date(2020, 1, 14, 0, 0, 0, 0).toISOString(),
+    rating: 4.5,
+    user: {
+      id: 0,
+      name: `Max`,
+      avatarUrl: `/img/avatar-max.jpg`,
+      isPro: true
+    },
+  },
+  {
+    id: 1,
+    comment: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.
+          The building is green and from 18th century.`,
+    date: new Date(2020, 0, 1, 0, 0, 0, 0).toISOString(),
+    rating: 3.5,
+    user: {
+      id: 1,
+      name: `Bob`,
+      avatarUrl: `/img/avatar.svg`,
+      isPro: true
+    },
+  }
+];
 
-const loginInfo = {
-  email: `Oliver.conner@gmail.com`,
-  password: 12345,
-};
-
-it(`Render Review`, () => {
-  const apiMock = new MockAdapter(api);
-
-  apiMock
-    .onGet(AppRoute.LOGIN)
-    .reply(200, userInfo);
-
-  apiMock
-    .onPost(AppRoute.LOGIN, loginInfo)
-    .reply(200, userInfo);
-
-
+it(`Render Cities`, () => {
   const store = mockStore({
     [NameSpace.CARDS]: {
       cards
     },
     [NameSpace.USER]: {
-      userAuthorized: false,
-      userInfo: {
-        id: 1,
-        name: `Oliver.conner`,
-        email: `Oliver.conner@gmail.com`,
-        avatarUrl: `/img/1.png`,
-        isPro: false
-      },
+      userAuthorized: false
     },
     [NameSpace.CITY_SELECT]: {
       cityName: 0
     },
+    [NameSpace.CARD_SELECT]: {
+      cardId: 0
+    },
+    [NameSpace.CARDS_SORTING_MENU]: {
+      sortingMethodId: InitValue.INITIAL_SORTING_METHOD_ID,
+      menuState: InitValue.INITIAL_MENU_STATE
+    },
+    [NameSpace.REVIEWS]: {
+      reviews
+    },
+    [NameSpace.SIMILAR_OFFERS]: {
+      similarOffers: [cards[1]]
+    },
   });
 
+  const dispatch = jest.fn();
   const tree = renderer
     .create(
         <Provider store={store}>
           <BrowserRouter>
-            <SignIn />
+            <Cities
+              setSelectedCity={dispatch}
+            />
           </BrowserRouter>
         </Provider>
     )

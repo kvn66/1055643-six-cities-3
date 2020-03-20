@@ -1,13 +1,14 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
-import {MemoizedFavoritesItem} from "./favorites-item.tsx";
+import * as React from 'react';
+import * as renderer from 'react-test-renderer';
+import {MemoizedFavoritesItem} from "./favorites-item";
 import {BrowserRouter} from "react-router-dom";
 import configureMockStore from "redux-mock-store";
 import {Provider} from "react-redux";
+import {FavoritesForCityType} from "../../types";
 
 const mockStore = configureMockStore();
 
-const favoritesForCity = {
+const favoritesForCity: FavoritesForCityType = {
   city: `Amsterdam`,
   cards: [
     {

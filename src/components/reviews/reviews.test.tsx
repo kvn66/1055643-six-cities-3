@@ -1,6 +1,6 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
-import Reviews from "./reviews.tsx";
+import * as React from 'react';
+import * as renderer from 'react-test-renderer';
+import Reviews from "./reviews";
 import configureMockStore from "redux-mock-store";
 import {NameSpace} from "../../reducers/name-space";
 import {Provider} from "react-redux";
@@ -8,7 +8,9 @@ import MockAdapter from "axios-mock-adapter";
 import createAPI from "../../api";
 import thunk from 'redux-thunk';
 
-const api = createAPI(() => {});
+const testFn = jest.fn();
+
+const api = createAPI(testFn);
 
 const middlewares = [thunk.withExtraArgument(api)];
 const mockStore = configureMockStore(middlewares);

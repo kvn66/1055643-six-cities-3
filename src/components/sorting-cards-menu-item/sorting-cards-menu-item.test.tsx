@@ -1,6 +1,8 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
-import SortingCardsMenuItem from "./sorting-cards-menu-item.tsx";
+import * as React from 'react';
+import * as renderer from 'react-test-renderer';
+import SortingCardsMenuItem from "./sorting-cards-menu-item";
+
+const testFn = jest.fn();
 
 it(`Render SortingCardsMenuItem`, () => {
   const tree = renderer
@@ -8,7 +10,8 @@ it(`Render SortingCardsMenuItem`, () => {
         <SortingCardsMenuItem
           sortingMethod={0}
           selectedSortingMethod={0}
-          setSortingMethod={() =>{}}
+          tabIndex={0}
+          setSortingMethod={testFn}
         />
     )
     .toJSON();

@@ -1,16 +1,14 @@
 import * as React from "react";
-import {Route, Redirect} from "react-router-dom";
+import {Route, Redirect, RouteProps} from "react-router-dom";
 import {connect} from "react-redux";
 import {getAuthorizationStatus} from "../../reducers/user/selectors";
 
 
-type Props = {
+type Props = RouteProps & {
   isAuthorized: boolean;
   statusForRedirect: boolean;
-  exact: boolean;
-  path: string;
   redirectTo: string;
-  render: () => void;
+  render: () => React.ReactNode;
 }
 
 const RedirectRoute: React.FunctionComponent<Props> = (props: Props) => {

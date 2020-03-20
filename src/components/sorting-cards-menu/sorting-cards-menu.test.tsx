@@ -1,12 +1,13 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
-import SoringCardsMenu from "./sorting-cards-menu.tsx";
+import * as React from 'react';
+import * as renderer from 'react-test-renderer';
+import SoringCardsMenu from "./sorting-cards-menu";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
 import {InitValue} from "../../reducers/cards-sorting-menu/cards-sorting-menu";
 import {NameSpace} from "../../reducers/name-space";
 
 const mockStore = configureStore([]);
+const testFn = jest.fn();
 
 it(`Render SoringCardsMenu`, () => {
   const store = mockStore({
@@ -20,8 +21,8 @@ it(`Render SoringCardsMenu`, () => {
     .create(
         <Provider store={store}>
           <SoringCardsMenu
-            setSortingMethod={() =>{}}
-            setMenuState={() =>{}}
+            setSortingMethod={testFn}
+            setMenuState={testFn}
           />
         </Provider>
     )

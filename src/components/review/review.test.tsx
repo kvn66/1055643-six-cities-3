@@ -1,8 +1,9 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
-import Review from "./review.tsx";
+import * as React from 'react';
+import * as renderer from 'react-test-renderer';
+import Review from "./review";
+import {ReviewType} from "../../types";
 
-const review = {
+const review: ReviewType = {
   id: 0,
   comment: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.
           The building is green and from 18th century.`,

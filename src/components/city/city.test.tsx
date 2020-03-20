@@ -1,11 +1,16 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
-import Map from "./map.tsx";
+import * as React from 'react';
+import * as renderer from 'react-test-renderer';
+import City from "./city";
+import {Provider} from "react-redux";
+import configureStore from "redux-mock-store";
+import {InitValue} from "../../reducers/cards-sorting-menu/cards-sorting-menu";
+import {NameSpace} from "../../reducers/name-space";
+import {BrowserRouter} from "react-router-dom";
+import {CardType, ReviewType} from "../../types";
 
-const ACTIVE_OFFER = 0;
-const MAP_CLASS_NAME = `cities__map`;
+const mockStore = configureStore([]);
 
-const cards = [
+const cards: CardType[] = [
   {
     id: 0,
     city: {
@@ -76,16 +81,71 @@ const cards = [
   }
 ];
 
-it(`Render Map`, () => {
+const reviews: ReviewType[] = [
+  {
+    id: 0,
+    comment: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.
+          The building is green and from 18th century.`,
+    date: new Date(2020, 1, 14, 0, 0, 0, 0).toISOString(),
+    rating: 4.5,
+    user: {
+      id: 0,
+      name: `Max`,
+      avatarUrl: `/img/avatar-max.jpg`,
+      isPro: true
+    },
+  },
+  {
+    id: 1,
+    comment: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.
+          The building is green and from 18th century.`,
+    date: new Date(2020, 0, 1, 0, 0, 0, 0).toISOString(),
+    rating: 3.5,
+    user: {
+      id: 1,
+      name: `Bob`,
+      avatarUrl: `/img/avatar.svg`,
+      isPro: true
+    },
+  }
+];
+
+it(`Render City`, () => {
+  const store = mockStore({
+    [NameSpace.CARDS]: {
+      cards
+    },
+    [NameSpace.USER]: {
+      userAuthorized: false
+    },
+    [NameSpace.CITY_SELECT]: {
+      cityName: 0
+    },
+    [NameSpace.CARD_SELECT]: {
+      cardId: 0
+    },
+    [NameSpace.CARDS_SORTING_MENU]: {
+      sortingMethodId: InitValue.INITIAL_SORTING_METHOD_ID,
+      menuState: InitValue.INITIAL_MENU_STATE
+    },
+    [NameSpace.REVIEWS]: {
+      reviews
+    },
+    [NameSpace.SIMILAR_OFFERS]: {
+      similarOffers: [cards[1]]
+    },
+  });
+
+  const dispatch = jest.fn();
   const tree = renderer
     .create(
-        <Map
-          cards={cards}
-          similarOffers={[cards[1]]}
-          selectedCardId = {ACTIVE_OFFER}
-          isDetail={false}
-          sectionClassName = {MAP_CLASS_NAME}
-        />
+        <Provider store={store}>
+          <BrowserRouter>
+            <City
+              setSelectedCard={dispatch}
+            />
+          </BrowserRouter>
+        </Provider>
     )
     .toJSON();
   expect(tree).toMatchSnapshot();
