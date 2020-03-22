@@ -5,35 +5,34 @@ import {MemoizedOfferSmallCard} from "../offer-small-card/offer-small-card";
 import Reviews from "../reviews/reviews";
 import {getSimilarOffers} from "../../reducers/similar-offers/selectors";
 import {connect} from "react-redux";
-import {getAllCards} from "../../reducers/cards/selectors";
+import {getDetailCard} from "../../reducers/cards/selectors";
+import {getDetailCardId} from "../../reducers/card-select/selectors";
 import {Operation as SimilarOffersOperation} from "../../reducers/similar-offers/similar-offers";
 import {MemoizedHeader} from "../header/header";
 import {CardClassName, HotelType} from "../../const";
 import {Operation as FavoriteOperation} from "../../reducers/favorites/favorites";
 import {CardType} from "../../types";
+import {UNSELECTED_CARD_ID} from "../../const";
 
 const RADIX = 10;
+const IMAGES_MIN = 0;
+const IMAGES_MAX = 6;
 const SECTION_CLASS_NAME = `property__map`;
 
 
 type Props = {
-  cards: CardType[];
+  card: CardType;
   similarOffers: CardType[];
+  detailCardId: number;
   loadSimilarOffers: (id: number) => void;
   sendFavoriteStatus: (id: number) => void;
 }
 
 class OfferDetailCard extends React.PureComponent<Props, {}> {
-  private readonly idParam: number;
+  private idParam: number;
 
   constructor(props) {
     super(props);
-
-    this.idParam = 0;
-    const url = parseUrl();
-    if (url[0] === `offer` && url[1] !== ``) {
-      this.idParam = parseInt(url[1], RADIX);
-    }
 
     this.mouseClickFavoriteButtonHandler = this.mouseClickFavoriteButtonHandler.bind(this);
   }
@@ -45,14 +44,22 @@ class OfferDetailCard extends React.PureComponent<Props, {}> {
   }
 
   componentDidMount() {
-    const {loadSimilarOffers} = this.props;
+    const {detailCardId, loadSimilarOffers} = this.props;
+
+    this.idParam = detailCardId;
+    if (this.idParam === UNSELECTED_CARD_ID) {
+      const url = parseUrl();
+      if (url[0] === `offer` && url[1] !== ``) {
+        this.idParam = parseInt(url[1], RADIX);
+      }
+    }
+
     loadSimilarOffers(this.idParam);
   }
 
   render() {
     const cardId = this.idParam;
-    const {cards, similarOffers} = this.props;
-    const card = getCard(cardId, cards);
+    const {card, similarOffers} = this.props;
 
     if (!card) {
       return null;
@@ -76,7 +83,7 @@ class OfferDetailCard extends React.PureComponent<Props, {}> {
                     <div key={index} className="property__image-wrapper">
                       <img className="property__image" src={image} alt="Photo studio"/>
                     </div>
-                  )
+                  ).slice(IMAGES_MIN, IMAGES_MAX)
                 }
               </div>
             </div>
@@ -100,7 +107,7 @@ class OfferDetailCard extends React.PureComponent<Props, {}> {
                 </div>
                 <div className="property__rating rating">
                   <div className="property__stars rating__stars">
-                    <span style={{width: `${rating * 20}%`}}/>
+                    <span style={{width: `${Math.round(rating) * 20}%`}}/>
                     <span className="visually-hidden">Rating</span>
                   </div>
                   <span className="property__rating-value rating__value">{rating.toFixed(1)}</span>
@@ -180,8 +187,9 @@ class OfferDetailCard extends React.PureComponent<Props, {}> {
 
 const mapStateToProps = (store) => {
   return {
-    cards: getAllCards(store),
+    card: getDetailCard(store),
     similarOffers: getSimilarOffers(store),
+    detailCardId: getDetailCardId(store),
   };
 };
 

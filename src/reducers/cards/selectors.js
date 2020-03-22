@@ -2,6 +2,7 @@ import {createSelector} from "reselect";
 import {NameSpace} from "../name-space.js";
 import {getSelectedCityId} from "../city-select/selectors";
 import {getSortingMethodId} from "../cards-sorting-menu/selectors";
+import {getDetailCardId} from "../card-select/selectors";
 
 
 const CITIES_MAX_COUNT = 6;
@@ -62,5 +63,13 @@ export const getSortedCardsForSelectedCity = createSelector(
           break;
       }
       return sortedCards;
+    }
+);
+
+export const getDetailCard = createSelector(
+    getAllCards,
+    getDetailCardId,
+    (cards, id) => {
+      return cards.find((card) => card.id === id);
     }
 );
