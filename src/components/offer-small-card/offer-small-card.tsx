@@ -1,5 +1,4 @@
 import * as React from "react";
-import {Link} from "react-router-dom";
 import {UNSELECTED_CARD_ID, HotelType} from "../../const";
 import {AppRoute} from "../../const";
 import {ActionCreator} from "../../reducers/card-select/card-select";

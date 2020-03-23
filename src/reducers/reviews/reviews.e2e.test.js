@@ -2,7 +2,9 @@ import reviewsReducer, {ActionType, ActionCreator, Operation} from "./reviews";
 import MockAdapter from "axios-mock-adapter";
 import createAPI from "../../api";
 
-const api = createAPI(() => {});
+const testFn = jest.fn();
+
+const api = createAPI(testFn);
 
 const reviews = [
   {
@@ -153,12 +155,6 @@ describe(`Action creators work correctly`, () => {
       payload: reviews,
     });
   });
-  it(`Action creator for sendReview step returns correct action`, () => {
-    expect(ActionCreator.sendReview(reviews)).toEqual({
-      type: ActionType.SEND_REVIEW,
-      payload: reviews,
-    });
-  });
   it(`Action creator for setFormLockState step returns correct action`, () => {
     expect(ActionCreator.setFormLockState(reviews)).toEqual({
       type: ActionType.SET_FORM_LOCK_STATE,
@@ -195,7 +191,7 @@ describe(`Operation work correctly`, () => {
       .onGet(`/comments/0`)
       .reply(200, [{fake: true}]);
 
-    return reviewsLoader(dispatch, () => {}, api)
+    return reviewsLoader(dispatch, testFn, api)
       .then(() => {
         expect(dispatch).toHaveBeenCalledTimes(1);
         expect(dispatch).toHaveBeenNthCalledWith(1, {
@@ -215,7 +211,7 @@ describe(`Operation work correctly`, () => {
       .onPost(`/comments/0`, commentPost)
       .reply(200, [{fake: true}]);
 
-    return reviewsSender(dispatch, () => {}, api)
+    return reviewsSender(dispatch, testFn, api)
       .then(() => {
         expect(dispatch).toHaveBeenCalledTimes(1);
         expect(dispatch).toHaveBeenNthCalledWith(1, {

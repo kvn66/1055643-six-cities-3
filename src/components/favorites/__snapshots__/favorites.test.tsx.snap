@@ -178,7 +178,7 @@ exports[`Render Favorites 1`] = `
                       <span
                         style={
                           Object {
-                            "width": "90%",
+                            "width": "100%",
                           }
                         }
                       />
@@ -285,7 +285,7 @@ exports[`Render Favorites 1`] = `
                       <span
                         style={
                           Object {
-                            "width": "90%",
+                            "width": "100%",
                           }
                         }
                       />
