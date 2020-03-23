@@ -11,29 +11,27 @@ type Props = {
   card: CardType;
   className: ClassNameType;
   setSelectedCardId: (id: number) => void;
-  setDetailCardId: (id: number) => void;
   sendFavoriteStatus: (id: number) => void;
 }
 
 const OfferSmallCard: React.FunctionComponent<Props> = (props: Props) => {
-  const {card, setSelectedCardId, setDetailCardId, sendFavoriteStatus, className} = props;
+  const {card, setSelectedCardId, sendFavoriteStatus, className} = props;
   const {id, previewImage, price, title, type, rating, isFavorite, isPremium} = card;
   const linkToDetail = `${AppRoute.OFFER}/${id}`;
 
-  const mouseEnterHandler = (): void => {
-    // setSelectedCardId(id);
+  const mouseEnterHandler = () => {
+    setSelectedCardId(id);
   };
 
-  const mouseLeaveHandler = (): void => {
-    // setSelectedCardId(UNSELECTED_CARD_ID);
+  const mouseLeaveHandler = () => {
+    setSelectedCardId(UNSELECTED_CARD_ID);
   };
 
-  const mouseClickLinkHandler = (): void => {
-    // setSelectedCardId(UNSELECTED_CARD_ID);
-    setDetailCardId(id);
+  const mouseClickLinkHandler = () => {
+    setSelectedCardId(UNSELECTED_CARD_ID);
   };
 
-  const mouseClickFavoriteButtonHandler = (evt: { preventDefault: () => void }): void => {
+  const mouseClickFavoriteButtonHandler = (evt) => {
     evt.preventDefault();
     sendFavoriteStatus(id);
   };
@@ -69,7 +67,7 @@ const OfferSmallCard: React.FunctionComponent<Props> = (props: Props) => {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: `${Math.round(rating) * 20}%`}}/>
+            <span style={{width: `${rating * 20}%`}}/>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
@@ -82,14 +80,17 @@ const OfferSmallCard: React.FunctionComponent<Props> = (props: Props) => {
   );
 };
 
+const mapStateToProps = () => {
+  return {};
+};
+
 const mapDispatchToProps = (dispatch) => {
   return {
     setSelectedCardId: (id) => dispatch(ActionCreator.setSelectedCardId(id)),
-    setDetailCardId: (id) => dispatch(ActionCreator.setDetailCardId(id)),
     sendFavoriteStatus: (id) => dispatch(FavoriteOperation.sendFavoriteStatus(id))
   };
 };
 
-export const MemoizedOfferSmallCard = connect(null, mapDispatchToProps)(React.memo(OfferSmallCard));
+export const MemoizedOfferSmallCard = connect(mapStateToProps, mapDispatchToProps)(React.memo(OfferSmallCard));
 
-export default connect(null, mapDispatchToProps)(OfferSmallCard);
+export default connect(mapStateToProps, mapDispatchToProps)(OfferSmallCard);
