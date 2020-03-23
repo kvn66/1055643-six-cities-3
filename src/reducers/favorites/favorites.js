@@ -14,10 +14,10 @@ const initialState = {
 
 const applyFavoriteState = (card, dispatch, getState) => {
   const cards = getAllCards(getState());
-  dispatch(CardsCreator.loadCards(replaceCardInArray(card, cards)));
+  dispatch(CardsCreator.saveCards(replaceCardInArray(card, cards)));
   const similarOffers = getSimilarOffers(getState());
   if (getCardIndex(card.id, similarOffers) !== -1) {
-    dispatch(SimilarOffersCreator.loadSimilarOffers(replaceCardInArray(card, similarOffers)));
+    dispatch(SimilarOffersCreator.saveSimilarOffers(replaceCardInArray(card, similarOffers)));
   }
   dispatch(Operation.loadFavorites());
 };

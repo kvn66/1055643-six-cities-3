@@ -1,7 +1,5 @@
 import * as React from "react";
-import {getSelectedCityId} from "../../reducers/city-select/selectors";
 import {getCityNames, getCardsCount} from "../../reducers/cards/selectors";
-import {ActionCreator} from "../../reducers/city-select/city-select";
 import City from "../city/city";
 import {MemoizedCityNavItem} from "../city-nav-item/city-nav-item";
 import {connect} from "react-redux";
@@ -9,15 +7,13 @@ import {connect} from "react-redux";
 type Props = {
   cardsCount: number;
   cityNames: string[];
-  selectedCityId: number;
-  setSelectedCity: (id: number) => void;
 }
 
 const Cities: React.FunctionComponent<Props> = (props: Props) => {
-  const {cardsCount, cityNames, selectedCityId, setSelectedCity} = props;
+  const {cardsCount, cityNames} = props;
 
   const cityNav = cityNames.map((cityName, index) =>
-    <MemoizedCityNavItem key={index} city={cityName} setSelectedCity={setSelectedCity} cityId={index} selectedCityId={selectedCityId} />
+    <MemoizedCityNavItem key={index} city={cityName} cityId={index} />
   );
 
   return (
@@ -39,14 +35,7 @@ const mapStateToProps = (store) => {
   return {
     cardsCount: getCardsCount(store),
     cityNames: getCityNames(store),
-    selectedCityId: getSelectedCityId(store),
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    setSelectedCity: (id: number) => dispatch(ActionCreator.setSelectedCityId(id))
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Cities);
+export default connect(mapStateToProps)(Cities);

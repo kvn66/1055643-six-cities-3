@@ -38,29 +38,6 @@ export default class CityMap extends React.PureComponent<Props, {}> {
     });
   }
 
-  addMarkers(similarOffers: CardType[], selectedCardId: number): void {
-    this._markers = similarOffers.filter((cardItem) => cardItem.id !== selectedCardId).map((similarOffer) => {
-      const coordinates: [number, number] = [similarOffer.location.latitude, similarOffer.location.longitude];
-      return leaflet
-        .marker(coordinates, {icon: this._icon})
-        .addTo(this._map);
-    });
-  }
-
-  addSelectedMarker(cards: CardType[], selectedCardId: number): void {
-    if (selectedCardId !== UNSELECTED_CARD_ID) {
-      const selectedCard = getCard(selectedCardId, cards);
-      if (selectedCard) {
-        const coordinates: [number, number] = [selectedCard.location.latitude, selectedCard.location.longitude];
-        this._markers.push(
-            leaflet
-              .marker(coordinates, {icon: this._iconActive})
-              .addTo(this._map)
-        );
-      }
-    }
-  }
-
   componentDidMount() {
     const {cards, similarOffers, selectedCardId, isDetail} = this.props;
     const card = isDetail ? getCard(selectedCardId, cards) : cards[0];
@@ -110,6 +87,29 @@ export default class CityMap extends React.PureComponent<Props, {}> {
   componentWillUnmount() {
     this._map.remove();
     this._map = null;
+  }
+
+  addMarkers(similarOffers: CardType[], selectedCardId: number): void {
+    this._markers = similarOffers.filter((cardItem) => cardItem.id !== selectedCardId).map((similarOffer) => {
+      const coordinates: [number, number] = [similarOffer.location.latitude, similarOffer.location.longitude];
+      return leaflet
+        .marker(coordinates, {icon: this._icon})
+        .addTo(this._map);
+    });
+  }
+
+  addSelectedMarker(cards: CardType[], selectedCardId: number): void {
+    if (selectedCardId !== UNSELECTED_CARD_ID) {
+      const selectedCard = getCard(selectedCardId, cards);
+      if (selectedCard) {
+        const coordinates: [number, number] = [selectedCard.location.latitude, selectedCard.location.longitude];
+        this._markers.push(
+            leaflet
+              .marker(coordinates, {icon: this._iconActive})
+              .addTo(this._map)
+        );
+      }
+    }
   }
 
   render() {

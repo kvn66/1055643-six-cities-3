@@ -7,9 +7,9 @@ import {Provider} from "react-redux";
 import MockAdapter from "axios-mock-adapter";
 import createAPI from "../../api";
 import thunk from 'redux-thunk';
-import {ReviewType} from "../../types";
+import {CommentPostType, ReviewType} from "../../types";
 
-const testFn = jest.fn();
+const testFn: jest.Mock = jest.fn();
 
 const api = createAPI(testFn);
 
@@ -45,7 +45,7 @@ const reviews: ReviewType[] = [
   }
 ];
 
-const commentPost = {
+const commentPost: CommentPostType = {
   rating: 5,
   comment: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.
           The building is green and from 18th century.`

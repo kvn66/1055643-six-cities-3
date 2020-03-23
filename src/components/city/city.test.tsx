@@ -7,6 +7,7 @@ import {InitValue} from "../../reducers/cards-sorting-menu/cards-sorting-menu";
 import {NameSpace} from "../../reducers/name-space";
 import {BrowserRouter} from "react-router-dom";
 import {CardType, ReviewType} from "../../types";
+import {ReactTestRendererJSON} from "react-test-renderer";
 
 const mockStore = configureStore([]);
 
@@ -136,8 +137,8 @@ it(`Render City`, () => {
     },
   });
 
-  const dispatch = jest.fn();
-  const tree = renderer
+  const dispatch: jest.Mock = jest.fn();
+  const tree: ReactTestRendererJSON = renderer
     .create(
         <Provider store={store}>
           <BrowserRouter>

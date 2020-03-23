@@ -10,6 +10,7 @@ import MockAdapter from "axios-mock-adapter";
 import createAPI from "../../api";
 import thunk from 'redux-thunk';
 import {CardType, ReviewType} from "../../types";
+import {ReactTestRendererJSON} from "react-test-renderer";
 
 const testFn = jest.fn();
 
@@ -161,7 +162,7 @@ it(`Render OfferDetailCard`, () => {
     },
   });
 
-  const tree = renderer
+  const tree: ReactTestRendererJSON = renderer
     .create(
         <MemoryRouter initialEntries={[`/offer/0`]}>
           <Provider store={store}>

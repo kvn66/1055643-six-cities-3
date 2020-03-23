@@ -1,18 +1,21 @@
 import * as React from "react";
+import {getSelectedCityId} from "../../reducers/city-select/selectors";
+import {ActionCreator} from "../../reducers/city-select/city-select";
+import {connect} from "react-redux";
 
 type Props = {
   city: string;
-  setSelectedCity: (cityId: number) => void;
+  setSelectedCityId: (cityId: number) => void;
   cityId: number;
   selectedCityId: number;
 }
 
 const CityNavItem: React.FunctionComponent<Props> = (props: Props) => {
-  const {city, setSelectedCity, cityId, selectedCityId} = props;
+  const {city, setSelectedCityId, cityId, selectedCityId} = props;
 
   const mouseClickHandler: (evt: { preventDefault: () => void }) => void = (evt) => {
     evt.preventDefault();
-    setSelectedCity(cityId);
+    setSelectedCityId(cityId);
   };
 
   return (
@@ -24,6 +27,18 @@ const CityNavItem: React.FunctionComponent<Props> = (props: Props) => {
   );
 };
 
-export const MemoizedCityNavItem = React.memo(CityNavItem);
+const mapStateToProps = (store) => {
+  return {
+    selectedCityId: getSelectedCityId(store),
+  };
+};
 
-export default CityNavItem;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setSelectedCityId: (id: number) => dispatch(ActionCreator.setSelectedCityId(id))
+  };
+};
+
+export const MemoizedCityNavItem = connect(mapStateToProps, mapDispatchToProps)(React.memo(CityNavItem));
+
+export default connect(mapStateToProps, mapDispatchToProps)(CityNavItem);

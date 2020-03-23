@@ -6,6 +6,7 @@ import configureMockStore from "redux-mock-store";
 import {Provider} from "react-redux";
 import {CardClassName} from "../../const";
 import {CardType} from "../../types";
+import {ReactTestRendererJSON} from "react-test-renderer";
 
 const mockStore = configureMockStore();
 
@@ -48,7 +49,7 @@ it(`Render MemoizedOfferSmallCard`, () => {
 
   const store = mockStore({});
 
-  const tree = renderer
+  const tree: ReactTestRendererJSON = renderer
     .create(
         <BrowserRouter>
           <Provider store={store}>

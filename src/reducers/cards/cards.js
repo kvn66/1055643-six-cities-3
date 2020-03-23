@@ -6,13 +6,13 @@ const initialState = {
 };
 
 export const ActionType = {
-  LOAD_CARDS: `LOAD_CARDS`,
+  SAVE_CARDS: `SAVE_CARDS`,
 };
 
 export const ActionCreator = {
-  loadCards: (cards) => {
+  saveCards: (cards) => {
     return {
-      type: ActionType.LOAD_CARDS,
+      type: ActionType.SAVE_CARDS,
       payload: cards,
     };
   },
@@ -22,14 +22,14 @@ export const Operation = {
   loadCards: () => (dispatch, getState, api) => {
     return api.get(`/hotels`)
       .then((response) => {
-        dispatch(ActionCreator.loadCards(toCamel(response.data)));
+        dispatch(ActionCreator.saveCards(toCamel(response.data)));
       });
   },
 };
 
 const cardsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case ActionType.LOAD_CARDS:
+    case ActionType.SAVE_CARDS:
       return extend(state, {
         cards: action.payload,
       });

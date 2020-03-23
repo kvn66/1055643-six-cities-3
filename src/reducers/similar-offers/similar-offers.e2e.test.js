@@ -85,7 +85,7 @@ it(`Reducer should save similarOffers`, () => {
   expect(similarOffersReducer({
     similarOffers: []
   }, {
-    type: ActionType.LOAD_SIMILAR_OFFERS,
+    type: ActionType.SAVE_SIMILAR_OFFERS,
     payload: cards,
   })).toEqual({
     similarOffers: cards
@@ -94,8 +94,8 @@ it(`Reducer should save similarOffers`, () => {
 
 describe(`Action creators work correctly`, () => {
   it(`Action creator for setSelectedCityIdAction step returns correct action`, () => {
-    expect(ActionCreator.loadSimilarOffers(cards)).toEqual({
-      type: ActionType.LOAD_SIMILAR_OFFERS,
+    expect(ActionCreator.saveSimilarOffers(cards)).toEqual({
+      type: ActionType.SAVE_SIMILAR_OFFERS,
       payload: cards,
     });
   });
@@ -115,7 +115,7 @@ describe(`Operation work correctly`, () => {
       .then(() => {
         expect(dispatch).toHaveBeenCalledTimes(1);
         expect(dispatch).toHaveBeenNthCalledWith(1, {
-          type: ActionType.LOAD_SIMILAR_OFFERS,
+          type: ActionType.SAVE_SIMILAR_OFFERS,
           payload: [{fake: true}],
         });
       });

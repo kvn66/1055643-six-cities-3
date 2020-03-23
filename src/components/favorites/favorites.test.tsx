@@ -7,14 +7,16 @@ import {Provider} from "react-redux";
 import {BrowserRouter} from "react-router-dom";
 import MockAdapter from "axios-mock-adapter";
 import createAPI from "../../api";
-import thunk from 'redux-thunk';
+import thunk, {ThunkMiddleware} from 'redux-thunk';
 import {CardType} from "../../types";
+import {AnyAction} from "redux";
+import {ReactTestRendererJSON} from "react-test-renderer";
 
-const testFn = jest.fn();
+const testFn: jest.Mock = jest.fn();
 
 const api = createAPI(testFn);
 
-const middlewares = [thunk.withExtraArgument(api)];
+const middlewares: ThunkMiddleware<{}, AnyAction>[] = [thunk.withExtraArgument(api)];
 const mockStore = configureMockStore(middlewares);
 
 const cards: CardType[] = [
@@ -89,7 +91,7 @@ const cards: CardType[] = [
 ];
 
 it(`Render Favorites`, () => {
-  const apiMock = new MockAdapter(api);
+  const apiMock: MockAdapter = new MockAdapter(api);
 
   apiMock
     .onGet(`/favorite`)
@@ -112,7 +114,7 @@ it(`Render Favorites`, () => {
     },
   });
 
-  const tree = renderer
+  const tree: ReactTestRendererJSON = renderer
     .create(
         <BrowserRouter>
           <Provider store={store}>

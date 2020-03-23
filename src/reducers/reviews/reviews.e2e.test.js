@@ -58,7 +58,7 @@ describe(`Reducer work correctly`, () => {
       rating: 0,
       comment: ``,
     }, {
-      type: ActionType.LOAD_REVIEWS,
+      type: ActionType.SAVE_REVIEWS,
       payload: reviews,
     })).toEqual({
       reviews,
@@ -148,8 +148,8 @@ describe(`Reducer work correctly`, () => {
 
 describe(`Action creators work correctly`, () => {
   it(`Action creator for loadReviews step returns correct action`, () => {
-    expect(ActionCreator.loadReviews(reviews)).toEqual({
-      type: ActionType.LOAD_REVIEWS,
+    expect(ActionCreator.saveReviews(reviews)).toEqual({
+      type: ActionType.SAVE_REVIEWS,
       payload: reviews,
     });
   });
@@ -199,7 +199,7 @@ describe(`Operation work correctly`, () => {
       .then(() => {
         expect(dispatch).toHaveBeenCalledTimes(1);
         expect(dispatch).toHaveBeenNthCalledWith(1, {
-          type: ActionType.LOAD_REVIEWS,
+          type: ActionType.SAVE_REVIEWS,
           payload: [{fake: true}],
         });
       });
@@ -219,7 +219,7 @@ describe(`Operation work correctly`, () => {
       .then(() => {
         expect(dispatch).toHaveBeenCalledTimes(1);
         expect(dispatch).toHaveBeenNthCalledWith(1, {
-          type: ActionType.LOAD_REVIEWS,
+          type: ActionType.SAVE_REVIEWS,
           payload: [{fake: true}],
         });
         expect(onSuccess).toHaveBeenCalledTimes(1);

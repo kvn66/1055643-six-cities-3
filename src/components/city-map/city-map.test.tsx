@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as renderer from 'react-test-renderer';
 import CityMap from "./city-map";
 import {CardType} from "../../types";
+import {ReactTestRendererJSON} from "react-test-renderer";
 
 const ACTIVE_OFFER = 0;
 const MAP_CLASS_NAME = `cities__map`;
@@ -78,7 +79,7 @@ const cards: CardType[] = [
 ];
 
 it(`Render Map`, () => {
-  const tree = renderer
+  const tree: ReactTestRendererJSON = renderer
     .create(
         <CityMap
           cards={cards}

@@ -13,6 +13,8 @@ import {Operation as FavoriteOperation} from "../../reducers/favorites/favorites
 import {CardType} from "../../types";
 
 const RADIX = 10;
+const IMAGES_MIN = 0;
+const IMAGES_MAX = 6;
 const SECTION_CLASS_NAME = `property__map`;
 
 
@@ -38,15 +40,15 @@ class OfferDetailCard extends React.PureComponent<Props, {}> {
     this.mouseClickFavoriteButtonHandler = this.mouseClickFavoriteButtonHandler.bind(this);
   }
 
+  componentDidMount() {
+    const {loadSimilarOffers} = this.props;
+    loadSimilarOffers(this.idParam);
+  }
+
   mouseClickFavoriteButtonHandler(evt) {
     const {sendFavoriteStatus} = this.props;
     evt.preventDefault();
     sendFavoriteStatus(this.idParam);
-  }
-
-  componentDidMount() {
-    const {loadSimilarOffers} = this.props;
-    loadSimilarOffers(this.idParam);
   }
 
   render() {
@@ -76,7 +78,7 @@ class OfferDetailCard extends React.PureComponent<Props, {}> {
                     <div key={index} className="property__image-wrapper">
                       <img className="property__image" src={image} alt="Photo studio"/>
                     </div>
-                  )
+                  ).slice(IMAGES_MIN, IMAGES_MAX)
                 }
               </div>
             </div>
@@ -100,7 +102,7 @@ class OfferDetailCard extends React.PureComponent<Props, {}> {
                 </div>
                 <div className="property__rating rating">
                   <div className="property__stars rating__stars">
-                    <span style={{width: `${rating * 20}%`}}/>
+                    <span style={{width: `${Math.round(rating) * 20}%`}}/>
                     <span className="visually-hidden">Rating</span>
                   </div>
                   <span className="property__rating-value rating__value">{rating.toFixed(1)}</span>

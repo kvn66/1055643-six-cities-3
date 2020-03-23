@@ -6,13 +6,13 @@ const initialState = {
 };
 
 export const ActionType = {
-  LOAD_SIMILAR_OFFERS: `LOAD_SIMILAR_OFFERS`,
+  SAVE_SIMILAR_OFFERS: `LOAD_SIMILAR_OFFERS`,
 };
 
 export const ActionCreator = {
-  loadSimilarOffers: (similarOffers) => {
+  saveSimilarOffers: (similarOffers) => {
     return {
-      type: ActionType.LOAD_SIMILAR_OFFERS,
+      type: ActionType.SAVE_SIMILAR_OFFERS,
       payload: similarOffers,
     };
   },
@@ -22,14 +22,14 @@ export const Operation = {
   loadSimilarOffers: (cardId) => (dispatch, getState, api) => {
     return api.get(`/hotels/${cardId}/nearby`)
       .then((response) => {
-        dispatch(ActionCreator.loadSimilarOffers(toCamel(response.data)));
+        dispatch(ActionCreator.saveSimilarOffers(toCamel(response.data)));
       });
   },
 };
 
 const similarOffersReducer = (state = initialState, action) => {
   switch (action.type) {
-    case ActionType.LOAD_SIMILAR_OFFERS:
+    case ActionType.SAVE_SIMILAR_OFFERS:
       return extend(state, {
         similarOffers: action.payload,
       });

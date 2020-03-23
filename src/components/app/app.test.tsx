@@ -6,6 +6,7 @@ import configureStore from "redux-mock-store";
 import {InitValue} from "../../reducers/cards-sorting-menu/cards-sorting-menu";
 import {NameSpace} from "../../reducers/name-space";
 import {CardType, ReviewType} from "../../types";
+import {ReactTestRendererJSON} from "react-test-renderer";
 
 const mockStore = configureStore([]);
 
@@ -142,7 +143,7 @@ it(`Render app`, () => {
     },
   });
 
-  const tree = renderer
+  const tree: ReactTestRendererJSON = renderer
     .create(
         <Provider store={store}>
           <App/>

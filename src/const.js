@@ -1,4 +1,5 @@
 export const UNSELECTED_CARD_ID = -1;
+
 export const NetworkError = {
   UNAUTHORIZED: 401
 };

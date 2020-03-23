@@ -10,8 +10,9 @@ import thunk from 'redux-thunk';
 import {AppRoute} from "../../const";
 import {BrowserRouter} from "react-router-dom";
 import {CardType, AuthDataType, UserInfoType} from "../../types";
+import {ReactTestRendererJSON} from "react-test-renderer";
 
-const testFn = jest.fn();
+const testFn: jest.Mock = jest.fn();
 
 const api = createAPI(testFn);
 
@@ -103,7 +104,7 @@ const loginInfo: AuthDataType = {
 };
 
 it(`Render Review`, () => {
-  const apiMock = new MockAdapter(api);
+  const apiMock: MockAdapter = new MockAdapter(api);
 
   apiMock
     .onGet(AppRoute.LOGIN)
@@ -133,7 +134,7 @@ it(`Render Review`, () => {
     },
   });
 
-  const tree = renderer
+  const tree: ReactTestRendererJSON = renderer
     .create(
         <Provider store={store}>
           <BrowserRouter>

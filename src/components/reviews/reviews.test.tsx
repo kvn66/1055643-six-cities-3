@@ -7,15 +7,17 @@ import {Provider} from "react-redux";
 import MockAdapter from "axios-mock-adapter";
 import createAPI from "../../api";
 import thunk from 'redux-thunk';
+import {ReviewType} from "../../types";
+import {ReactTestRendererJSON} from "react-test-renderer";
 
-const testFn = jest.fn();
+const testFn: jest.Mock = jest.fn();
 
 const api = createAPI(testFn);
 
 const middlewares = [thunk.withExtraArgument(api)];
 const mockStore = configureMockStore(middlewares);
 
-const reviews = [
+const reviews: ReviewType[] = [
   {
     id: 0,
     comment: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.
@@ -62,7 +64,7 @@ it(`Render Review`, () => {
     },
   });
 
-  const tree = renderer
+  const tree: ReactTestRendererJSON = renderer
     .create(
         <Provider store={store}>
           <Reviews cardId={0} />

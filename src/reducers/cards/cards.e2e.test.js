@@ -86,7 +86,7 @@ it(`Reducer should save cards`, () => {
   expect(cardsReducer({
     cards: [],
   }, {
-    type: ActionType.LOAD_CARDS,
+    type: ActionType.SAVE_CARDS,
     payload: cards,
   })).toEqual({
     cards,
@@ -95,8 +95,8 @@ it(`Reducer should save cards`, () => {
 
 describe(`Action creators work correctly`, () => {
   it(`Action creator for loadCards step returns correct action`, () => {
-    expect(ActionCreator.loadCards(cards)).toEqual({
-      type: ActionType.LOAD_CARDS,
+    expect(ActionCreator.saveCards(cards)).toEqual({
+      type: ActionType.SAVE_CARDS,
       payload: cards,
     });
   });
@@ -116,7 +116,7 @@ describe(`Operation work correctly`, () => {
       .then(() => {
         expect(dispatch).toHaveBeenCalledTimes(1);
         expect(dispatch).toHaveBeenNthCalledWith(1, {
-          type: ActionType.LOAD_CARDS,
+          type: ActionType.SAVE_CARDS,
           payload: [{fake: true}],
         });
       });

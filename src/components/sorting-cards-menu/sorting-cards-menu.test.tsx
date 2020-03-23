@@ -5,9 +5,10 @@ import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
 import {InitValue} from "../../reducers/cards-sorting-menu/cards-sorting-menu";
 import {NameSpace} from "../../reducers/name-space";
+import {ReactTestRendererJSON} from "react-test-renderer";
 
 const mockStore = configureStore([]);
-const testFn = jest.fn();
+const testFn: jest.Mock = jest.fn();
 
 it(`Render SoringCardsMenu`, () => {
   const store = mockStore({
@@ -17,7 +18,7 @@ it(`Render SoringCardsMenu`, () => {
     }
   });
 
-  const tree = renderer
+  const tree: ReactTestRendererJSON = renderer
     .create(
         <Provider store={store}>
           <SoringCardsMenu

@@ -5,6 +5,7 @@ import {BrowserRouter} from "react-router-dom";
 import configureMockStore from "redux-mock-store";
 import {Provider} from "react-redux";
 import {FavoritesForCityType} from "../../types";
+import {ReactTestRendererJSON} from "react-test-renderer";
 
 const mockStore = configureMockStore();
 
@@ -86,7 +87,7 @@ it(`Render MemoizedFavoritesItem`, () => {
 
   const store = mockStore({});
 
-  const tree = renderer
+  const tree: ReactTestRendererJSON = renderer
     .create(
         <BrowserRouter>
           <Provider store={store}>

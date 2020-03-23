@@ -44,9 +44,9 @@ const OfferSmallCard: React.FunctionComponent<Props> = (props: Props) => {
         </div>
       }
       <div className={`${className.IMAGE} place-card__image-wrapper`}>
-        <Link onClick={mouseClickLinkHandler} to={linkToDetail}>
+        <a onClick={mouseClickLinkHandler} href={linkToDetail}>
           <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place image"/>
-        </Link>
+        </a>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
@@ -67,21 +67,17 @@ const OfferSmallCard: React.FunctionComponent<Props> = (props: Props) => {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: `${rating * 20}%`}}/>
+            <span style={{width: `${Math.round(rating) * 20}%`}}/>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link onClick={mouseClickLinkHandler} to={linkToDetail}>{title}</Link>
+          <a onClick={mouseClickLinkHandler} href={linkToDetail}>{title}</a>
         </h2>
         <p className="place-card__type">{HotelType[type]}</p>
       </div>
     </article>
   );
-};
-
-const mapStateToProps = () => {
-  return {};
 };
 
 const mapDispatchToProps = (dispatch) => {
@@ -91,6 +87,6 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export const MemoizedOfferSmallCard = connect(mapStateToProps, mapDispatchToProps)(React.memo(OfferSmallCard));
+export const MemoizedOfferSmallCard = connect(null, mapDispatchToProps)(React.memo(OfferSmallCard));
 
-export default connect(mapStateToProps, mapDispatchToProps)(OfferSmallCard);
+export default connect(null, mapDispatchToProps)(OfferSmallCard);

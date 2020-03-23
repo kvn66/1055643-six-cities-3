@@ -76,7 +76,6 @@ export const Operation = {
       .then((response) => {
         dispatch(ActionCreator.setUserInfo(toCamel(response.data)));
         dispatch(ActionCreator.setAuthorizationStatus(AuthorizationStatus.AUTH));
-        // window.location.pathname = AppRoute.ROOT;
       })
       .catch((err) => {
         throw err;

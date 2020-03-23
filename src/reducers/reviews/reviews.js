@@ -11,8 +11,7 @@ const initialState = {
 };
 
 export const ActionType = {
-  LOAD_REVIEWS: `LOAD_REVIEWS`,
-  SEND_REVIEW: `SEND_REVIEW`,
+  SAVE_REVIEWS: `SAVE_REVIEWS`,
   SET_FORM_LOCK_STATE: `SET_FORM_LOCK_STATE`,
   SET_ERROR_STATE: `SET_ERROR_STATE`,
   SET_RATING: `SET_RATING`,
@@ -20,16 +19,10 @@ export const ActionType = {
 };
 
 export const ActionCreator = {
-  loadReviews: (reviews) => {
+  saveReviews: (reviews) => {
     return {
-      type: ActionType.LOAD_REVIEWS,
+      type: ActionType.SAVE_REVIEWS,
       payload: reviews,
-    };
-  },
-  sendReview: (review) => {
-    return {
-      type: ActionType.SEND_REVIEW,
-      payload: review,
     };
   },
   setFormLockState: (lockState) => {
@@ -62,7 +55,7 @@ export const Operation = {
   loadReviews: (cardId) => (dispatch, getState, api) => {
     return api.get(`/comments/${cardId}`)
       .then((response) => {
-        dispatch(ActionCreator.loadReviews(toCamel(response.data)));
+        dispatch(ActionCreator.saveReviews(toCamel(response.data)));
       })
       .catch((err) => {
         throw err;
@@ -71,7 +64,7 @@ export const Operation = {
   sendReview: (cardId, review, onSuccess, onError) => (dispatch, getState, api) => {
     return api.post(`/comments/${cardId}`, review)
       .then((response) => {
-        dispatch(ActionCreator.loadReviews(toCamel(response.data)));
+        dispatch(ActionCreator.saveReviews(toCamel(response.data)));
         onSuccess();
       })
       .catch((err) => {
@@ -83,7 +76,7 @@ export const Operation = {
 
 const reviewsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case ActionType.LOAD_REVIEWS:
+    case ActionType.SAVE_REVIEWS:
       return extend(state, {
         reviews: action.payload,
       });

@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as renderer from 'react-test-renderer';
 import Review from "./review";
 import {ReviewType} from "../../types";
+import {ReactTestRendererJSON} from "react-test-renderer";
 
 const review: ReviewType = {
   id: 0,
@@ -19,7 +20,7 @@ const review: ReviewType = {
 
 it(`Render Review`, () => {
 
-  const tree = renderer
+  const tree: ReactTestRendererJSON = renderer
     .create(
         <Review
           review={review}
