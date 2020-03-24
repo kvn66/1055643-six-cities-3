@@ -7,14 +7,21 @@ import thunk from "redux-thunk";
 import rootReducer from './reducers/root-reducer';
 import createAPI from "./api";
 import {Operation as CardsOperation} from "./reducers/cards/cards";
-import {Operation as UserOperation, ActionCreator, AuthorizationStatus} from "./reducers/user/user";
+import {Operation as UserOperation, ActionCreator as UserAction, AuthorizationStatus} from "./reducers/user/user";
+import {ActionCreator as NetErrorAction} from "./reducers/net-error/net-error";
 import {composeWithDevTools} from 'redux-devtools-extension';
+import {NetworkError, NetErrorStatus} from "./const";
 
-const onUnauthorized = () => {
-  store.dispatch(ActionCreator.setAuthorizationStatus(AuthorizationStatus.NO_AUTH));
+const onCheckNetError = (errorStatus, errorCode, errorText) => {
+  store.dispatch(NetErrorAction.setNetErrorStatus(errorStatus));
+  store.dispatch(NetErrorAction.saveNetError(errorText));
+  if (errorStatus && errorCode === NetworkError.UNAUTHORIZED) {
+    store.dispatch(UserAction.setAuthorizationStatus(AuthorizationStatus.NO_AUTH));
+    store.dispatch(NetErrorAction.setNetErrorStatus(NetErrorStatus.NO_ERROR));
+  }
 };
 
-const api = createAPI(onUnauthorized);
+const api = createAPI(onCheckNetError);
 
 const store = createStore(
     rootReducer,

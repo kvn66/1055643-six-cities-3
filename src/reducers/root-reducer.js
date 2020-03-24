@@ -8,6 +8,7 @@ import cardsSortingMenuReducer from "./cards-sorting-menu/cards-sorting-menu";
 import reviewsReducer from "./reviews/reviews";
 import similarOffersReducer from "./similar-offers/similar-offers";
 import favoritesReducer from "./favorites/favorites";
+import netErrorReducer from "./net-error/net-error";
 
 const rootReducer = combineReducers({
   [NameSpace.CARDS]: cardsReducer,
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
   [NameSpace.REVIEWS]: reviewsReducer,
   [NameSpace.SIMILAR_OFFERS]: similarOffersReducer,
   [NameSpace.FAVORITES]: favoritesReducer,
+  [NameSpace.NET_ERROR]: netErrorReducer,
 });
 
 export default rootReducer;

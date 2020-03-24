@@ -1,5 +1,6 @@
-import {extend} from "../../utils.js";
+import {extend} from "../../utils";
 import {toCamel} from 'convert-keys';
+import {RequestRoute} from "../../const";
 
 const initialState = {
   cards: []
@@ -20,7 +21,7 @@ export const ActionCreator = {
 
 export const Operation = {
   loadCards: () => (dispatch, getState, api) => {
-    return api.get(`/hotels`)
+    return api.get(RequestRoute.HOTELS)
       .then((response) => {
         dispatch(ActionCreator.saveCards(toCamel(response.data)));
       });

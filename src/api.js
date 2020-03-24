@@ -1,7 +1,9 @@
 import axios from "axios";
-import {NetworkError} from "./const";
+import {NetErrorStatus} from "./const";
 
-const createAPI = (onUnauthorized) => {
+const NO_ERROR_CODE = 200;
+
+const createAPI = (onCheckNetError) => {
   const api = axios.create({
     baseURL: `https://htmlacademy-react-3.appspot.com/six-cities`,
     timeout: 1000 * 5,
@@ -9,17 +11,15 @@ const createAPI = (onUnauthorized) => {
   });
 
   const onSuccess = (response) => {
+    onCheckNetError(NetErrorStatus.NO_ERROR, NO_ERROR_CODE, ``);
     return response;
   };
 
   const onFail = (err) => {
     const {response} = err;
-
-    if (response && response.status === NetworkError.UNAUTHORIZED) {
-      onUnauthorized();
-      throw err;
-    }
-
+    const {status, data} = response;
+    const errorText = `Error ${status}, ${data.error}`;
+    onCheckNetError(NetErrorStatus.ERROR, status, errorText);
     throw err;
   };
 

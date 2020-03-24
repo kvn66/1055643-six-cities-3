@@ -1,6 +1,6 @@
 import {extend} from "../../utils.js";
 import {toCamel} from 'convert-keys';
-import {AppRoute, NetworkError} from "../../const";
+import {AppRoute, NetworkError, RequestRoute} from "../../const";
 import {AuthorizationStatus, ActionCreator as UserCreator} from "../user/user";
 import {ActionCreator as CardsCreator} from "../cards/cards";
 import {ActionCreator as SimilarOffersCreator} from "../similar-offers/similar-offers";
@@ -37,7 +37,7 @@ export const ActionCreator = {
 
 export const Operation = {
   loadFavorites: () => (dispatch, getState, api) => {
-    return api.get(`/favorite`)
+    return api.get(RequestRoute.FAVORITE)
       .then((response) => {
         dispatch(ActionCreator.saveFavorites(toCamel(response.data)));
       })

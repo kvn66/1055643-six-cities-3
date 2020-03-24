@@ -25,6 +25,14 @@ export const AppRoute = {
   ROOT: `/`,
 };
 
+export const RequestRoute = {
+  HOTELS: `/hotels`,
+  FAVORITE: `/favorite`,
+  COMMENTS: `/comments`,
+  LOGIN: `/login`,
+  NEARBY: `/nearby`,
+};
+
 export const LockState = {
   LOCK: true,
   UNLOCK: false,
@@ -43,5 +51,10 @@ export const CardClassName = {
     ARTICLE: `favorites__card`,
     IMAGE: `favorites__image-wrapper`
   },
+};
+
+export const NetErrorStatus = {
+  ERROR: true,
+  NO_ERROR: false,
 };
 

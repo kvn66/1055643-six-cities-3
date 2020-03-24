@@ -1,6 +1,7 @@
 import {extend} from "../../utils.js";
 import {toCamel} from 'convert-keys';
 import {LockState} from "../../const";
+import {RequestRoute} from "../../const";
 
 const initialState = {
   reviews: [],
@@ -53,7 +54,7 @@ export const ActionCreator = {
 
 export const Operation = {
   loadReviews: (cardId) => (dispatch, getState, api) => {
-    return api.get(`/comments/${cardId}`)
+    return api.get(`${RequestRoute.COMMENTS}/${cardId}`)
       .then((response) => {
         dispatch(ActionCreator.saveReviews(toCamel(response.data)));
       })
@@ -62,7 +63,7 @@ export const Operation = {
       });
   },
   sendReview: (cardId, review, onSuccess, onError) => (dispatch, getState, api) => {
-    return api.post(`/comments/${cardId}`, review)
+    return api.post(`${RequestRoute.COMMENTS}/${cardId}`, review)
       .then((response) => {
         dispatch(ActionCreator.saveReviews(toCamel(response.data)));
         onSuccess();

@@ -7,4 +7,5 @@ export const NameSpace = {
   REVIEWS: `REVIEWS`,
   SIMILAR_OFFERS: `SIMILAR_OFFERS`,
   FAVORITES: `FAVORITES`,
+  NET_ERROR: `NET_ERROR`,
 };

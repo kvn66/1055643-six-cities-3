@@ -1,5 +1,6 @@
 import {extend} from "../../utils.js";
 import {toCamel} from 'convert-keys';
+import {RequestRoute} from "../../const";
 
 const initialState = {
   similarOffers: []
@@ -20,7 +21,7 @@ export const ActionCreator = {
 
 export const Operation = {
   loadSimilarOffers: (cardId) => (dispatch, getState, api) => {
-    return api.get(`/hotels/${cardId}/nearby`)
+    return api.get(`${RequestRoute.HOTELS}/${cardId}${RequestRoute.NEARBY}`)
       .then((response) => {
         dispatch(ActionCreator.saveSimilarOffers(toCamel(response.data)));
       });

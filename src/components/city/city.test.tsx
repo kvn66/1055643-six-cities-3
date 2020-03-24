@@ -135,6 +135,10 @@ it(`Render City`, () => {
     [NameSpace.SIMILAR_OFFERS]: {
       similarOffers: [cards[1]]
     },
+    [NameSpace.NET_ERROR]: {
+      isError: false,
+      netError: ``,
+    },
   });
 
   const dispatch: jest.Mock = jest.fn();

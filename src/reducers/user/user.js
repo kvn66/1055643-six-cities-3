@@ -1,5 +1,6 @@
 import {toCamel} from "convert-keys";
-import {AppRoute, NetworkError} from "../../const";
+import {NetworkError} from "../../const";
+import {RequestRoute} from "../../const";
 
 export const AuthorizationStatus = {
   AUTH: true,
@@ -54,7 +55,7 @@ const userReducer = (state = initialState, action) => {
 
 export const Operation = {
   checkAuth: () => (dispatch, getState, api) => {
-    return api.get(AppRoute.LOGIN)
+    return api.get(RequestRoute.LOGIN)
       .then((response) => {
         dispatch(ActionCreator.setUserInfo(toCamel(response.data)));
         dispatch(ActionCreator.setAuthorizationStatus(AuthorizationStatus.AUTH));
@@ -72,7 +73,7 @@ export const Operation = {
   },
 
   loginOnServer: (authData) => (dispatch, getState, api) => {
-    return api.post(AppRoute.LOGIN, authData)
+    return api.post(RequestRoute.LOGIN, authData)
       .then((response) => {
         dispatch(ActionCreator.setUserInfo(toCamel(response.data)));
         dispatch(ActionCreator.setAuthorizationStatus(AuthorizationStatus.AUTH));

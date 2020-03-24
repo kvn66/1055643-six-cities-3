@@ -141,6 +141,10 @@ it(`Render app`, () => {
     [NameSpace.SIMILAR_OFFERS]: {
       similarOffers: [cards[1]]
     },
+    [NameSpace.NET_ERROR]: {
+      isError: false,
+      netError: ``,
+    },
   });
 
   const tree: ReactTestRendererJSON = renderer
