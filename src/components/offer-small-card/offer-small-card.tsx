@@ -18,32 +18,32 @@ const OfferSmallCard: React.FunctionComponent<Props> = (props: Props) => {
   const {id, previewImage, price, title, type, rating, isFavorite, isPremium} = card;
   const linkToDetail = `${AppRoute.OFFER}/${id}`;
 
-  const mouseEnterHandler = () => {
+  const handleCardEnter = () => {
     setSelectedCardId(id);
   };
 
-  const mouseLeaveHandler = () => {
+  const handleCardLeave = () => {
     setSelectedCardId(UNSELECTED_CARD_ID);
   };
 
-  const mouseClickLinkHandler = () => {
+  const handleLinkClick = () => {
     setSelectedCardId(UNSELECTED_CARD_ID);
   };
 
-  const mouseClickFavoriteButtonHandler = (evt) => {
+  const handleFavoriteButtonClick = (evt) => {
     evt.preventDefault();
     sendFavoriteStatus(id);
   };
 
   return (
-    <article onMouseEnter={mouseEnterHandler} onMouseLeave={mouseLeaveHandler} className={`${className.ARTICLE} place-card`}>
+    <article onMouseEnter={handleCardEnter} onMouseLeave={handleCardLeave} className={`${className.ARTICLE} place-card`}>
       {isPremium &&
         <div className="place-card__mark">
           <span>Premium</span>
         </div>
       }
       <div className={`${className.IMAGE} place-card__image-wrapper`}>
-        <a onClick={mouseClickLinkHandler} href={linkToDetail}>
+        <a onClick={handleLinkClick} href={linkToDetail}>
           <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place image"/>
         </a>
       </div>
@@ -54,7 +54,7 @@ const OfferSmallCard: React.FunctionComponent<Props> = (props: Props) => {
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
           <button
-            onClick={mouseClickFavoriteButtonHandler}
+            onClick={handleFavoriteButtonClick}
             className={`place-card__bookmark-button ${isFavorite ? `place-card__bookmark-button--active` : ``} button`}
             type="button"
           >
@@ -71,7 +71,7 @@ const OfferSmallCard: React.FunctionComponent<Props> = (props: Props) => {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a onClick={mouseClickLinkHandler} href={linkToDetail}>{title}</a>
+          <a onClick={handleLinkClick} href={linkToDetail}>{title}</a>
         </h2>
         <p className="place-card__type">{HotelType[type]}</p>
       </div>

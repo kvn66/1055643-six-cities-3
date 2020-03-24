@@ -2,7 +2,7 @@ import similarOffersReducer, {ActionType, ActionCreator, Operation} from "./simi
 import MockAdapter from "axios-mock-adapter";
 import createAPI from "../../api";
 
-const api = createAPI(() => {});
+const api = createAPI(jest.fn());
 
 const cards = [
   {
@@ -111,7 +111,7 @@ describe(`Operation work correctly`, () => {
       .onGet(`/hotels/0/nearby`)
       .reply(200, [{fake: true}]);
 
-    return similarOffersLoader(dispatch, () => {}, api)
+    return similarOffersLoader(dispatch, jest.fn(), api)
       .then(() => {
         expect(dispatch).toHaveBeenCalledTimes(1);
         expect(dispatch).toHaveBeenNthCalledWith(1, {

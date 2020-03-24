@@ -4,8 +4,11 @@ import {getSelectedCityId} from "../city-select/selectors";
 import {getSortingMethodId} from "../cards-sorting-menu/selectors";
 
 
-const CITIES_MAX_COUNT = 6;
 const NAME_SPACE = NameSpace.CARDS;
+const CitiesCount = {
+  MIN: 0,
+  MAX: 6,
+};
 
 export const getAllCards = (state) => {
   return state[NAME_SPACE].cards;
@@ -21,7 +24,7 @@ export const getCityNames = createSelector(
       let cityNames = cards.map((card) => card.city.name);
       const cityNamesSet = new Set(cityNames);
       cityNames = (Array.from(cityNamesSet)).sort();
-      return cityNames.slice(0, CITIES_MAX_COUNT);
+      return cityNames.slice(CitiesCount.MIN, CitiesCount.MAX);
     }
 );
 

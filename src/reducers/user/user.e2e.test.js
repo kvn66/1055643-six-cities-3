@@ -4,7 +4,7 @@ import MockAdapter from "axios-mock-adapter";
 import createAPI from "../../api";
 import {AppRoute} from "../../const";
 
-const api = createAPI(() => {});
+const api = createAPI(jest.fn());
 
 const userInfo = {
   id: 1,
@@ -79,7 +79,7 @@ describe(`Operation work correctly`, () => {
       .onGet(AppRoute.LOGIN)
       .reply(200, [{fake: true}]);
 
-    return userLoader(dispatch, () => {}, api)
+    return userLoader(dispatch, jest.fn(), api)
       .then(() => {
         expect(dispatch).toHaveBeenCalledTimes(2);
         expect(dispatch).toHaveBeenNthCalledWith(1, {
@@ -97,7 +97,7 @@ describe(`Operation work correctly`, () => {
       .onPost(AppRoute.LOGIN, loginInfo)
       .reply(200, userInfo);
 
-    return userLoader(dispatch, () => {}, api)
+    return userLoader(dispatch, jest.fn(), api)
       .then(() => {
         expect(dispatch).toHaveBeenCalledTimes(2);
         expect(dispatch).toHaveBeenNthCalledWith(1, {

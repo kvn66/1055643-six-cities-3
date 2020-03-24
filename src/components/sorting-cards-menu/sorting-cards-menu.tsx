@@ -20,7 +20,7 @@ type Props = {
 const SoringCardsMenu: React.FunctionComponent<Props> = (props: Props) => {
   const {selectedSortingMethod, menuState, setSortingMethod, setMenuState} = props;
 
-  const menuClickHandler = (): void => {
+  const handleMenuClick = (): void => {
     setMenuState(!menuState);
   };
 
@@ -36,7 +36,7 @@ const SoringCardsMenu: React.FunctionComponent<Props> = (props: Props) => {
   return (
     <form className="places__sorting" action="#" method="get">
       <span className="places__sorting-caption">Sort by </span>
-      <span onClick={menuClickHandler} className="places__sorting-type" tabIndex={0}>
+      <span onClick={handleMenuClick} className="places__sorting-type" tabIndex={0}>
         {SORTING_METHODS[selectedSortingMethod]}
         <svg className="places__sorting-arrow" width="7" height="4">
           <use xlinkHref="#icon-arrow-select"/>

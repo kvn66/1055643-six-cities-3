@@ -13,9 +13,11 @@ import {Operation as FavoriteOperation} from "../../reducers/favorites/favorites
 import {CardType} from "../../types";
 
 const RADIX = 10;
-const IMAGES_MIN = 0;
-const IMAGES_MAX = 6;
 const SECTION_CLASS_NAME = `property__map`;
+const ImagesCount = {
+  MIN: 0,
+  MAX: 6,
+};
 
 
 type Props = {
@@ -37,7 +39,7 @@ class OfferDetailCard extends React.PureComponent<Props, {}> {
       this.idParam = parseInt(url[1], RADIX);
     }
 
-    this.mouseClickFavoriteButtonHandler = this.mouseClickFavoriteButtonHandler.bind(this);
+    this.handleFavoriteButtonClick = this.handleFavoriteButtonClick.bind(this);
   }
 
   componentDidMount() {
@@ -45,7 +47,7 @@ class OfferDetailCard extends React.PureComponent<Props, {}> {
     loadSimilarOffers(this.idParam);
   }
 
-  mouseClickFavoriteButtonHandler(evt) {
+  handleFavoriteButtonClick(evt) {
     const {sendFavoriteStatus} = this.props;
     evt.preventDefault();
     sendFavoriteStatus(this.idParam);
@@ -78,7 +80,7 @@ class OfferDetailCard extends React.PureComponent<Props, {}> {
                     <div key={index} className="property__image-wrapper">
                       <img className="property__image" src={image} alt="Photo studio"/>
                     </div>
-                  ).slice(IMAGES_MIN, IMAGES_MAX)
+                  ).slice(ImagesCount.MIN, ImagesCount.MAX)
                 }
               </div>
             </div>
@@ -93,7 +95,7 @@ class OfferDetailCard extends React.PureComponent<Props, {}> {
                   <h1 className="property__name">
                     {title}
                   </h1>
-                  <button onClick={this.mouseClickFavoriteButtonHandler} className={`property__bookmark-button button ${isFavorite ? `property__bookmark-button--active` : ``}`} type="button">
+                  <button onClick={this.handleFavoriteButtonClick} className={`property__bookmark-button button ${isFavorite ? `property__bookmark-button--active` : ``}`} type="button">
                     <svg className="place-card__bookmark-icon" width="31" height="33">
                       <use xlinkHref="#icon-bookmark"/>
                     </svg>

@@ -1,3 +1,5 @@
+const SHIFT = 1;
+
 export const getCard = (id, cards) => {
   return cards.find((card) => card.id === id);
 };
@@ -16,5 +18,5 @@ export const extend = (a, b) => {
 };
 
 export const parseUrl = () => {
-  return window.location.pathname.slice(1).split(`/`);
+  return window.location.pathname.slice(SHIFT).split(`/`);
 };

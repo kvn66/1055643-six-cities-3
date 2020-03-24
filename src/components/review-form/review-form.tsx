@@ -53,17 +53,17 @@ const ReviewForm: React.FunctionComponent<Props> = (props: Props) => {
     unlockForm();
   };
 
-  const changeRatingHandler = (evt: { target: { value: string } }): void => {
+  const handleRatingChange = (evt: { target: { value: string } }): void => {
     const {setRating} = props;
     setRating(parseInt(evt.target.value, RADIX));
   };
 
-  const changeTextHandler = (evt: { target: { value: string } }) => {
+  const handleTextChange = (evt: { target: { value: string } }) => {
     const {setComment} = props;
     setComment(evt.target.value);
   };
 
-  const submitHandler = (evt: { preventDefault: () => void }): void => {
+  const handleSubmit = (evt: { preventDefault: () => void }): void => {
     const {cardId, rating, comment, sendReview} = props;
     evt.preventDefault();
     const commentPost = {
@@ -78,12 +78,12 @@ const ReviewForm: React.FunctionComponent<Props> = (props: Props) => {
   const {formIsLocked, buttonIsLocked, isError, rating, comment} = props;
 
   const ratingElement = RATING_TITLES.map((title, index) =>
-    <MemoizedReviewFormRatingItem key={index} id={RATING_TITLES.length - index} title={title} rating={rating} formIsLocked={formIsLocked} onChangeRating={changeRatingHandler} />
+    <MemoizedReviewFormRatingItem key={index} id={RATING_TITLES.length - index} title={title} rating={rating} formIsLocked={formIsLocked} onChangeRating={handleRatingChange} />
   );
 
   return (
     <form
-      onSubmit={submitHandler}
+      onSubmit={handleSubmit}
       className="reviews__form"
       action="#"
       method="post"
@@ -93,7 +93,7 @@ const ReviewForm: React.FunctionComponent<Props> = (props: Props) => {
         {ratingElement}
       </div>
       <textarea
-        onChange={changeTextHandler}
+        onChange={handleTextChange}
         className="reviews__textarea form__textarea" id="review" name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
         disabled={formIsLocked}

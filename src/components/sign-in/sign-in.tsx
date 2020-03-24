@@ -17,7 +17,7 @@ const SignIn: React.FunctionComponent<Props> = (props: Props) => {
   const loginRef: React.RefObject<HTMLInputElement> = React.createRef();
   const passwordRef: React.RefObject<HTMLInputElement> = React.createRef();
 
-  const submitHandler = (evt: { preventDefault: () => void }) => {
+  const handleSubmit = (evt: { preventDefault: () => void }) => {
     evt.preventDefault();
 
     loginOnServer({
@@ -38,7 +38,7 @@ const SignIn: React.FunctionComponent<Props> = (props: Props) => {
             <div className="page__login-container container">
               <section className="login">
                 <h1 className="login__title">Sign in</h1>
-                <form onSubmit={submitHandler} className="login__form form" action="#" method="post">
+                <form onSubmit={handleSubmit} className="login__form form" action="#" method="post">
                   <div className="login__input-wrapper form__input-wrapper">
                     <label className="visually-hidden">E-mail</label>
                     <input ref={loginRef} className="login__input form__input" type="email" name="email" placeholder="Email" required/>

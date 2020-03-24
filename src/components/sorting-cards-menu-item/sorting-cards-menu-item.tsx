@@ -11,12 +11,12 @@ type Props = {
 const SortingCardsMenuItem: React.FunctionComponent<Props> = (props: Props) => {
   const {sortingMethod, selectedSortingMethod, tabIndex, setSortingMethod} = props;
 
-  const mouseClickHandler = (): void => {
+  const handleMenuItemClick = (): void => {
     setSortingMethod(sortingMethod);
   };
 
   return (
-    <li onClick={mouseClickHandler} className={`places__option ${selectedSortingMethod === sortingMethod ? `places__option--active` : ``}`} tabIndex={tabIndex}>{SORTING_METHODS[sortingMethod]}</li>
+    <li onClick={handleMenuItemClick} className={`places__option ${selectedSortingMethod === sortingMethod ? `places__option--active` : ``}`} tabIndex={tabIndex}>{SORTING_METHODS[sortingMethod]}</li>
   );
 };
 

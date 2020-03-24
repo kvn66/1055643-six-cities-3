@@ -2,9 +2,7 @@ import reviewsReducer, {ActionType, ActionCreator, Operation} from "./reviews";
 import MockAdapter from "axios-mock-adapter";
 import createAPI from "../../api";
 
-const testFn = jest.fn();
-
-const api = createAPI(testFn);
+const api = createAPI(jest.fn());
 
 const reviews = [
   {
@@ -191,7 +189,7 @@ describe(`Operation work correctly`, () => {
       .onGet(`/comments/0`)
       .reply(200, [{fake: true}]);
 
-    return reviewsLoader(dispatch, testFn, api)
+    return reviewsLoader(dispatch, jest.fn(), api)
       .then(() => {
         expect(dispatch).toHaveBeenCalledTimes(1);
         expect(dispatch).toHaveBeenNthCalledWith(1, {
@@ -211,7 +209,7 @@ describe(`Operation work correctly`, () => {
       .onPost(`/comments/0`, commentPost)
       .reply(200, [{fake: true}]);
 
-    return reviewsSender(dispatch, testFn, api)
+    return reviewsSender(dispatch, jest.fn(), api)
       .then(() => {
         expect(dispatch).toHaveBeenCalledTimes(1);
         expect(dispatch).toHaveBeenNthCalledWith(1, {
